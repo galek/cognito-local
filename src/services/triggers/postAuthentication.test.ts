@@ -1,8 +1,7 @@
 import { newMockLambda } from "../../__tests__/mockLambda";
-import { newMockUserPoolService } from "../../__tests__/mockUserPoolService";
 import { TestContext } from "../../__tests__/testContext";
 import { Lambda } from "../lambda";
-import { attributesToRecord, UserPoolService } from "../userPoolService";
+import { attributesToRecord } from "../userPoolService";
 import {
   PostAuthentication,
   PostAuthenticationTrigger,
@@ -11,12 +10,10 @@ import * as TDB from "../../__tests__/testDataBuilder";
 
 describe("PostAuthentication trigger", () => {
   let mockLambda: jest.Mocked<Lambda>;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
   let postAuthentication: PostAuthenticationTrigger;
 
   beforeEach(() => {
     mockLambda = newMockLambda();
-    mockUserPoolService = newMockUserPoolService();
     postAuthentication = PostAuthentication({
       lambda: mockLambda,
     });

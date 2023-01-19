@@ -1,18 +1,31 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
     "module": "commonjs",
-    "moduleResolution": "node",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2021",
+    "sourceMap": true,
     "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "strict": true,
-    "target": "ES2019"
+    "strict": true
   },
   "include": [
     "./setupTests.ts",
     "src/**/*.ts",
-    "integration-tests/**/*.ts"
+    "tests/**/*.ts"
   ],
   "exclude": [
     "dist"
