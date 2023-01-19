@@ -4,7 +4,7 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./lib",
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "strict": true,
     "target": "ES2019"
@@ -15,7 +15,7 @@
     "integration-tests/**/*.ts"
   ],
   "exclude": [
-    "lib"
+    "dist"
   ],
   "files": [
     "global.d.ts"

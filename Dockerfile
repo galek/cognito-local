@@ -9,11 +9,11 @@ RUN yarn --frozen-lockfile
 ADD src src
 
 # bundle
-RUN yarn esbuild src/bin/start.ts --outdir=lib --platform=node --target=node14 --bundle
+RUN yarn esbuild src/bin/start.ts --outdir=dist --platform=node --target=node14 --bundle
 
 FROM node:14-alpine
 WORKDIR /app
-COPY --from=builder /app/lib .
+COPY --from=builder /app/dist .
 
 # bindings
 EXPOSE 9229
