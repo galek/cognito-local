@@ -1,4 +1,4 @@
-import { TestContext } from "../src/__tests__/testContext";
+import { TestContext } from "../__test_mocs__/testContext";
 import { DateClock } from "../src/services";
 import {
   CognitoServiceFactory,

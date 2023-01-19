@@ -519,7 +519,7 @@ There's a launch configuration included in the repo at [.vscode/launch.json](./.
 If you open `Run and Debug` and start the `CognitoLocal` configuration it will start Cognito Local and attach the
 debugger.
 
-Put a breakpoint in [src/bin/start.ts](./src/bin/start.ts) or in the target for the API call you want to debug
+Put a breakpoint in [src/index.ts](./src/index.ts) or in the target for the API call you want to debug
 (e.g. [src/targets/createUserPool.ts](./src/targets/createUserPool.ts)) and run your code that uses Cognito Local or a
 CLI command.
 
@@ -531,7 +531,7 @@ There's a WebStorm run configuration included in the repo at
 A `CognitoLocal` entry should appear in the Run Configurations drop-down in the toolbar, which you can Run or Debug.
 Alternatively, the `Run > Debug` menu will let you pick a Run Configuration to launch.
 
-Put a breakpoint in [src/bin/start.ts](./src/bin/start.ts) or in the target for the API call you want to debug
+Put a breakpoint in [src/index.ts](./src/index.ts) or in the target for the API call you want to debug
 (e.g. [src/targets/createUserPool.ts](./src/targets/createUserPool.ts)) and run your code that uses Cognito Local or a
 CLI command.
 
@@ -550,5 +550,5 @@ This will configure NodeJS to start the inspector on port `9230`.
 
 Open Chrome and navigate to `chrome://inspect`. Click the `Open dedicated DevTools for Node` link which will open a new
 DevTools window. You can then open the Sources tab and browse to a Cognito Local file, or press `Cmd+P` or `Ctrl+P` to
-open the file navigator and open `src/bin/start.ts` or a target you want to debug then place a breakpoint and run your
+open the file navigator and open `src/index.ts` or a target you want to debug then place a breakpoint and run your
 code that uses Cognito Local or a CLI command.

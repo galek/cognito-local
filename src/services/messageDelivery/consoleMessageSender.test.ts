@@ -1,6 +1,6 @@
-import { TestContext } from "../../__tests__/testContext";
+import { TestContext } from "../../../__test_mocs__/testContext";
 import { ConsoleMessageSender } from "./consoleMessageSender";
-import * as TDB from "../../__tests__/testDataBuilder";
+import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
 describe("consoleMessageSender", () => {
   const user = TDB.user();

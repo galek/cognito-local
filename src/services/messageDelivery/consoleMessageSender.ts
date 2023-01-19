@@ -1,8 +1,8 @@
-import boxen from "boxen";
 import { Context } from "../context";
 import { Message } from "../messages";
 import { User } from "../userPoolService";
 import { MessageSender } from "./messageSender";
+import boxen from "boxen";
 
 export class ConsoleMessageSender implements MessageSender {
   public sendEmail(
@@ -41,12 +41,15 @@ export class ConsoleMessageSender implements MessageSender {
       (kv): kv is [string, string] => !!kv[1]
     );
 
-    const longestDefinedFieldName = Math.max(
-      ...definedFields.map(([k]) => k.length)
-    );
-    const formattedFields = definedFields.map(
-      ([k, v]) => `${(k + ":").padEnd(longestDefinedFieldName + 1)} ${v}`
-    );
+    let formattedFields = [''];
+    if (definedFields !== undefined && definedFields !== null) {
+      const longestDefinedFieldName = Math.max(
+          ...definedFields.map(([k]) => k.length)
+      );
+      formattedFields = definedFields.map(
+          ([k, v]) => `${(k + ":").padEnd(longestDefinedFieldName + 1)} ${v}`
+      );
+    }
 
     ctx.logger.info(
       boxen(`Confirmation Code Delivery\n\n${formattedFields.join("\n")}`, {

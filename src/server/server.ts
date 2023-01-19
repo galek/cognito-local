@@ -6,8 +6,8 @@ import type { Logger } from "pino";
 import * as uuid from "uuid";
 import { CognitoError, UnsupportedError } from "../errors";
 import { Router } from "./Router";
-import PublicKey from "../keys/cognitoLocal.public.json";
 import Pino from "pino-http";
+import { PublicKey } from "../keys/cognitoLocal.public.json";
 
 export interface ServerOptions {
   port: number;
@@ -55,6 +55,7 @@ export const createServer = (
     });
   });
 
+  // TODO: do it for Nova
   app.get("/health", (req, res) => {
     res.status(200).json({ ok: true });
   });

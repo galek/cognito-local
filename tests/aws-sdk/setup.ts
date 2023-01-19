@@ -4,8 +4,8 @@ import http from "http";
 import type { Logger } from "pino";
 import { promisify } from "util";
 import { createServer } from "../../src";
-import { FakeMessageDeliveryService } from "../../src/__tests__/FakeMessageDeliveryService";
-import { MockLogger } from "../../src/__tests__/mockLogger";
+import { FakeMessageDeliveryService } from "../../__test_mocs__/FakeMessageDeliveryService";
+import { MockLogger } from "../../__test_mocs__/mockLogger";
 import { DefaultConfig } from "../../src/server/config";
 import {
   Clock,

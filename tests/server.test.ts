@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { MockLogger } from "../src/__tests__/mockLogger";
+import { MockLogger } from "../__test_mocs__/mockLogger";
 import {
   CodeMismatchError,
   CognitoError,

@@ -1,10 +1,9 @@
-import fs from "fs";
 import StormDB from "stormdb";
-import { promisify } from "util";
 import { Context } from "../context";
 import { DataStoreCache } from "./cache";
 import { DataStore } from "./dataStore";
 import { DataStoreFactory } from "./factory";
+import {mkdir} from "fs/promises";
 
 export class StormDBDataStore implements DataStore {
   private readonly db: StormDB;
@@ -46,8 +45,6 @@ export class StormDBDataStore implements DataStore {
     await this.db.save();
   }
 }
-
-const mkdir = promisify(fs.mkdir);
 
 const replaceDatesWithISOStrings: (
   this: Record<string, unknown>,

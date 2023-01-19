@@ -1,4 +1,4 @@
-import { ClockFake } from "../../src/__tests__/clockFake";
+import { ClockFake } from "../../__test_mocs__/clockFake";
 import { withCognitoSdk } from "./setup";
 
 const currentDate = new Date();

@@ -1,23 +1,21 @@
-FROM node:14-alpine as builder
+FROM node:19-alpine as builder
 WORKDIR /app
 
-# dependencies
-ADD package.json yarn.lock ./
-RUN yarn --frozen-lockfile
+# dependencies and code
+ADD package.json src ./
+# building
+RUN npm i
+RUN npm run build
+RUN npm prune --production
 
-# library code
-ADD src src
-
-# bundle
-RUN yarn esbuild src/bin/start.ts --outdir=dist --platform=node --target=node14 --bundle
-
-FROM node:14-alpine
+FROM node:19-alpine
 WORKDIR /app
 COPY --from=builder /app/dist .
+COPY --from=builder node_modules node_modules
 
 # bindings
 EXPOSE 9229
 ENV HOST 0.0.0.0
 ENV PORT 9229
 VOLUME /app/.cognito
-ENTRYPOINT ["node", "/app/start.js"]
+ENTRYPOINT ["node", "index.js"]

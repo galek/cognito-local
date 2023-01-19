@@ -2,7 +2,6 @@ import { StringMap } from "aws-lambda/trigger/cognito-user-pool-trigger/_common"
 import { GroupOverrideDetails } from "aws-lambda/trigger/cognito-user-pool-trigger/pre-token-generation";
 import jwt from "jsonwebtoken";
 import * as uuid from "uuid";
-import PrivateKey from "../keys/cognitoLocal.private.json";
 import { AppClient } from "./appClient";
 import { Clock } from "./clock";
 import { Context } from "./context";
@@ -13,6 +12,7 @@ import {
   customAttributes,
   User,
 } from "./userPoolService";
+import { PrivateKey } from "../keys/cognitoLocal.private.json";
 
 type ValidityUnit = "seconds" | "minutes" | "hours" | "days" | string;
 

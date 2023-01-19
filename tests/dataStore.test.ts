@@ -1,7 +1,7 @@
 import fs from "fs";
 import StormDB from "stormdb";
 import { promisify } from "util";
-import { TestContext } from "../src/__tests__/testContext";
+import { TestContext } from "../__test_mocs__/testContext";
 import { InMemoryCache, NoOpCache } from "../src/services/dataStore/cache";
 import { DataStoreFactory } from "../src/services/dataStore/factory";
 import { StormDBDataStoreFactory } from "../src/services/dataStore/stormDb";

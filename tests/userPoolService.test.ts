@@ -1,6 +1,6 @@
 import fs from "fs";
 import { promisify } from "util";
-import { TestContext } from "../src/__tests__/testContext";
+import { TestContext } from "../__test_mocs__/testContext";
 import { CognitoService, DateClock, UserPoolService } from "../src/services";
 import { CognitoServiceFactoryImpl } from "../src/services/cognitoService";
 import { NoOpCache } from "../src/services/dataStore/cache";

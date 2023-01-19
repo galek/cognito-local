@@ -1,5 +1,5 @@
-import { ClockFake } from "../../src/__tests__/clockFake";
-import { UUID } from "../../src/__tests__/patterns";
+import { ClockFake } from "../../__test_mocs__/clockFake";
+import { UUID } from "../../__test_mocs__/patterns";
 import { withCognitoSdk } from "./setup";
 
 const currentDate = new Date();
