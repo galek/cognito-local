@@ -1,28 +1,19 @@
-import {
-  ChangePasswordRequest,
-  ChangePasswordResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {ChangePasswordRequest, ChangePasswordResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import { Services } from "../services";
-import {
-  InvalidParameterError,
-  InvalidPasswordError,
-  NotAuthorizedError,
-} from "../errors";
-import { Token } from "../services/tokenGenerator";
-import { Target } from "./Target";
+import {Services} from "../services";
+import {InvalidParameterError, InvalidPasswordError, NotAuthorizedError,} from "../errors";
+import {TokenInterface} from "../services/tokenGeneratorInterface";
+import {Target} from "./Target";
 
-export type ChangePasswordTarget = Target<
-  ChangePasswordRequest,
-  ChangePasswordResponse
->;
+export type ChangePasswordTarget = Target<ChangePasswordRequest,
+    ChangePasswordResponse>;
 
 type ChangePasswordServices = Pick<Services, "cognito" | "clock">;
 
 export const ChangePassword =
-  ({ cognito, clock }: ChangePasswordServices): ChangePasswordTarget =>
+    ({cognito, clock}: ChangePasswordServices): ChangePasswordTarget =>
   async (ctx, req) => {
-    const decodedToken = jwt.decode(req.AccessToken) as Token | null;
+      const decodedToken = jwt.decode(req.AccessToken) as TokenInterface | null;
     if (!decodedToken) {
       ctx.logger.info("Unable to decode token");
       throw new InvalidParameterError();

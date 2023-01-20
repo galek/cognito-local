@@ -2,20 +2,18 @@ import {
   CreateUserPoolClientRequest,
   CreateUserPoolClientResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { AppClient, newId } from "../services/appClient";
-import { appClientToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {Services} from "../services";
+import {AppClient, newId} from "../services/appClient";
+import {appClientToResponseObject} from "./responses";
+import {Target} from "./Target";
 
-export type CreateUserPoolClientTarget = Target<
-  CreateUserPoolClientRequest,
-  CreateUserPoolClientResponse
->;
+export type CreateUserPoolClientTarget = Target<CreateUserPoolClientRequest,
+    CreateUserPoolClientResponse>;
 
 type CreateUserPoolClientServices = Pick<Services, "clock" | "cognito">;
 
 export const CreateUserPoolClient =
-  ({
+    ({
     clock,
     cognito,
   }: CreateUserPoolClientServices): CreateUserPoolClientTarget =>

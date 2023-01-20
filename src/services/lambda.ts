@@ -14,9 +14,7 @@ import {
 import type {Lambda as LambdaClient} from "aws-sdk";
 import {InvocationResponse} from "aws-sdk/clients/lambda";
 import {version as awsSdkVersion} from "aws-sdk/package.json";
-import {
-    InvalidLambdaResponseError, UnexpectedLambdaExceptionError, UserLambdaValidationError,
-} from "../errors";
+import {InvalidLambdaResponseError, UnexpectedLambdaExceptionError, UserLambdaValidationError,} from "../errors";
 import {Context} from "./context";
 
 type CognitoUserPoolEvent =

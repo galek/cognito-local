@@ -1,103 +1,100 @@
-import {
-  newMockDataStore,
-  newMockDataStoreFactory,
-} from "../../../__test_mocs__/mockDataStore";
-import { TestContext } from "../../../__test_mocs__/testContext";
-import { DefaultConfig, loadConfig } from "../config";
+import {newMockDataStore, newMockDataStoreFactory,} from "../../../__test_mocs__/mockDataStore";
+import {TestContext} from "../../../__test_mocs__/testContext";
+import {DefaultConfig, loadConfig} from "../configInterface";
 
 describe("loadConfig", () => {
-  it("returns the default config if no config exists", async () => {
-    const config = await loadConfig(TestContext, newMockDataStoreFactory());
+    it("returns the default config if no config exists", async () => {
+        const config = await loadConfig(TestContext, newMockDataStoreFactory());
 
-    expect(config).toEqual(DefaultConfig);
-  });
-
-  it("merges the defaults with any existing config", async () => {
-    const ds = newMockDataStore();
-    const mockDataStoreFactory = newMockDataStoreFactory(ds);
-
-    ds.getRoot.mockResolvedValue({
-      TriggerFunctions: {
-        CustomMessage: "custom-config",
-      },
-      UserPoolDefaults: {
-        MFAOptions: "OPTIONAL",
-      },
+        expect(config).toEqual(DefaultConfig);
     });
 
-    const config = await loadConfig(TestContext, mockDataStoreFactory);
+    it("merges the defaults with any existing config", async () => {
+        const ds = newMockDataStore();
+        const mockDataStoreFactory = newMockDataStoreFactory(ds);
 
-    expect(config).toEqual({
-      ...DefaultConfig,
-      TriggerFunctions: {
-        CustomMessage: "custom-config",
-      },
-      UserPoolDefaults: {
-        // new field
-        MFAOptions: "OPTIONAL",
-        // field from defaults
-        UsernameAttributes: ["email"],
-      },
-    });
-  });
+        ds.getRoot.mockResolvedValue({
+            TriggerFunctions: {
+                CustomMessage: "custom-config",
+            },
+            UserPoolDefaults: {
+                MFAOptions: "OPTIONAL",
+            },
+        });
 
-  it("can unset a property when merging", async () => {
-    const ds = newMockDataStore();
-    const mockDataStoreFactory = newMockDataStoreFactory(ds);
+        const config = await loadConfig(TestContext, mockDataStoreFactory);
 
-    ds.getRoot.mockResolvedValue({
-      UserPoolDefaults: {
-        UsernameAttributes: null,
-      },
-    });
-
-    const config = await loadConfig(TestContext, mockDataStoreFactory);
-
-    expect(config).toEqual({
-      ...DefaultConfig,
-      UserPoolDefaults: {
-        UsernameAttributes: null,
-      },
-    });
-  });
-
-  it("overwrites arrays when merging", async () => {
-    const ds = newMockDataStore();
-    const mockDataStoreFactory = newMockDataStoreFactory(ds);
-
-    ds.getRoot.mockResolvedValue({
-      UserPoolDefaults: {
-        UsernameAttributes: ["phone_number"],
-      },
+        expect(config).toEqual({
+            ...DefaultConfig,
+            TriggerFunctions: {
+                CustomMessage: "custom-config",
+            },
+            UserPoolDefaults: {
+                // new field
+                MFAOptions: "OPTIONAL",
+                // field from defaults
+                UsernameAttributes: ["email"],
+            },
+        });
     });
 
-    const config = await loadConfig(TestContext, mockDataStoreFactory);
+    it("can unset a property when merging", async () => {
+        const ds = newMockDataStore();
+        const mockDataStoreFactory = newMockDataStoreFactory(ds);
 
-    expect(config).toEqual({
-      ...DefaultConfig,
-      UserPoolDefaults: {
-        UsernameAttributes: ["phone_number"],
-      },
+        ds.getRoot.mockResolvedValue({
+            UserPoolDefaults: {
+                UsernameAttributes: null,
+            },
+        });
+
+        const config = await loadConfig(TestContext, mockDataStoreFactory);
+
+        expect(config).toEqual({
+            ...DefaultConfig,
+            UserPoolDefaults: {
+                UsernameAttributes: null,
+            },
+        });
     });
-  });
 
-  it("can set an arrays to empty when merging", async () => {
-    const ds = newMockDataStore();
-    const mockDataStoreFactory = newMockDataStoreFactory(ds);
+    it("overwrites arrays when merging", async () => {
+        const ds = newMockDataStore();
+        const mockDataStoreFactory = newMockDataStoreFactory(ds);
 
-    ds.getRoot.mockResolvedValue({
-      UserPoolDefaults: {
-        UsernameAttributes: [],
-      },
+        ds.getRoot.mockResolvedValue({
+            UserPoolDefaults: {
+                UsernameAttributes: ["phone_number"],
+            },
+        });
+
+        const config = await loadConfig(TestContext, mockDataStoreFactory);
+
+        expect(config).toEqual({
+            ...DefaultConfig,
+            UserPoolDefaults: {
+                UsernameAttributes: ["phone_number"],
+            },
+        });
     });
 
-    const config = await loadConfig(TestContext, mockDataStoreFactory);
+    it("can set an arrays to empty when merging", async () => {
+        const ds = newMockDataStore();
+        const mockDataStoreFactory = newMockDataStoreFactory(ds);
 
-    expect(config).toEqual({
-      ...DefaultConfig,
-      UserPoolDefaults: {
-        UsernameAttributes: [],
-      },
+        ds.getRoot.mockResolvedValue({
+            UserPoolDefaults: {
+                UsernameAttributes: [],
+            },
+        });
+
+        const config = await loadConfig(TestContext, mockDataStoreFactory);
+
+        expect(config).toEqual({
+            ...DefaultConfig,
+            UserPoolDefaults: {
+                UsernameAttributes: [],
+            },
+        });
     });
-  });
 });

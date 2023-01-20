@@ -67,9 +67,7 @@ export const CustomMessage = ({lambda}: CustomMessageServices): CustomMessageTri
             .replace(AWS_USERNAME_PARAMETER, username) : null;
 
         return {
-            emailMessage,
-            emailSubject: response.emailSubject,
-            smsMessage,
+            emailMessage, emailSubject: response.emailSubject, smsMessage,
         };
     } catch (ex) {
         ctx.logger.error(ex);

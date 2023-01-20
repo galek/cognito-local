@@ -3,10 +3,8 @@ import * as uuid from "uuid";
 import {NotAuthorizedError, ResourceNotFoundError} from "../../errors";
 import {Clock} from "../clock";
 import {CognitoService} from "../cognitoService";
-import {UserMigrationTriggerResponse, Lambda} from "../lambda";
-import {
-    attributesFromRecord, attributesToRecord, User,
-} from "../userPoolService";
+import {Lambda, UserMigrationTriggerResponse} from "../lambda";
+import {attributesFromRecord, attributesToRecord, User,} from "../userPoolService";
 import {Trigger} from "./trigger";
 
 export type UserMigrationTrigger = Trigger<{

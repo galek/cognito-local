@@ -1,32 +1,20 @@
-import {
-  SignUpRequest,
-  SignUpResponse,
-  UserStatusType,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {SignUpRequest, SignUpResponse, UserStatusType,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import * as uuid from "uuid";
-import { InvalidParameterError, UsernameExistsError } from "../errors";
-import { Messages, Services, UserPoolService } from "../services";
-import { selectAppropriateDeliveryMethod } from "../services/messageDelivery/deliveryMethod";
-import { DeliveryDetails } from "../services/messageDelivery/messageDelivery";
-import {
-  attribute,
-  attributesAppend,
-  attributesInclude,
-  attributeValue,
-  User,
-} from "../services/userPoolService";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+import {InvalidParameterError, UsernameExistsError} from "../errors";
+import {Messages, Services, UserPoolService} from "../services";
+import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
+import {DeliveryDetails} from "../services/messageDelivery/messageDelivery";
+import {attribute, attributesAppend, attributesInclude, attributeValue, User,} from "../services/userPoolService";
+import {Target} from "./Target";
+import {Context} from "../services/context";
 
 export type SignUpTarget = Target<SignUpRequest, SignUpResponse>;
 
-type SignUpServices = Pick<
-  Services,
-  "clock" | "cognito" | "messages" | "otp" | "triggers" | "config"
->;
+type SignUpServices = Pick<Services,
+    "clock" | "cognito" | "messages" | "otp" | "triggers" | "config">;
 
 const deliverWelcomeMessage = async (
-  ctx: Context,
+    ctx: Context,
   code: string,
   clientId: string,
   user: User,

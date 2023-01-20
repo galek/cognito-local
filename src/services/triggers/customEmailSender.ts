@@ -32,8 +32,7 @@ export interface CustomEmailSenderServices {
 }
 
 export const CustomEmailSender = ({
-                                      lambda,
-                                      crypto
+                                      lambda, crypto
                                   }: CustomEmailSenderServices): CustomEmailSenderTrigger => async (ctx, {
     clientId, clientMetadata, code, source, userAttributes, username, userPoolId,
 }): Promise<{} | null> => {

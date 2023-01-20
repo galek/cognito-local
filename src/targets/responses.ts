@@ -1,21 +1,16 @@
-import {
-  GroupType,
-  UserPoolClientType,
-  UserPoolType,
-  UserType,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { AppClient } from "../services/appClient";
-import { User, UserPool } from "../services/userPoolService";
+import {GroupType, UserPoolClientType, UserPoolType, UserType,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {AppClient} from "../services/appClient";
+import {User, UserPool} from "../services/userPoolService";
 import {GroupInterface} from "../services/interfaces/group.interface";
 
 export const appClientToResponseObject = (
-  appClient: AppClient
+    appClient: AppClient
 ): UserPoolClientType => ({
-  AccessTokenValidity: appClient.AccessTokenValidity,
-  AllowedOAuthFlows: appClient.AllowedOAuthFlows,
-  AllowedOAuthFlowsUserPoolClient: appClient.AllowedOAuthFlowsUserPoolClient,
-  AllowedOAuthScopes: appClient.AllowedOAuthScopes,
-  AnalyticsConfiguration: appClient.AnalyticsConfiguration,
+    AccessTokenValidity: appClient.AccessTokenValidity,
+    AllowedOAuthFlows: appClient.AllowedOAuthFlows,
+    AllowedOAuthFlowsUserPoolClient: appClient.AllowedOAuthFlowsUserPoolClient,
+    AllowedOAuthScopes: appClient.AllowedOAuthScopes,
+    AnalyticsConfiguration: appClient.AnalyticsConfiguration,
   CallbackURLs: appClient.CallbackURLs,
   ClientId: appClient.ClientId,
   ClientName: appClient.ClientName,

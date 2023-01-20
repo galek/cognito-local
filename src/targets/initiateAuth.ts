@@ -3,7 +3,7 @@ import {
   InitiateAuthRequest,
   InitiateAuthResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { v4 } from "uuid";
+import {v4} from "uuid";
 import {
   InvalidParameterError,
   InvalidPasswordError,
@@ -11,26 +11,17 @@ import {
   PasswordResetRequiredError,
   UnsupportedError,
 } from "../errors";
-import { Services, UserPoolService } from "../services";
-import { AppClient } from "../services/appClient";
-import {
-  attributesToRecord,
-  attributeValue,
-  MFAOption,
-  User,
-} from "../services/userPoolService";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+import {Services, UserPoolService} from "../services";
+import {AppClient} from "../services/appClient";
+import {attributesToRecord, attributeValue, MFAOption, User,} from "../services/userPoolService";
+import {Target} from "./Target";
+import {Context} from "../services/context";
 
-export type InitiateAuthTarget = Target<
-  InitiateAuthRequest,
-  InitiateAuthResponse
->;
+export type InitiateAuthTarget = Target<InitiateAuthRequest,
+    InitiateAuthResponse>;
 
-type InitiateAuthServices = Pick<
-  Services,
-  "cognito" | "messages" | "otp" | "tokenGenerator" | "triggers"
->;
+type InitiateAuthServices = Pick<Services,
+    "cognito" | "messages" | "otp" | "tokenGenerator" | "triggers">;
 
 const verifyMfaChallenge = async (
   ctx: Context,

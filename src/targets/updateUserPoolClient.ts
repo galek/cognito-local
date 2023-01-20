@@ -2,21 +2,19 @@ import {
   UpdateUserPoolClientRequest,
   UpdateUserPoolClientResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { ResourceNotFoundError } from "../errors";
-import { AppClient } from "../services/appClient";
-import { appClientToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {Services} from "../services";
+import {ResourceNotFoundError} from "../errors";
+import {AppClient} from "../services/appClient";
+import {appClientToResponseObject} from "./responses";
+import {Target} from "./Target";
 
-export type UpdateUserPoolClientTarget = Target<
-  UpdateUserPoolClientRequest,
-  UpdateUserPoolClientResponse
->;
+export type UpdateUserPoolClientTarget = Target<UpdateUserPoolClientRequest,
+    UpdateUserPoolClientResponse>;
 
 type UpdateUserPoolClientServices = Pick<Services, "clock" | "cognito">;
 
 export const UpdateUserPoolClient =
-  ({
+    ({
     clock,
     cognito,
   }: UpdateUserPoolClientServices): UpdateUserPoolClientTarget =>

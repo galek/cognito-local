@@ -2,24 +2,15 @@ import {
   RespondToAuthChallengeRequest,
   RespondToAuthChallengeResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {
-  CodeMismatchError,
-  InvalidParameterError,
-  NotAuthorizedError,
-  UnsupportedError,
-} from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
+import {CodeMismatchError, InvalidParameterError, NotAuthorizedError, UnsupportedError,} from "../errors";
+import {Services} from "../services";
+import {Target} from "./Target";
 
-export type RespondToAuthChallengeTarget = Target<
-  RespondToAuthChallengeRequest,
-  RespondToAuthChallengeResponse
->;
+export type RespondToAuthChallengeTarget = Target<RespondToAuthChallengeRequest,
+    RespondToAuthChallengeResponse>;
 
-type RespondToAuthChallengeService = Pick<
-  Services,
-  "clock" | "cognito" | "triggers" | "tokenGenerator"
->;
+type RespondToAuthChallengeService = Pick<Services,
+    "clock" | "cognito" | "triggers" | "tokenGenerator">;
 
 export const RespondToAuthChallenge =
   ({

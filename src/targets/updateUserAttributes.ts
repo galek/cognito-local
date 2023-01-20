@@ -1,32 +1,32 @@
 import {
-  UpdateUserAttributesRequest,
-  UpdateUserAttributesResponse,
+    UpdateUserAttributesRequest,
+    UpdateUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import { Messages, Services, UserPoolService } from "../services";
-import { InvalidParameterError, NotAuthorizedError } from "../errors";
-import { USER_POOL_AWS_DEFAULTS } from "../services/cognitoService";
-import { selectAppropriateDeliveryMethod } from "../services/messageDelivery/deliveryMethod";
-import { Token } from "../services/tokenGenerator";
+import {Messages, Services, UserPoolService} from "../services";
+import {InvalidParameterError, NotAuthorizedError} from "../errors";
+import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
+import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
+import {TokenInterface} from "../services/tokenGeneratorInterface";
 import {
-  attributesAppend,
-  defaultVerifiedAttributesIfModified,
-  hasUnverifiedContactAttributes,
-  User,
-  validatePermittedAttributeChanges,
+    attributesAppend,
+    defaultVerifiedAttributesIfModified,
+    hasUnverifiedContactAttributes,
+    User,
+    validatePermittedAttributeChanges,
 } from "../services/userPoolService";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+import {Target} from "./Target";
+import {Context} from "../services/context";
 
 const sendAttributeVerificationCode = async (
-  ctx: Context,
-  userPool: UserPoolService,
-  user: User,
-  messages: Messages,
-  req: UpdateUserAttributesRequest,
-  code: string
+    ctx: Context,
+    userPool: UserPoolService,
+    user: User,
+    messages: Messages,
+    req: UpdateUserAttributesRequest,
+    code: string
 ) => {
-  const deliveryDetails = selectAppropriateDeliveryMethod(
+    const deliveryDetails = selectAppropriateDeliveryMethod(
     userPool.options.AutoVerifiedAttributes ?? [],
     user
   );
@@ -69,7 +69,7 @@ export const UpdateUserAttributes =
     messages,
   }: UpdateUserAttributesServices): UpdateUserAttributesTarget =>
   async (ctx, req) => {
-    const decodedToken = jwt.decode(req.AccessToken) as Token | null;
+      const decodedToken = jwt.decode(req.AccessToken) as TokenInterface | null;
     if (!decodedToken) {
       ctx.logger.info("Unable to decode token");
       throw new InvalidParameterError();

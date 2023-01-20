@@ -6,7 +6,7 @@ import { promisify } from "util";
 import { createServer } from "../../src";
 import { FakeMessageDeliveryService } from "../../__test_mocs__/FakeMessageDeliveryService";
 import { MockLogger } from "../../__test_mocs__/mockLogger";
-import { DefaultConfig } from "../../src/server/config";
+import { DefaultConfig } from "../../src/server/configInterface";
 import {
   Clock,
   DateClock,
@@ -18,7 +18,7 @@ import { NoOpCache } from "../../src/services/dataStore/cache";
 import { DataStoreFactory } from "../../src/services/dataStore/factory";
 import { StormDBDataStoreFactory } from "../../src/services/dataStore/stormDb";
 import { otp } from "../../src/services/otp";
-import { JwtTokenGenerator } from "../../src/services/tokenGenerator";
+import { JwtTokenGenerator } from "../../src/services/tokenGeneratorInterface";
 import { UserPoolServiceFactoryImpl } from "../../src/services/userPoolService";
 import { Router } from "../../src/server/Router";
 import { CryptoService } from "../../src/services/crypto";

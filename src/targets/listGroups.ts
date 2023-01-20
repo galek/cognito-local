@@ -1,20 +1,17 @@
-import {
-  ListGroupsRequest,
-  ListGroupsResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { groupToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {ListGroupsRequest, ListGroupsResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {Services} from "../services";
+import {groupToResponseObject} from "./responses";
+import {Target} from "./Target";
 
 export type ListGroupsTarget = Target<ListGroupsRequest, ListGroupsResponse>;
 
 type ListGroupServices = Pick<Services, "cognito">;
 
 export const ListGroups =
-  ({ cognito }: ListGroupServices): ListGroupsTarget =>
-  async (ctx, req) => {
-    // TODO: Limit support
-    // TODO: PaginationToken support
+    ({cognito}: ListGroupServices): ListGroupsTarget =>
+        async (ctx, req) => {
+            // TODO: Limit support
+            // TODO: PaginationToken support
 
     const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
     const groups = await userPool.listGroups(ctx);

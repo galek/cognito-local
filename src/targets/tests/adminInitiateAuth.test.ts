@@ -1,22 +1,19 @@
-import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
-import { newMockTokenGenerator } from "../../../__test_mocs__/mockTokenGenerator";
-import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
-import { newMockTriggers } from "../../../__test_mocs__/mockTriggers";
-import { TestContext } from "../../../__test_mocs__/testContext";
+import {newMockCognitoService} from "../../../__test_mocs__/mockCognitoService";
+import {newMockTokenGenerator} from "../../../__test_mocs__/mockTokenGenerator";
+import {newMockUserPoolService} from "../../../__test_mocs__/mockUserPoolService";
+import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
+import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import { CognitoService, Triggers, UserPoolService } from "../../services";
-import { TokenGenerator } from "../../services/tokenGenerator";
-import {
-  AdminInitiateAuth,
-  AdminInitiateAuthTarget,
-} from "../adminInitiateAuth";
+import {CognitoService, Triggers, UserPoolService} from "../../services";
+import {TokenGeneratorInterface} from "../../services/tokenGeneratorInterface";
+import {AdminInitiateAuth, AdminInitiateAuthTarget,} from "../adminInitiateAuth";
 
 describe("AdminInitiateAuth target", () => {
   let adminInitiateAuth: AdminInitiateAuthTarget;
 
-  let mockCognitoService: jest.Mocked<CognitoService>;
-  let mockTokenGenerator: jest.Mocked<TokenGenerator>;
-  let mockTriggers: jest.Mocked<Triggers>;
+    let mockCognitoService: jest.Mocked<CognitoService>;
+    let mockTokenGenerator: jest.Mocked<TokenGeneratorInterface>;
+    let mockTriggers: jest.Mocked<Triggers>;
   let mockUserPoolService: jest.Mocked<UserPoolService>;
   const userPoolClient = TDB.appClient();
 

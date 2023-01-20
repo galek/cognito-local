@@ -1,30 +1,30 @@
 import {
-  AdminUpdateUserAttributesRequest,
-  AdminUpdateUserAttributesResponse,
+    AdminUpdateUserAttributesRequest,
+    AdminUpdateUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { InvalidParameterError, NotAuthorizedError } from "../errors";
-import { Messages, Services, UserPoolService } from "../services";
-import { USER_POOL_AWS_DEFAULTS } from "../services/cognitoService";
-import { selectAppropriateDeliveryMethod } from "../services/messageDelivery/deliveryMethod";
+import {InvalidParameterError, NotAuthorizedError} from "../errors";
+import {Messages, Services, UserPoolService} from "../services";
+import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
+import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
 import {
-  attributesAppend,
-  defaultVerifiedAttributesIfModified,
-  hasUnverifiedContactAttributes,
-  User,
-  validatePermittedAttributeChanges,
+    attributesAppend,
+    defaultVerifiedAttributesIfModified,
+    hasUnverifiedContactAttributes,
+    User,
+    validatePermittedAttributeChanges,
 } from "../services/userPoolService";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+import {Target} from "./Target";
+import {Context} from "../services/context";
 
 const sendAttributeVerificationCode = async (
-  ctx: Context,
-  userPool: UserPoolService,
-  user: User,
-  messages: Messages,
-  req: AdminUpdateUserAttributesRequest,
-  code: string
+    ctx: Context,
+    userPool: UserPoolService,
+    user: User,
+    messages: Messages,
+    req: AdminUpdateUserAttributesRequest,
+    code: string
 ) => {
-  const deliveryDetails = selectAppropriateDeliveryMethod(
+    const deliveryDetails = selectAppropriateDeliveryMethod(
     userPool.options.AutoVerifiedAttributes ?? [],
     user
   );

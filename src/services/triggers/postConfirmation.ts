@@ -21,12 +21,7 @@ interface PostConfirmationServices {
 }
 
 export const PostConfirmation = ({lambda}: PostConfirmationServices): PostConfirmationTrigger => async (ctx, {
-    clientId,
-    clientMetadata,
-    source,
-    userAttributes,
-    username,
-    userPoolId
+    clientId, clientMetadata, source, userAttributes, username, userPoolId
 }): Promise<void> => {
     try {
         await lambda.invoke(ctx, "PostConfirmation", {

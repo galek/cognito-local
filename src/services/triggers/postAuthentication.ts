@@ -19,12 +19,7 @@ type PostAuthenticationServices = {
 };
 
 export const PostAuthentication = ({lambda}: PostAuthenticationServices): PostAuthenticationTrigger => async (ctx, {
-    clientId,
-    clientMetadata,
-    source,
-    userAttributes,
-    username,
-    userPoolId
+    clientId, clientMetadata, source, userAttributes, username, userPoolId
 }): Promise<void> => {
     try {
         await lambda.invoke(ctx, "PostAuthentication", {

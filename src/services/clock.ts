@@ -1,9 +1,9 @@
 export interface Clock {
-  get(): Date;
+    get(): Date;
 }
 
 export class DateClock implements Clock {
-  get(): Date {
-    return new Date();
-  }
+    get(): Date {
+        return new Date();
+    }
 }

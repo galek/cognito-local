@@ -1,21 +1,16 @@
-import {
-  ConfirmSignUpRequest,
-  ConfirmSignUpResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { CodeMismatchError, NotAuthorizedError } from "../errors";
-import { Services } from "../services";
-import { attribute, attributesAppend } from "../services/userPoolService";
-import { Target } from "./Target";
+import {ConfirmSignUpRequest, ConfirmSignUpResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {CodeMismatchError, NotAuthorizedError} from "../errors";
+import {Services} from "../services";
+import {attribute, attributesAppend} from "../services/userPoolService";
+import {Target} from "./Target";
 
-export type ConfirmSignUpTarget = Target<
-  ConfirmSignUpRequest,
-  ConfirmSignUpResponse
->;
+export type ConfirmSignUpTarget = Target<ConfirmSignUpRequest,
+    ConfirmSignUpResponse>;
 
 export const ConfirmSignUp =
-  ({
-    cognito,
-    clock,
+    ({
+         cognito,
+         clock,
     triggers,
   }: Pick<Services, "cognito" | "clock" | "triggers">): ConfirmSignUpTarget =>
   async (ctx, req) => {

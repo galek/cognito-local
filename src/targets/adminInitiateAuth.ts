@@ -1,26 +1,14 @@
-import {
-  AdminInitiateAuthRequest,
-  AdminInitiateAuthResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {
-  InvalidParameterError,
-  InvalidPasswordError,
-  NotAuthorizedError,
-  UnsupportedError,
-} from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+import {AdminInitiateAuthRequest, AdminInitiateAuthResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {InvalidParameterError, InvalidPasswordError, NotAuthorizedError, UnsupportedError,} from "../errors";
+import {Services} from "../services";
+import {Target} from "./Target";
+import {Context} from "../services/context";
 
-export type AdminInitiateAuthTarget = Target<
-  AdminInitiateAuthRequest,
-  AdminInitiateAuthResponse
->;
+export type AdminInitiateAuthTarget = Target<AdminInitiateAuthRequest,
+    AdminInitiateAuthResponse>;
 
-type AdminInitiateAuthServices = Pick<
-  Services,
-  "cognito" | "triggers" | "tokenGenerator"
->;
+type AdminInitiateAuthServices = Pick<Services,
+    "cognito" | "triggers" | "tokenGenerator">;
 
 const adminUserPasswordAuthFlow = async (
   ctx: Context,

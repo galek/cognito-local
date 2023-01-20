@@ -1,5 +1,5 @@
-import { TokenGenerator } from "../src/services/tokenGenerator";
+import { TokenGeneratorInterface } from "../src/services/tokenGeneratorInterface";
 
-export const newMockTokenGenerator = (): jest.Mocked<TokenGenerator> => ({
+export const newMockTokenGenerator = (): jest.Mocked<TokenGeneratorInterface> => ({
   generate: jest.fn(),
 });

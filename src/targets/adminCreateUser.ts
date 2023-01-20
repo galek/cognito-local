@@ -5,30 +5,20 @@ import {
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import shortUUID from "short-uuid";
 import * as uuid from "uuid";
-import {
-  InvalidParameterError,
-  UnsupportedError,
-  UsernameExistsError,
-} from "../errors";
-import { Messages, Services, UserPoolService } from "../services";
-import { Context } from "../services/context";
-import { DeliveryDetails } from "../services/messageDelivery/messageDelivery";
-import {
-  attributesInclude,
-  attributeValue,
-  User,
-} from "../services/userPoolService";
-import { userToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {InvalidParameterError, UnsupportedError, UsernameExistsError,} from "../errors";
+import {Messages, Services, UserPoolService} from "../services";
+import {Context} from "../services/context";
+import {DeliveryDetails} from "../services/messageDelivery/messageDelivery";
+import {attributesInclude, attributeValue, User,} from "../services/userPoolService";
+import {userToResponseObject} from "./responses";
+import {Target} from "./Target";
 
 const generator = shortUUID(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"
 );
 
-export type AdminCreateUserTarget = Target<
-  AdminCreateUserRequest,
-  AdminCreateUserResponse
->;
+export type AdminCreateUserTarget = Target<AdminCreateUserRequest,
+    AdminCreateUserResponse>;
 
 type AdminCreateUserServices = Pick<
   Services,

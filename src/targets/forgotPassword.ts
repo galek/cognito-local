@@ -1,22 +1,15 @@
-import {
-  ForgotPasswordRequest,
-  ForgotPasswordResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { UnsupportedError, UserNotFoundError } from "../errors";
-import { Services } from "../services";
-import { DeliveryDetails } from "../services/messageDelivery/messageDelivery";
-import { attributeValue } from "../services/userPoolService";
-import { Target } from "./Target";
+import {ForgotPasswordRequest, ForgotPasswordResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {UnsupportedError, UserNotFoundError} from "../errors";
+import {Services} from "../services";
+import {DeliveryDetails} from "../services/messageDelivery/messageDelivery";
+import {attributeValue} from "../services/userPoolService";
+import {Target} from "./Target";
 
-export type ForgotPasswordTarget = Target<
-  ForgotPasswordRequest,
-  ForgotPasswordResponse
->;
+export type ForgotPasswordTarget = Target<ForgotPasswordRequest,
+    ForgotPasswordResponse>;
 
-type ForgotPasswordServices = Pick<
-  Services,
-  "cognito" | "clock" | "messages" | "otp"
->;
+type ForgotPasswordServices = Pick<Services,
+    "cognito" | "clock" | "messages" | "otp">;
 
 export const ForgotPassword =
   ({

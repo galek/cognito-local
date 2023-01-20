@@ -4,20 +4,19 @@ import {
   SchemaAttributesListType,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import shortUUID from "short-uuid";
-import { Services } from "../services";
-import { USER_POOL_AWS_DEFAULTS } from "../services/cognitoService";
-import { userPoolToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {Services} from "../services";
+import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
+import {userPoolToResponseObject} from "./responses";
+import {Target} from "./Target";
 
 const REGION = "local";
 const ACCOUNT_ID = "local";
 
 const generator = shortUUID(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 );
 
-export type CreateUserPoolTarget = Target<
-  CreateUserPoolRequest,
+export type CreateUserPoolTarget = Target<CreateUserPoolRequest,
   CreateUserPoolResponse
 >;
 

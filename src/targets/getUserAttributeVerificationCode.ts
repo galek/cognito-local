@@ -1,25 +1,25 @@
 import {
-  GetUserAttributeVerificationCodeRequest,
-  GetUserAttributeVerificationCodeResponse,
+    GetUserAttributeVerificationCodeRequest,
+    GetUserAttributeVerificationCodeResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import { Messages, Services, UserPoolService } from "../services";
-import { InvalidParameterError, UserNotFoundError } from "../errors";
-import { selectAppropriateDeliveryMethod } from "../services/messageDelivery/deliveryMethod";
-import { Token } from "../services/tokenGenerator";
-import { User } from "../services/userPoolService";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+import {Messages, Services, UserPoolService} from "../services";
+import {InvalidParameterError, UserNotFoundError} from "../errors";
+import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
+import {TokenInterface} from "../services/tokenGeneratorInterface";
+import {User} from "../services/userPoolService";
+import {Target} from "./Target";
+import {Context} from "../services/context";
 
 const sendAttributeVerificationCode = async (
-  ctx: Context,
-  userPool: UserPoolService,
-  user: User,
-  messages: Messages,
-  req: GetUserAttributeVerificationCodeRequest,
-  code: string
+    ctx: Context,
+    userPool: UserPoolService,
+    user: User,
+    messages: Messages,
+    req: GetUserAttributeVerificationCodeRequest,
+    code: string
 ) => {
-  const deliveryDetails = selectAppropriateDeliveryMethod(
+    const deliveryDetails = selectAppropriateDeliveryMethod(
     userPool.options.AutoVerifiedAttributes ?? [],
     user
   );
@@ -59,7 +59,7 @@ export const GetUserAttributeVerificationCode =
     messages,
   }: GetUserAttributeVerificationCodeServices): GetUserAttributeVerificationCodeTarget =>
   async (ctx, req) => {
-    const decodedToken = jwt.decode(req.AccessToken) as Token | null;
+      const decodedToken = jwt.decode(req.AccessToken) as TokenInterface | null;
     if (!decodedToken) {
       ctx.logger.info("Unable to decode token");
       throw new InvalidParameterError();
