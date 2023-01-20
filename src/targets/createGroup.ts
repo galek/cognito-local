@@ -3,9 +3,9 @@ import {
   CreateGroupResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import { Services } from "../services";
-import { Group } from "../services/userPoolService";
 import { groupToResponseObject } from "./responses";
 import { Target } from "./Target";
+import {GroupInterface} from "../services/interfaces/group.interface";
 
 export type CreateGroupTarget = Target<CreateGroupRequest, CreateGroupResponse>;
 
@@ -17,7 +17,7 @@ export const CreateGroup =
     const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
 
     const now = clock.get();
-    const group: Group = {
+    const group: GroupInterface = {
       CreationDate: now,
       Description: req.Description,
       GroupName: req.GroupName,

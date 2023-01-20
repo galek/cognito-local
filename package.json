@@ -1,8 +1,8 @@
 {
   "name": "cognito-local",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "license": "MIT",
-  "bin": "dist/bin/start.js",
+  "bin": "dist/index.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -17,7 +17,7 @@
     "lint": "eslint --cache src/**/*.ts && tsc --noEmit",
     "start:dev": "cross-env COGNITO_LOCAL_DEVMODE=1 ts-node src",
     "start:prod": "node dist/index.js",
-    "start:debug": "COGNITO_LOCAL_DEVMODE=1 DEBUG=1 node -r ts-node/register --inspect=9230 --enable-source-maps src/bin/start.ts",
+    "start:debug": "cross-env COGNITO_LOCAL_DEVMODE=1 DEBUG=1 node -r ts-node/register --inspect=9230 --enable-source-maps src/bin/start.ts",
     "start:watch": "nodemon",
     "test": "jest",
     "test:watch": "jest --watch",

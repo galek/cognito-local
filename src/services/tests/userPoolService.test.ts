@@ -15,7 +15,7 @@ import {
   User,
   UserPoolService,
   UserPoolServiceImpl,
-  Group,
+  GroupInterface,
   UserPoolServiceFactoryImpl,
 } from "../userPoolService";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";

@@ -5,7 +5,8 @@ import {
   UserType,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import { AppClient } from "../services/appClient";
-import { Group, User, UserPool } from "../services/userPoolService";
+import { User, UserPool } from "../services/userPoolService";
+import {GroupInterface} from "../services/interfaces/group.interface";
 
 export const appClientToResponseObject = (
   appClient: AppClient
@@ -47,7 +48,7 @@ export const userToResponseObject = (user: User): UserType => ({
 
 export const groupToResponseObject =
   (userPoolId: string) =>
-  (group: Group): GroupType => ({
+  (group: GroupInterface): GroupType => ({
     CreationDate: group.CreationDate,
     Description: group.Description,
     GroupName: group.GroupName,

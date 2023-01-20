@@ -11,7 +11,7 @@ RUN npm prune --production
 FROM node:19-alpine
 WORKDIR /app
 COPY --from=builder /app/dist .
-COPY --from=builder node_modules node_modules
+COPY --from=builder /app/node_modules node_modules
 
 # bindings
 EXPOSE 9229

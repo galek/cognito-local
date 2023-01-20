@@ -1,14 +1,28 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "module": "commonjs",
+    "rootDir": "./src",
     "moduleResolution": "node",
     "outDir": "./dist",
     "resolveJsonModule": true,
     "strict": true,
-    "target": "ES2019"
+    "sourceMap": true,
+    "target": "ES2021",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": false,
+    "types": ["node"]
   },
+  "lib": [
+    "es2021",
+    "dom"
+  ],
   "include": [
     "src/**/*.ts"
   ],

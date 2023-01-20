@@ -14,6 +14,7 @@ import { Clock } from "./clock";
 import { Context } from "./context";
 import { DataStore } from "./dataStore/dataStore";
 import { DataStoreFactory } from "./dataStore/factory";
+import {GroupInterface} from "./interfaces/group.interface";
 
 export interface MFAOption {
   DeliveryMedium: "SMS";
@@ -98,38 +99,6 @@ export interface User {
   RefreshTokens: string[];
 }
 
-export interface Group {
-  /**
-   * The name of the group.
-   */
-  GroupName: string;
-  /**
-   * A string containing the description of the group.
-   */
-  Description?: string;
-  /**
-   * The role ARN for the group.
-   */
-  RoleArn?: string;
-  /**
-   * A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest precedence whose role ARN will be used in the cognito:roles and cognito:preferred_role claims in the user's tokens. Groups with higher Precedence values take precedence over groups with lower Precedence values or with null Precedence values. Two groups can have the same Precedence value. If this happens, neither group takes precedence over the other. If two groups with the same Precedence have the same role ARN, that role is used in the cognito:preferred_role claim in tokens for users in each group. If the two groups have different role ARNs, the cognito:preferred_role claim is not set in users' tokens. The default Precedence value is null.
-   */
-  Precedence?: number;
-  /**
-   * The date the group was last modified.
-   */
-  LastModifiedDate: Date;
-  /**
-   * The date the group was created.
-   */
-  CreationDate: Date;
-
-  /**
-   * The group's membership, a list of Usernames
-   */
-  members?: readonly string[];
-}
-
 // just use the types from the sdk, but make Id required
 export type UserPool = UserPoolType & {
   Id: string;
@@ -138,23 +107,23 @@ export type UserPool = UserPoolType & {
 export interface UserPoolService {
   readonly options: UserPool;
 
-  addUserToGroup(ctx: Context, group: Group, user: User): Promise<void>;
+  addUserToGroup(ctx: Context, group: GroupInterface, user: User): Promise<void>;
   saveAppClient(ctx: Context, appClient: AppClient): Promise<void>;
   deleteAppClient(ctx: Context, appClient: AppClient): Promise<void>;
-  deleteGroup(ctx: Context, group: Group): Promise<void>;
+  deleteGroup(ctx: Context, group: GroupInterface): Promise<void>;
   deleteUser(ctx: Context, user: User): Promise<void>;
-  getGroupByGroupName(ctx: Context, groupName: string): Promise<Group | null>;
+  getGroupByGroupName(ctx: Context, groupName: string): Promise<GroupInterface | null>;
   getUserByUsername(ctx: Context, username: string): Promise<User | null>;
   getUserByRefreshToken(
     ctx: Context,
     refreshToken: string
   ): Promise<User | null>;
-  listGroups(ctx: Context): Promise<readonly Group[]>;
+  listGroups(ctx: Context): Promise<readonly GroupInterface[]>;
   listUsers(ctx: Context): Promise<readonly User[]>;
   listUserGroupMembership(ctx: Context, user: User): Promise<readonly string[]>;
   updateOptions(ctx: Context, userPool: UserPool): Promise<void>;
-  removeUserFromGroup(ctx: Context, group: Group, user: User): Promise<void>;
-  saveGroup(ctx: Context, group: Group): Promise<void>;
+  removeUserFromGroup(ctx: Context, group: GroupInterface, user: User): Promise<void>;
+  saveGroup(ctx: Context, group: GroupInterface): Promise<void>;
   saveUser(ctx: Context, user: User): Promise<void>;
   storeRefreshToken(
     ctx: Context,
@@ -217,7 +186,7 @@ export class UserPoolServiceImpl implements UserPoolService {
     await this.clientsDataStore.delete(ctx, ["Clients", appClient.ClientId]);
   }
 
-  public async deleteGroup(ctx: Context, group: Group): Promise<void> {
+  public async deleteGroup(ctx: Context, group: GroupInterface): Promise<void> {
     ctx.logger.debug(
       { groupName: group.GroupName },
       "UserPoolServiceImpl.deleteGroup"
@@ -238,9 +207,9 @@ export class UserPoolServiceImpl implements UserPoolService {
   public async getGroupByGroupName(
     ctx: Context,
     groupName: string
-  ): Promise<Group | null> {
+  ): Promise<GroupInterface | null> {
     ctx.logger.debug("UserPoolServiceImpl.getGroupByGroupName");
-    const result = await this.dataStore.get<Group>(ctx, ["Groups", groupName]);
+    const result = await this.dataStore.get<GroupInterface>(ctx, ["Groups", groupName]);
 
     return result ?? null;
   }
@@ -337,9 +306,9 @@ export class UserPoolServiceImpl implements UserPoolService {
     await this.dataStore.set<User>(ctx, ["Users", user.Username], user);
   }
 
-  async listGroups(ctx: Context): Promise<readonly Group[]> {
+  async listGroups(ctx: Context): Promise<readonly GroupInterface[]> {
     ctx.logger.debug("UserPoolServiceImpl.listGroups");
-    const groups = await this.dataStore.get<Record<string, Group>>(
+    const groups = await this.dataStore.get<Record<string, GroupInterface>>(
       ctx,
       "Groups",
       {}
@@ -350,7 +319,7 @@ export class UserPoolServiceImpl implements UserPoolService {
 
   public async addUserToGroup(
     ctx: Context,
-    group: Group,
+    group: GroupInterface,
     user: User
   ): Promise<void> {
     ctx.logger.debug(
@@ -371,7 +340,7 @@ export class UserPoolServiceImpl implements UserPoolService {
 
   public async removeUserFromGroup(
     ctx: Context,
-    group: Group,
+    group: GroupInterface,
     user: User
   ): Promise<void> {
     ctx.logger.debug(
@@ -405,10 +374,10 @@ export class UserPoolServiceImpl implements UserPoolService {
     );
   }
 
-  async saveGroup(ctx: Context, group: Group): Promise<void> {
+  async saveGroup(ctx: Context, group: GroupInterface): Promise<void> {
     ctx.logger.debug({ group }, "UserPoolServiceImpl.saveGroup");
 
-    await this.dataStore.set<Group>(ctx, ["Groups", group.GroupName], group);
+    await this.dataStore.set<GroupInterface>(ctx, ["Groups", group.GroupName], group);
   }
 
   async listUserGroupMembership(
