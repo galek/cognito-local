@@ -1,21 +1,19 @@
-import { AttributeListType } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Lambda, PreTokenGenerationTriggerResponse } from "../lambda";
-import { attributesToRecord } from "../userPoolService";
-import { Trigger } from "./trigger";
+import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {Lambda, PreTokenGenerationTriggerResponse} from "../lambda";
+import {attributesToRecord} from "../userPoolService";
+import {Trigger} from "./trigger";
+import {StringMap} from "aws-sdk/clients/ecs";
+import {GroupOverrideDetails} from "aws-lambda/trigger/cognito-user-pool-trigger/pre-token-generation";
 
 export type Source =
-  | "AuthenticateDevice"
-  | "Authentication"
-  | "HostedAuth"
-  | "NewPasswordChallenge"
-  | "RefreshTokens";
+    | "AuthenticateDevice"
+    | "Authentication"
+    | "HostedAuth"
+    | "NewPasswordChallenge"
+    | "RefreshTokens";
 
-export type PreTokenGenerationTrigger = Trigger<
-  {
-    clientId: string;
-    userAttributes: AttributeListType;
-    username: string;
-    userPoolId: string;
+export type PreTokenGenerationTrigger = Trigger<{
+    clientId: string; userAttributes: AttributeListType; username: string; userPoolId: string;
 
     /**
      * One or more key-value pairs that you can provide as custom input to the Lambda function that you specify for the
@@ -33,49 +31,41 @@ export type PreTokenGenerationTrigger = Trigger<
      * preferredRole.
      */
     groupConfiguration: {
-      /**
-       * A list of the group names that are associated with the user that the identity token is issued for.
-       */
-      groupsToOverride: readonly string[] | undefined;
+        /**
+         * A list of the group names that are associated with the user that the identity token is issued for.
+         */
+        groupsToOverride: readonly string[] | undefined;
 
-      /**
-       * A list of the current IAM roles associated with these groups.
-       */
-      iamRolesToOverride: readonly string[] | undefined;
+        /**
+         * A list of the current IAM roles associated with these groups.
+         */
+        iamRolesToOverride: readonly string[] | undefined;
 
-      /**
-       * A string indicating the preferred IAM role.
-       */
-      preferredRole: string | undefined;
+        /**
+         * A string indicating the preferred IAM role.
+         */
+        preferredRole: string | undefined;
     };
-  },
-  PreTokenGenerationTriggerResponse
->;
+}, PreTokenGenerationTriggerResponse>;
 
 type PreTokenGenerationServices = {
-  lambda: Lambda;
+    lambda: Lambda;
 };
 
-export const PreTokenGeneration =
-  ({ lambda }: PreTokenGenerationServices): PreTokenGenerationTrigger =>
-  async (
-    ctx,
-    {
-      clientId,
-      clientMetadata,
-      groupConfiguration,
-      source,
-      userAttributes,
-      username,
-      userPoolId,
+export interface PreTokenGenerationResponse {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride?: StringMap | undefined, claimsToSuppress?: string[] | undefined, groupOverrideDetails?: GroupOverrideDetails | undefined
     }
-  ) =>
-    lambda.invoke(ctx, "PreTokenGeneration", {
-      clientId,
-      clientMetadata,
-      groupConfiguration,
-      triggerSource: `TokenGeneration_${source}`,
-      userAttributes: attributesToRecord(userAttributes),
-      username,
-      userPoolId,
-    });
+}
+
+export const PreTokenGeneration = ({lambda}: PreTokenGenerationServices): PreTokenGenerationTrigger => async (ctx, {
+    clientId, clientMetadata, groupConfiguration, source, userAttributes, username, userPoolId,
+}): Promise<PreTokenGenerationResponse> => lambda.invoke(ctx, "PreTokenGeneration", {
+    clientId,
+    clientMetadata,
+    groupConfiguration,
+    triggerSource: `TokenGeneration_${source}`,
+    userAttributes: attributesToRecord(userAttributes),
+    username,
+    userPoolId,
+});

@@ -1,23 +1,16 @@
-import { AttributeListType } from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import * as uuid from "uuid";
-import { NotAuthorizedError, ResourceNotFoundError } from "../../errors";
-import { Clock } from "../clock";
-import { CognitoService } from "../cognitoService";
-import { UserMigrationTriggerResponse, Lambda } from "../lambda";
+import {NotAuthorizedError, ResourceNotFoundError} from "../../errors";
+import {Clock} from "../clock";
+import {CognitoService} from "../cognitoService";
+import {UserMigrationTriggerResponse, Lambda} from "../lambda";
 import {
-  attributesFromRecord,
-  attributesToRecord,
-  User,
+    attributesFromRecord, attributesToRecord, User,
 } from "../userPoolService";
-import { Trigger } from "./trigger";
+import {Trigger} from "./trigger";
 
-export type UserMigrationTrigger = Trigger<
-  {
-    userPoolId: string;
-    clientId: string;
-    username: string;
-    password: string;
-    userAttributes: AttributeListType;
+export type UserMigrationTrigger = Trigger<{
+    userPoolId: string; clientId: string; username: string; password: string; userAttributes: AttributeListType;
 
     /**
      * One or more key-value pairs that you can provide as custom input to the Lambda function that you specify for the
@@ -35,77 +28,62 @@ export type UserMigrationTrigger = Trigger<
      * Source: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration
      */
     validationData: Record<string, string> | undefined;
-  },
-  User
->;
+}, User>;
 
 interface UserMigrationServices {
-  clock: Clock;
-  cognitoClient: CognitoService;
-  lambda: Lambda;
+    clock: Clock;
+    cognitoClient: CognitoService;
+    lambda: Lambda;
 }
 
-export const UserMigration =
-  ({
-    lambda,
-    cognitoClient,
-    clock,
-  }: UserMigrationServices): UserMigrationTrigger =>
-  async (
-    ctx,
-    {
-      clientId,
-      clientMetadata,
-      password,
-      userAttributes,
-      username,
-      userPoolId,
-      validationData,
-    }
-  ) => {
+export const UserMigration = ({
+                                  lambda, cognitoClient, clock,
+                              }: UserMigrationServices): UserMigrationTrigger => async (ctx, {
+    clientId, clientMetadata, password, userAttributes, username, userPoolId, validationData,
+}): Promise<User> => {
     const userPool = await cognitoClient.getUserPoolForClientId(ctx, clientId);
     if (!userPool) {
-      throw new ResourceNotFoundError();
+        throw new ResourceNotFoundError();
     }
 
     let result: UserMigrationTriggerResponse;
 
     try {
-      result = await lambda.invoke(ctx, "UserMigration", {
-        clientId,
-        clientMetadata,
-        password,
-        triggerSource: "UserMigration_Authentication",
-        userAttributes: attributesToRecord(userAttributes),
-        username,
-        userPoolId,
-        validationData,
-      });
+        result = await lambda.invoke(ctx, "UserMigration", {
+            clientId,
+            clientMetadata,
+            password,
+            triggerSource: "UserMigration_Authentication",
+            userAttributes: attributesToRecord(userAttributes),
+            username,
+            userPoolId,
+            validationData,
+        });
     } catch (ex) {
-      throw new NotAuthorizedError();
+        throw new NotAuthorizedError();
     }
 
     const now = clock.get();
     const user: User = {
-      Attributes: attributesFromRecord(result.userAttributes ?? {}),
-      Enabled: true,
-      Password: password,
-      UserCreateDate: now,
-      UserLastModifiedDate: now,
-      Username: result.userAttributes?.username || uuid.v4(),
-      UserStatus: result.finalUserStatus ?? "CONFIRMED",
-      RefreshTokens: [],
+        Attributes: attributesFromRecord(result.userAttributes ?? {}),
+        Enabled: true,
+        Password: password,
+        UserCreateDate: now,
+        UserLastModifiedDate: now,
+        Username: result.userAttributes?.username || uuid.v4(),
+        UserStatus: result.finalUserStatus ?? "CONFIRMED",
+        RefreshTokens: [],
     };
 
     if (result.forceAliasCreation) {
-      // TODO: do something with aliases?
+        // TODO: do something with aliases?
     }
 
     await userPool.saveUser(ctx, user);
 
     if (result.messageAction !== "SUPPRESS") {
-      // TODO: send notification when not suppressed?
+        // TODO: send notification when not suppressed?
     }
 
     return user;
-  };
+};

@@ -1,18 +1,10 @@
-import { AttributeListType } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Lambda, PreSignUpTriggerResponse } from "../lambda";
-import { attributesToRecord } from "../userPoolService";
-import { Trigger } from "./trigger";
+import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {Lambda, PreSignUpTriggerResponse} from "../lambda";
+import {attributesToRecord} from "../userPoolService";
+import {Trigger} from "./trigger";
 
-export type PreSignUpTrigger = Trigger<
-  {
-    clientId: string;
-    source:
-      | "PreSignUp_AdminCreateUser"
-      | "PreSignUp_ExternalProvider"
-      | "PreSignUp_SignUp";
-    userAttributes: AttributeListType;
-    username: string;
-    userPoolId: string;
+export type PreSignUpTrigger = Trigger<{
+    clientId: string; source: | "PreSignUp_AdminCreateUser" | "PreSignUp_ExternalProvider" | "PreSignUp_SignUp"; userAttributes: AttributeListType; username: string; userPoolId: string;
 
     /**
      * One or more name-value pairs containing the validation data in the request to register a user. The validation data
@@ -31,34 +23,26 @@ export type PreSignUpTrigger = Trigger<
      * Source: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#cognito-user-pools-lambda-trigger-syntax-pre-signup
      */
     validationData: Record<string, string> | undefined;
-  },
-  PreSignUpTriggerResponse
->;
+}, PreSignUpTriggerResponse>;
 
 type PreSignUpServices = {
-  lambda: Lambda;
+    lambda: Lambda;
 };
 
-export const PreSignUp =
-  ({ lambda }: PreSignUpServices): PreSignUpTrigger =>
-  async (
-    ctx,
-    {
-      clientId,
-      clientMetadata,
-      source,
-      userAttributes,
-      username,
-      userPoolId,
-      validationData,
-    }
-  ) =>
-    lambda.invoke(ctx, "PreSignUp", {
-      clientId,
-      clientMetadata,
-      triggerSource: source,
-      userAttributes: attributesToRecord(userAttributes),
-      username,
-      userPoolId,
-      validationData,
-    });
+export interface PreSignUpResponse {
+    autoConfirmUser: boolean;
+    autoVerifyEmail: boolean;
+    autoVerifyPhone: boolean;
+}
+
+export const PreSignUp = ({lambda}: PreSignUpServices): PreSignUpTrigger => async (ctx, {
+    clientId, clientMetadata, source, userAttributes, username, userPoolId, validationData,
+}): Promise<PreSignUpResponse> => lambda.invoke(ctx, "PreSignUp", {
+    clientId,
+    clientMetadata,
+    triggerSource: source,
+    userAttributes: attributesToRecord(userAttributes),
+    username,
+    userPoolId,
+    validationData,
+});
