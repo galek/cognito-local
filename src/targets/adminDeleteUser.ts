@@ -1,11 +1,11 @@
 import {AdminDeleteUserRequest} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {UserNotFoundError} from "../errors";
 import {Target} from "./Target";
 
 export type AdminDeleteUserTarget = Target<AdminDeleteUserRequest, {}>;
 
-type AdminDeleteUserServices = Pick<Services, "cognito">;
+type AdminDeleteUserServices = Pick<ServicesInterface, "cognito">;
 
 export const AdminDeleteUser =
     ({cognito}: AdminDeleteUserServices): AdminDeleteUserTarget =>

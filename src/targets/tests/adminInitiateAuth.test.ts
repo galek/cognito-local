@@ -4,7 +4,7 @@ import {newMockUserPoolService} from "../../../__test_mocs__/mockUserPoolService
 import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
 import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import {CognitoService, Triggers, UserPoolService} from "../../services";
+import {CognitoService, TriggersInterface, UserPoolServiceInterface} from "../../services";
 import {TokenGeneratorInterface} from "../../services/tokenGeneratorInterface";
 import {AdminInitiateAuth, AdminInitiateAuthTarget,} from "../adminInitiateAuth";
 
@@ -13,8 +13,8 @@ describe("AdminInitiateAuth target", () => {
 
     let mockCognitoService: jest.Mocked<CognitoService>;
     let mockTokenGenerator: jest.Mocked<TokenGeneratorInterface>;
-    let mockTriggers: jest.Mocked<Triggers>;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+    let mockTriggers: jest.Mocked<TriggersInterface>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   const userPoolClient = TDB.appClient();
 
   beforeEach(() => {

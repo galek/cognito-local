@@ -1,14 +1,14 @@
 import { newMockLambda } from "../../../../__test_mocs__/mockLambda";
 import { TestContext } from "../../../../__test_mocs__/testContext";
 import { CryptoService } from "../../crypto";
-import { Lambda } from "../../lambda";
+import { LambdaInterface } from "../../lambdaInterface";
 import {
   CustomEmailSender,
   CustomEmailSenderTrigger,
 } from "../customEmailSender";
 
 describe.only("CustomEmailSender trigger", () => {
-  let mockLambda: jest.Mocked<Lambda>;
+  let mockLambda: jest.Mocked<LambdaInterface>;
   let mockCrypto: jest.Mocked<CryptoService>;
   let customEmailSender: CustomEmailSenderTrigger;
 

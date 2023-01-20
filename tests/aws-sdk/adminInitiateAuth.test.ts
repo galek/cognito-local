@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { UUID } from "../../__test_mocs__/patterns";
-import { attributeValue } from "../../src/services/userPoolService";
+import { attributeValue } from "../../src/services/userPoolServiceInterface";
 import { withCognitoSdk } from "./setup";
 
 describe(

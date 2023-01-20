@@ -1,14 +1,14 @@
 import {ChangePasswordRequest, ChangePasswordResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {InvalidParameterError, InvalidPasswordError, NotAuthorizedError,} from "../errors";
-import {TokenInterface} from "../services/tokenGeneratorInterface";
+import {TokenInterface} from "../services/tokenGenerator.interface";
 import {Target} from "./Target";
 
 export type ChangePasswordTarget = Target<ChangePasswordRequest,
     ChangePasswordResponse>;
 
-type ChangePasswordServices = Pick<Services, "cognito" | "clock">;
+type ChangePasswordServices = Pick<ServicesInterface, "cognito" | "clock">;
 
 export const ChangePassword =
     ({cognito, clock}: ChangePasswordServices): ChangePasswordTarget =>

@@ -1,17 +1,17 @@
 import {AdminInitiateAuthRequest, AdminInitiateAuthResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {InvalidParameterError, InvalidPasswordError, NotAuthorizedError, UnsupportedError,} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
 export type AdminInitiateAuthTarget = Target<AdminInitiateAuthRequest,
     AdminInitiateAuthResponse>;
 
-type AdminInitiateAuthServices = Pick<Services,
+type AdminInitiateAuthServices = Pick<ServicesInterface,
     "cognito" | "triggers" | "tokenGenerator">;
 
 const adminUserPasswordAuthFlow = async (
-  ctx: Context,
+  ctx: ContextInterface,
   services: AdminInitiateAuthServices,
   req: AdminInitiateAuthRequest
 ): Promise<AdminInitiateAuthResponse> => {
@@ -88,7 +88,7 @@ const adminUserPasswordAuthFlow = async (
 };
 
 const refreshTokenAuthFlow = async (
-  ctx: Context,
+  ctx: ContextInterface,
   services: AdminInitiateAuthServices,
   req: AdminInitiateAuthRequest
 ): Promise<AdminInitiateAuthResponse> => {

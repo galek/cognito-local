@@ -1,33 +1,33 @@
-import {Context} from "../context";
-import {Message} from "../messages";
-import {User} from "../userPoolService";
-import {MessageSender} from "./messageSender";
+import {ContextInterface} from "../context.interface";
+import {MessageInterface} from "../messages.interface";
+import {UserInterface} from "../userPoolService.interface";
+import {MessageSenderInterface} from "./messageSender.interface";
 import boxen from "boxen";
 
-export class ConsoleMessageSender implements MessageSender {
+export class ConsoleMessageSender implements MessageSenderInterface {
     public sendEmail(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         destination: string,
-        message: Message
+        message: MessageInterface
     ): Promise<void> {
         return this.sendToConsole(ctx, user, destination, message);
     }
 
     public sendSms(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         destination: string,
-        message: Message
+        message: MessageInterface
     ): Promise<void> {
         return this.sendToConsole(ctx, user, destination, message);
     }
 
     private sendToConsole(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         destination: string,
-        {__code, ...message}: Message
+        {__code, ...message}: MessageInterface
     ): Promise<void> {
         const fields = {
             Username: user.Username,

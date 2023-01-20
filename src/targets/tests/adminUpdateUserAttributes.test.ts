@@ -4,12 +4,12 @@ import { newMockMessages } from "../../../__test_mocs__/mockMessages";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, NotAuthorizedError } from "../../errors";
-import { Messages, UserPoolService } from "../../services";
+import { MessagesInterface, UserPoolServiceInterface } from "../../services";
 import {
   attribute,
   attributesAppend,
   attributeValue,
-} from "../../services/userPoolService";
+} from "../../services/userPoolServiceInterface";
 import {
   AdminUpdateUserAttributes,
   AdminUpdateUserAttributesTarget,
@@ -18,9 +18,9 @@ import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
 describe("AdminUpdateUserAttributes target", () => {
   let adminUpdateUserAttributes: AdminUpdateUserAttributesTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let clock: ClockFake;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

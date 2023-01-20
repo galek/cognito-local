@@ -6,7 +6,7 @@ import {UUID} from "../../../__test_mocs__/patterns";
 import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {InvalidParameterError, UsernameExistsError} from "../../errors";
-import {Messages, UserPoolService} from "../../services";
+import {MessagesInterface, UserPoolServiceInterface} from "../../services";
 import {AdminCreateUser, AdminCreateUserTarget} from "../adminCreateUser";
 import {ConfigInterface, DefaultConfig} from "../../server/configInterface";
 
@@ -14,8 +14,8 @@ const originalDate = new Date();
 
 describe("AdminCreateUser target", () => {
   let adminCreateUser: AdminCreateUserTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
   let config: ConfigInterface;
 
   beforeEach(() => {

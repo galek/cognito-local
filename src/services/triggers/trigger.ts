@@ -1,6 +1,6 @@
-import {Context} from "../context";
+import {ContextInterface} from "../context.interface";
 
 export type Trigger<Params extends {}, Res extends {} | null | void> = (
-    ctx: Context,
+    ctx: ContextInterface,
     params: Params
 ) => Promise<Res>;

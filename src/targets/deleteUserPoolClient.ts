@@ -1,12 +1,12 @@
 import {DeleteUserPoolClientRequest} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {ResourceNotFoundError} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
 
 export type DeleteUserPoolClientTarget = Target<DeleteUserPoolClientRequest,
     {}>;
 
-type DeleteUserPoolClientServices = Pick<Services, "cognito">;
+type DeleteUserPoolClientServices = Pick<ServicesInterface, "cognito">;
 
 export const DeleteUserPoolClient =
     ({cognito}: DeleteUserPoolClientServices): DeleteUserPoolClientTarget =>

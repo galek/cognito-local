@@ -1,7 +1,7 @@
-import {Context} from "../context";
-import {Message} from "../messages";
-import {User} from "../userPoolService";
-import {MessageSender} from "./messageSender";
+import {ContextInterface} from "../context.interface";
+import {MessageInterface} from "../messages.interface";
+import {UserInterface} from "../userPoolService.interface";
+import {MessageSenderInterface} from "./messageSender.interface";
 
 export type DeliveryDetails =
     | {
@@ -15,27 +15,27 @@ export type DeliveryDetails =
     Destination: string;
 };
 
-export interface MessageDelivery {
+export interface MessageDeliveryInterface {
     deliver(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         deliveryDetails: DeliveryDetails,
-        message: Message
+        message: MessageInterface
     ): Promise<void>;
 }
 
-export class MessageDeliveryService implements MessageDelivery {
-    private readonly sender: MessageSender;
+export class MessageDeliveryService implements MessageDeliveryInterface {
+    private readonly sender: MessageSenderInterface;
 
-    public constructor(sender: MessageSender) {
+    public constructor(sender: MessageSenderInterface) {
         this.sender = sender;
     }
 
     public async deliver(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         deliveryDetails: DeliveryDetails,
-        message: Message
+        message: MessageInterface
     ): Promise<void> {
         if (deliveryDetails.DeliveryMedium === "SMS") {
             await this.sender.sendSms(

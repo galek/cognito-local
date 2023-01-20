@@ -2,13 +2,13 @@ import {
     GetUserPoolMfaConfigRequest,
     GetUserPoolMfaConfigResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
 
 export type GetUserPoolMfaConfigTarget = Target<GetUserPoolMfaConfigRequest,
     GetUserPoolMfaConfigResponse>;
 
-type GetUserPoolMfaConfigServices = Pick<Services, "cognito">;
+type GetUserPoolMfaConfigServices = Pick<ServicesInterface, "cognito">;
 
 export const GetUserPoolMfaConfig =
     ({cognito}: GetUserPoolMfaConfigServices): GetUserPoolMfaConfigTarget =>

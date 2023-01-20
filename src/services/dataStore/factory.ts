@@ -1,6 +1,6 @@
-import {Context} from "../context";
-import {DataStore} from "./dataStore";
+import {ContextInterface} from "../context.interface";
+import {DataStoreInterface} from "./dataStore.interface";
 
-export interface DataStoreFactory {
-    create(ctx: Context, id: string, defaults: object): Promise<DataStore>;
+export interface DataStoreFactoryInterface {
+    create(ctx: ContextInterface, id: string, defaults: object): Promise<DataStoreInterface>;
 }

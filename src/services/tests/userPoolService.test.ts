@@ -2,19 +2,19 @@ import {ClockFake} from "../../../__test_mocs__/clockFake";
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {newMockDataStore, newMockDataStoreFactory,} from "../../../__test_mocs__/mockDataStore";
 import {TestContext} from "../../../__test_mocs__/testContext";
-import {AppClient} from "../appClient";
-import {DataStore} from "../dataStore/dataStore";
+import {AppClientInterface} from "../appClientInterface";
+import {DataStoreInterface} from "../dataStore/dataStoreInterface";
 import {
   attributesFromRecord,
   attributesInclude,
   attributesIncludeMatch,
   attributesToRecord,
   GroupInterface,
-  User,
-  UserPoolService,
+  UserInterface,
+  UserPoolServiceInterface,
   UserPoolServiceFactoryImpl,
   UserPoolServiceImpl,
-} from "../userPoolService";
+} from "../userPoolServiceInterface";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
 describe("UserPoolServiceFactory", () => {
@@ -44,7 +44,7 @@ describe("UserPoolServiceFactory", () => {
 });
 
 describe("User Pool Service", () => {
-  let mockClientsDataStore: jest.Mocked<DataStore>;
+  let mockClientsDataStore: jest.Mocked<DataStoreInterface>;
   const currentDate = new Date(2020, 1, 2, 3, 4, 5);
 
   let clock: ClockFake;
@@ -72,7 +72,7 @@ describe("User Pool Service", () => {
           }
       );
 
-      const appClient: AppClient = {
+      const appClient: AppClientInterface = {
         ClientId: "clientId",
         ClientName: "clientName",
         CreationDate: currentDate,
@@ -295,7 +295,7 @@ describe("User Pool Service", () => {
       GroupName: "1",
     });
 
-    let userPool: UserPoolService;
+    let userPool: UserPoolServiceInterface;
 
     beforeEach(() => {
       const options = {
@@ -364,14 +364,14 @@ describe("User Pool Service", () => {
     `(
         "$username_attributes username attributes",
         ({username_attributes, find_by_email, find_by_phone_number}) => {
-          let userPool: UserPoolService;
+          let userPool: UserPoolServiceInterface;
 
           beforeEach(() => {
             const options = {
               Id: "local",
               UsernameAttributes: username_attributes,
             };
-            const users: Record<string, User> = {
+            const users: Record<string, UserInterface> = {
               [user.Username]: user,
             };
 
@@ -471,7 +471,7 @@ describe("User Pool Service", () => {
       Username: "2",
     });
 
-    let userPool: UserPoolService;
+    let userPool: UserPoolServiceInterface;
 
     beforeEach(() => {
       const options = {
@@ -604,7 +604,7 @@ describe("User Pool Service", () => {
   });
 
   describe("listGroups", () => {
-    let userPool: UserPoolService;
+    let userPool: UserPoolServiceInterface;
 
     beforeEach(() => {
       const options = {

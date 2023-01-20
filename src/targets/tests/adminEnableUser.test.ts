@@ -4,14 +4,14 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import { UserNotFoundError } from "../../errors";
-import { UserPoolService } from "../../services";
+import { UserPoolServiceInterface } from "../../services";
 import { AdminEnableUser, AdminEnableUserTarget } from "../adminEnableUser";
 
 const originalDate = new Date();
 
 describe("AdminEnableUser target", () => {
   let adminEnableUser: AdminEnableUserTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let clock: ClockFake;
 
   beforeEach(() => {

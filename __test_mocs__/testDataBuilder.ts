@@ -1,12 +1,12 @@
 import { v4 } from "uuid";
-import { AppClient } from "../src/services/appClient";
+import { AppClientInterface } from "../src/services/appClientInterface";
 import { USER_POOL_AWS_DEFAULTS } from "../src/services/cognitoService";
-import { GroupInterface, User, UserPool } from "../src/services/userPoolService";
+import { GroupInterface, UserInterface, UserPool } from "../src/services/userPoolServiceInterface";
 
 export const id = (prefix: string, number?: number) =>
   `${prefix}${number ?? Math.floor(Math.random() * 100000)}`;
 
-export const appClient = (partial?: Partial<AppClient>): AppClient => ({
+export const appClient = (partial?: Partial<AppClientInterface>): AppClientInterface => ({
   AccessTokenValidity: partial?.AccessTokenValidity,
   AllowedOAuthFlows: partial?.AllowedOAuthFlows,
   AllowedOAuthFlowsUserPoolClient: partial?.AllowedOAuthFlowsUserPoolClient,
@@ -42,7 +42,7 @@ export const group = (partial?: Partial<Group>): Group => ({
   members: partial?.members ?? undefined,
 });
 
-export const user = (partial?: Partial<User>): User => ({
+export const user = (partial?: Partial<UserInterface>): UserInterface => ({
   Attributes: partial?.Attributes ?? [
     { Name: "sub", Value: v4() },
     { Name: "email", Value: `${id("example")}@example.com` },

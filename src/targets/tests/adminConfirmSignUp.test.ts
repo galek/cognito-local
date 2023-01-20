@@ -5,8 +5,8 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import { NotAuthorizedError } from "../../errors";
-import { Triggers, UserPoolService } from "../../services";
-import { attribute, attributesAppend } from "../../services/userPoolService";
+import { TriggersInterface, UserPoolServiceInterface } from "../../services";
+import { attribute, attributesAppend } from "../../services/userPoolServiceInterface";
 import {
   AdminConfirmSignUp,
   AdminConfirmSignUpTarget,
@@ -18,8 +18,8 @@ const clock = new ClockFake(currentDate);
 
 describe("AdminConfirmSignUp target", () => {
   let adminConfirmSignUp: AdminConfirmSignUpTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockTriggers: jest.Mocked<Triggers>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockTriggers: jest.Mocked<TriggersInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

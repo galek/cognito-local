@@ -1,11 +1,11 @@
 import fs from "fs";
 import { promisify } from "util";
 import { TestContext } from "../__test_mocs__/testContext";
-import { CognitoService, DateClock, UserPoolService } from "../src/services";
+import { CognitoService, DateClock, UserPoolServiceInterface } from "../src/services";
 import { CognitoServiceFactoryImpl } from "../src/services/cognitoService";
 import { NoOpCache } from "../src/services/dataStore/cache";
 import { StormDBDataStoreFactory } from "../src/services/dataStore/stormDb";
-import { UserPoolServiceFactoryImpl } from "../src/services/userPoolService";
+import { UserPoolServiceFactoryImpl } from "../src/services/userPoolServiceInterface";
 
 const mkdtemp = promisify(fs.mkdtemp);
 const readFile = promisify(fs.readFile);
@@ -165,7 +165,7 @@ describe("User Pool Service", () => {
 
   describe("getUserByUsername", () => {
     describe.each(validUsernameExamples)("with username %s", (username) => {
-      let userPool: UserPoolService;
+      let userPool: UserPoolServiceInterface;
       beforeAll(async () => {
         userPool = await cognitoClient.getUserPool(TestContext, "local");
 
@@ -202,7 +202,7 @@ describe("User Pool Service", () => {
 
   describe("getUserByRefreshToken", () => {
     const username = "User";
-    let userPool: UserPoolService;
+    let userPool: UserPoolServiceInterface;
 
     beforeAll(async () => {
       userPool = await cognitoClient.getUserPool(TestContext, "local");
@@ -256,7 +256,7 @@ describe("User Pool Service", () => {
       RefreshTokens: [],
     };
 
-    let userPool: UserPoolService;
+    let userPool: UserPoolServiceInterface;
 
     beforeAll(async () => {
       userPool = await cognitoClient.getUserPool(TestContext, "local");
@@ -280,7 +280,7 @@ describe("User Pool Service", () => {
   });
 
   describe("listUsers", () => {
-    let userPool: UserPoolService;
+    let userPool: UserPoolServiceInterface;
     let now: Date;
 
     beforeAll(async () => {

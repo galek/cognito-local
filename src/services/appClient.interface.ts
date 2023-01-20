@@ -7,7 +7,7 @@ import {
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import shortUUID from "short-uuid";
 
-export interface AppClient {
+export interface AppClientInterface {
     UserPoolId: string;
     ClientName: string;
     ClientId: string;

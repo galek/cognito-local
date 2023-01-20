@@ -1,12 +1,12 @@
 import {AdminEnableUserRequest, AdminEnableUserResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {UserNotFoundError} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
 
 export type AdminEnableUserTarget = Target<AdminEnableUserRequest,
     AdminEnableUserResponse>;
 
-type AdminEnableUserServices = Pick<Services, "cognito" | "clock">;
+type AdminEnableUserServices = Pick<ServicesInterface, "cognito" | "clock">;
 
 export const AdminEnableUser =
     ({cognito, clock}: AdminEnableUserServices): AdminEnableUserTarget =>

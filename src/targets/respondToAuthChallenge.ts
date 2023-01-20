@@ -3,13 +3,13 @@ import {
   RespondToAuthChallengeResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {CodeMismatchError, InvalidParameterError, NotAuthorizedError, UnsupportedError,} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
 
 export type RespondToAuthChallengeTarget = Target<RespondToAuthChallengeRequest,
     RespondToAuthChallengeResponse>;
 
-type RespondToAuthChallengeService = Pick<Services,
+type RespondToAuthChallengeService = Pick<ServicesInterface,
     "clock" | "cognito" | "triggers" | "tokenGenerator">;
 
 export const RespondToAuthChallenge =

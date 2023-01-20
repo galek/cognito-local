@@ -5,14 +5,14 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, UserNotFoundError } from "../../errors";
 import PrivateKey from "../../keys/cognitoLocal.private.json";
-import { UserPoolService } from "../../services";
-import { attributeValue } from "../../services/userPoolService";
+import { UserPoolServiceInterface } from "../../services";
+import { attributeValue } from "../../services/userPoolServiceInterface";
 import { GetUser, GetUserTarget } from "../getUser";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
 describe("GetUser target", () => {
   let getUser: GetUserTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

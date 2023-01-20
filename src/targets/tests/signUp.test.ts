@@ -7,16 +7,16 @@ import {UUID} from "../../../__test_mocs__/patterns";
 import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {InvalidParameterError, UserLambdaValidationError, UsernameExistsError,} from "../../errors";
-import {Messages, Triggers, UserPoolService} from "../../services";
+import {MessagesInterface, TriggersInterface, UserPoolServiceInterface} from "../../services";
 import {SignUp, SignUpTarget} from "../signUp";
 import {ConfigInterface, DefaultConfig} from "../../server/configInterface";
 
 describe("SignUp target", () => {
   let signUp: SignUpTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
   let mockOtp: jest.MockedFunction<() => string>;
-  let mockTriggers: jest.Mocked<Triggers>;
+  let mockTriggers: jest.Mocked<TriggersInterface>;
     let now: Date;
     let config: ConfigInterface;
 

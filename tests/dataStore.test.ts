@@ -3,7 +3,7 @@ import StormDB from "stormdb";
 import { promisify } from "util";
 import { TestContext } from "../__test_mocs__/testContext";
 import { InMemoryCache, NoOpCache } from "../src/services/dataStore/cache";
-import { DataStoreFactory } from "../src/services/dataStore/factory";
+import { DataStoreFactoryInterface } from "../src/services/dataStore/factory";
 import { StormDBDataStoreFactory } from "../src/services/dataStore/stormDb";
 
 const mkdtemp = promisify(fs.mkdtemp);
@@ -12,7 +12,7 @@ const rmdir = promisify(fs.rmdir);
 
 describe("Data Store", () => {
   let path: string;
-  let factory: DataStoreFactory;
+  let factory: DataStoreFactoryInterface;
 
   beforeEach(async () => {
     path = await mkdtemp("/tmp/cognito-local:");

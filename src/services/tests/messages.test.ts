@@ -1,14 +1,14 @@
 import {newMockMessageDelivery} from "../../../__test_mocs__/mockMessageDelivery";
 import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
 import {TestContext} from "../../../__test_mocs__/testContext";
-import {MessageDelivery} from "../messageDelivery/messageDelivery";
-import {MessagesService} from "../messages";
+import {MessageDeliveryInterface} from "../messageDelivery/messageDeliveryInterface";
+import {MessagesService} from "../messagesInterface";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import {Triggers} from "../triggers";
+import {TriggersInterface} from "../triggers";
 
 describe("messages service", () => {
-    let mockTriggers: jest.Mocked<Triggers>;
-    let mockMessageDelivery: jest.Mocked<MessageDelivery>;
+    let mockTriggers: jest.Mocked<TriggersInterface>;
+    let mockMessageDelivery: jest.Mocked<MessageDeliveryInterface>;
 
     const user = TDB.user();
     const deliveryDetails = {

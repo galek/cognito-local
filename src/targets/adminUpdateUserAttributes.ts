@@ -3,24 +3,24 @@ import {
     AdminUpdateUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {InvalidParameterError, NotAuthorizedError} from "../errors";
-import {Messages, Services, UserPoolService} from "../services";
+import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
 import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
 import {
     attributesAppend,
     defaultVerifiedAttributesIfModified,
     hasUnverifiedContactAttributes,
-    User,
+    UserInterface,
     validatePermittedAttributeChanges,
-} from "../services/userPoolService";
+} from "../services/userPoolService.interface";
 import {Target} from "./Target";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
 const sendAttributeVerificationCode = async (
-    ctx: Context,
-    userPool: UserPoolService,
-    user: User,
-    messages: Messages,
+    ctx: ContextInterface,
+    userPool: UserPoolServiceInterface,
+    user: UserInterface,
+    messages: MessagesInterface,
     req: AdminUpdateUserAttributesRequest,
     code: string
 ) => {
@@ -53,7 +53,7 @@ export type AdminUpdateUserAttributesTarget = Target<
 >;
 
 type AdminUpdateUserAttributesServices = Pick<
-  Services,
+  ServicesInterface,
   "clock" | "cognito" | "otp" | "messages"
 >;
 

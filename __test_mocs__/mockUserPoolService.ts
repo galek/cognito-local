@@ -1,11 +1,11 @@
-import { UserPoolService } from "../src/services";
-import { UserPool, UserPoolServiceFactory } from "../src/services/userPoolService";
+import { UserPoolServiceInterface } from "../src/services";
+import { UserPool, UserPoolServiceFactoryInterface } from "../src/services/userPoolServiceInterface";
 
 export const newMockUserPoolService = (
   config: UserPool = {
     Id: "test",
   }
-): jest.Mocked<UserPoolService> => ({
+): jest.Mocked<UserPoolServiceInterface> => ({
   addUserToGroup: jest.fn(),
   deleteAppClient: jest.fn(),
   deleteGroup: jest.fn(),
@@ -26,7 +26,7 @@ export const newMockUserPoolService = (
 });
 
 export const newMockUserPoolServiceFactory = (
-  cognitoService: jest.Mocked<UserPoolService> = newMockUserPoolService()
-): jest.Mocked<UserPoolServiceFactory> => ({
+  cognitoService: jest.Mocked<UserPoolServiceInterface> = newMockUserPoolService()
+): jest.Mocked<UserPoolServiceFactoryInterface> => ({
   create: jest.fn().mockResolvedValue(cognitoService),
 });

@@ -3,13 +3,13 @@ import {
     AdminSetUserPasswordResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {UserNotFoundError} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
 
 export type AdminSetUserPasswordTarget = Target<AdminSetUserPasswordRequest,
     AdminSetUserPasswordResponse>;
 
-type AdminSetUserPasswordServices = Pick<Services, "clock" | "cognito">;
+type AdminSetUserPasswordServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const AdminSetUserPassword =
     ({

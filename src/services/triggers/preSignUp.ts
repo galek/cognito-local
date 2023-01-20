@@ -1,6 +1,6 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Lambda, PreSignUpTriggerResponse} from "../lambda";
-import {attributesToRecord} from "../userPoolService";
+import {LambdaInterface, PreSignUpTriggerResponse} from "../lambda.interface";
+import {attributesToRecord} from "../userPoolService.interface";
 import {Trigger} from "./trigger";
 
 export type PreSignUpTrigger = Trigger<{
@@ -26,10 +26,10 @@ export type PreSignUpTrigger = Trigger<{
 }, PreSignUpTriggerResponse>;
 
 type PreSignUpServices = {
-    lambda: Lambda;
+    lambda: LambdaInterface;
 };
 
-export interface PreSignUpResponse {
+export interface PreSignUpResponseInterface {
     autoConfirmUser: boolean;
     autoVerifyEmail: boolean;
     autoVerifyPhone: boolean;
@@ -37,7 +37,7 @@ export interface PreSignUpResponse {
 
 export const PreSignUp = ({lambda}: PreSignUpServices): PreSignUpTrigger => async (ctx, {
     clientId, clientMetadata, source, userAttributes, username, userPoolId, validationData,
-}): Promise<PreSignUpResponse> => lambda.invoke(ctx, "PreSignUp", {
+}): Promise<PreSignUpResponseInterface> => lambda.invoke(ctx, "PreSignUp", {
     clientId,
     clientMetadata,
     triggerSource: source,

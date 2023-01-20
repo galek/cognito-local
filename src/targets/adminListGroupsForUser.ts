@@ -3,14 +3,14 @@ import {
     AdminListGroupsForUserResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {UserNotFoundError} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {groupToResponseObject} from "./responses";
 import {Target} from "./Target";
 
 export type AdminListGroupsForUserTarget = Target<AdminListGroupsForUserRequest,
     AdminListGroupsForUserResponse>;
 
-type AdminListGroupsForUserServices = Pick<Services, "cognito">;
+type AdminListGroupsForUserServices = Pick<ServicesInterface, "cognito">;
 
 export const AdminListGroupsForUser =
     ({cognito}: AdminListGroupsForUserServices): AdminListGroupsForUserTarget =>

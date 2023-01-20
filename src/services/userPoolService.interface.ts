@@ -9,14 +9,14 @@ import {
     UserStatusType,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {InvalidParameterError} from "../errors";
-import {AppClient} from "./appClient";
-import {Clock} from "./clock";
-import {Context} from "./context";
-import {DataStore} from "./dataStore/dataStore";
-import {DataStoreFactory} from "./dataStore/factory";
+import {AppClientInterface} from "./appClient.interface";
+import {ClockInterface} from "./clock.interface";
+import {ContextInterface} from "./context.interface";
+import {DataStoreInterface} from "./dataStore/dataStore.interface";
+import {DataStoreFactoryInterface} from "./dataStore/factory";
 import {GroupInterface} from "./interfaces/group.interface";
 
-export interface MFAOption {
+export interface MFAOptionInterface {
     DeliveryMedium: "SMS";
     AttributeName: "phone_number";
 }
@@ -80,7 +80,7 @@ export const customAttributes = (
 ): AttributeListType =>
     (attributes ?? []).filter((attr) => attr.Name.startsWith("custom:"));
 
-export interface User {
+export interface UserInterface {
     Attributes: AttributeListType;
     Enabled: boolean;
     MFAOptions?: MFAOptionListType;
@@ -107,66 +107,66 @@ export type UserPool = UserPoolType & {
 export type UserPoolDefaults = Omit<UserPool,
     "Id" | "CreationDate" | "LastModifiedDate">;
 
-export interface UserPoolService {
+export interface UserPoolServiceInterface {
     readonly options: UserPool;
 
-    addUserToGroup(ctx: Context, group: GroupInterface, user: User): Promise<void>;
+    addUserToGroup(ctx: ContextInterface, group: GroupInterface, user: UserInterface): Promise<void>;
 
-    saveAppClient(ctx: Context, appClient: AppClient): Promise<void>;
+    saveAppClient(ctx: ContextInterface, appClient: AppClientInterface): Promise<void>;
 
-    deleteAppClient(ctx: Context, appClient: AppClient): Promise<void>;
+    deleteAppClient(ctx: ContextInterface, appClient: AppClientInterface): Promise<void>;
 
-    deleteGroup(ctx: Context, group: GroupInterface): Promise<void>;
+    deleteGroup(ctx: ContextInterface, group: GroupInterface): Promise<void>;
 
-    deleteUser(ctx: Context, user: User): Promise<void>;
+    deleteUser(ctx: ContextInterface, user: UserInterface): Promise<void>;
 
-    getGroupByGroupName(ctx: Context, groupName: string): Promise<GroupInterface | null>;
+    getGroupByGroupName(ctx: ContextInterface, groupName: string): Promise<GroupInterface | null>;
 
-    getUserByUsername(ctx: Context, username: string): Promise<User | null>;
+    getUserByUsername(ctx: ContextInterface, username: string): Promise<UserInterface | null>;
 
     getUserByRefreshToken(
-        ctx: Context,
+        ctx: ContextInterface,
         refreshToken: string
-    ): Promise<User | null>;
+    ): Promise<UserInterface | null>;
 
-    listGroups(ctx: Context): Promise<readonly GroupInterface[]>;
+    listGroups(ctx: ContextInterface): Promise<readonly GroupInterface[]>;
 
-    listUsers(ctx: Context): Promise<readonly User[]>;
+    listUsers(ctx: ContextInterface): Promise<readonly UserInterface[]>;
 
-    listUserGroupMembership(ctx: Context, user: User): Promise<readonly string[]>;
+    listUserGroupMembership(ctx: ContextInterface, user: UserInterface): Promise<readonly string[]>;
 
-    updateOptions(ctx: Context, userPool: UserPool): Promise<void>;
+    updateOptions(ctx: ContextInterface, userPool: UserPool): Promise<void>;
 
-    removeUserFromGroup(ctx: Context, group: GroupInterface, user: User): Promise<void>;
+    removeUserFromGroup(ctx: ContextInterface, group: GroupInterface, user: UserInterface): Promise<void>;
 
-    saveGroup(ctx: Context, group: GroupInterface): Promise<void>;
+    saveGroup(ctx: ContextInterface, group: GroupInterface): Promise<void>;
 
-    saveUser(ctx: Context, user: User): Promise<void>;
+    saveUser(ctx: ContextInterface, user: UserInterface): Promise<void>;
 
     storeRefreshToken(
-        ctx: Context,
+        ctx: ContextInterface,
         refreshToken: string,
-        user: User
+        user: UserInterface
     ): Promise<void>;
 }
 
-export interface UserPoolServiceFactory {
+export interface UserPoolServiceFactoryInterface {
     create(
-        ctx: Context,
-        clientsDataStore: DataStore,
+        ctx: ContextInterface,
+        clientsDataStore: DataStoreInterface,
         defaultOptions: UserPool
-    ): Promise<UserPoolService>;
+    ): Promise<UserPoolServiceInterface>;
 }
 
-export class UserPoolServiceImpl implements UserPoolService {
-    private readonly clientsDataStore: DataStore;
-    private readonly clock: Clock;
-    private readonly dataStore: DataStore;
+export class UserPoolServiceImpl implements UserPoolServiceInterface {
+    private readonly clientsDataStore: DataStoreInterface;
+    private readonly clock: ClockInterface;
+    private readonly dataStore: DataStoreInterface;
 
     public constructor(
-        clientsDataStore: DataStore,
-        clock: Clock,
-        dataStore: DataStore,
+        clientsDataStore: DataStoreInterface,
+        clock: ClockInterface,
+        dataStore: DataStoreInterface,
         config: UserPool
     ) {
         this.clientsDataStore = clientsDataStore;
@@ -182,8 +182,8 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async saveAppClient(
-        ctx: Context,
-        appClient: AppClient
+        ctx: ContextInterface,
+        appClient: AppClientInterface
     ): Promise<void> {
         ctx.logger.debug("UserPoolServiceImpl.saveAppClient");
         await this.clientsDataStore.set(
@@ -194,8 +194,8 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async deleteAppClient(
-        ctx: Context,
-        appClient: AppClient
+        ctx: ContextInterface,
+        appClient: AppClientInterface
     ): Promise<void> {
         ctx.logger.debug(
             {clientId: appClient.ClientId},
@@ -204,7 +204,7 @@ export class UserPoolServiceImpl implements UserPoolService {
         await this.clientsDataStore.delete(ctx, ["Clients", appClient.ClientId]);
     }
 
-    public async deleteGroup(ctx: Context, group: GroupInterface): Promise<void> {
+    public async deleteGroup(ctx: ContextInterface, group: GroupInterface): Promise<void> {
         ctx.logger.debug(
             {groupName: group.GroupName},
             "UserPoolServiceImpl.deleteGroup"
@@ -212,7 +212,7 @@ export class UserPoolServiceImpl implements UserPoolService {
         await this.dataStore.delete(ctx, ["Groups", group.GroupName]);
     }
 
-    public async deleteUser(ctx: Context, user: User): Promise<void> {
+    public async deleteUser(ctx: ContextInterface, user: UserInterface): Promise<void> {
         ctx.logger.debug(
             {username: user.Username},
             "UserPoolServiceImpl.deleteUser"
@@ -223,7 +223,7 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async getGroupByGroupName(
-        ctx: Context,
+        ctx: ContextInterface,
         groupName: string
     ): Promise<GroupInterface | null> {
         ctx.logger.debug("UserPoolServiceImpl.getGroupByGroupName");
@@ -233,9 +233,9 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async getUserByUsername(
-        ctx: Context,
+        ctx: ContextInterface,
         username: string
-    ): Promise<User | null> {
+    ): Promise<UserInterface | null> {
         ctx.logger.debug({username}, "UserPoolServiceImpl.getUserByUsername");
 
         const aliasEmailEnabled =
@@ -243,7 +243,7 @@ export class UserPoolServiceImpl implements UserPoolService {
         const aliasPhoneNumberEnabled =
             this.options.UsernameAttributes?.includes("phone_number");
 
-        const userByUsername = await this.dataStore.get<User>(ctx, [
+        const userByUsername = await this.dataStore.get<UserInterface>(ctx, [
             "Users",
             username,
         ]);
@@ -251,7 +251,7 @@ export class UserPoolServiceImpl implements UserPoolService {
             return userByUsername;
         }
 
-        const users = await this.dataStore.get<Record<string, User>>(
+        const users = await this.dataStore.get<Record<string, UserInterface>>(
             ctx,
             "Users",
             {}
@@ -281,9 +281,9 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async getUserByRefreshToken(
-        ctx: Context,
+        ctx: ContextInterface,
         refreshToken: string
-    ): Promise<User | null> {
+    ): Promise<UserInterface | null> {
         ctx.logger.debug(
             {refreshToken},
             "UserPoolServiceImpl.getUserByRefreshToken"
@@ -298,9 +298,9 @@ export class UserPoolServiceImpl implements UserPoolService {
         return user ?? null;
     }
 
-    public async listUsers(ctx: Context): Promise<readonly User[]> {
+    public async listUsers(ctx: ContextInterface): Promise<readonly UserInterface[]> {
         ctx.logger.debug("UserPoolServiceImpl.listUsers");
-        const users = await this.dataStore.get<Record<string, User>>(
+        const users = await this.dataStore.get<Record<string, UserInterface>>(
             ctx,
             "Users",
             {}
@@ -309,7 +309,7 @@ export class UserPoolServiceImpl implements UserPoolService {
         return Object.values(users);
     }
 
-    public async updateOptions(ctx: Context, userPool: UserPool): Promise<void> {
+    public async updateOptions(ctx: ContextInterface, userPool: UserPool): Promise<void> {
         ctx.logger.debug(
             {userPoolId: userPool.Id},
             "UserPoolServiceImpl.updateOptions"
@@ -318,13 +318,13 @@ export class UserPoolServiceImpl implements UserPoolService {
         this._options = userPool;
     }
 
-    public async saveUser(ctx: Context, user: User): Promise<void> {
+    public async saveUser(ctx: ContextInterface, user: UserInterface): Promise<void> {
         ctx.logger.debug({user}, "UserPoolServiceImpl.saveUser");
 
-        await this.dataStore.set<User>(ctx, ["Users", user.Username], user);
+        await this.dataStore.set<UserInterface>(ctx, ["Users", user.Username], user);
     }
 
-    async listGroups(ctx: Context): Promise<readonly GroupInterface[]> {
+    async listGroups(ctx: ContextInterface): Promise<readonly GroupInterface[]> {
         ctx.logger.debug("UserPoolServiceImpl.listGroups");
         const groups = await this.dataStore.get<Record<string, GroupInterface>>(
             ctx,
@@ -336,9 +336,9 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async addUserToGroup(
-        ctx: Context,
+        ctx: ContextInterface,
         group: GroupInterface,
-        user: User
+        user: UserInterface
     ): Promise<void> {
         ctx.logger.debug(
             {username: user.Username, groupName: group.GroupName},
@@ -357,9 +357,9 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     public async removeUserFromGroup(
-        ctx: Context,
+        ctx: ContextInterface,
         group: GroupInterface,
-        user: User
+        user: UserInterface
     ): Promise<void> {
         ctx.logger.debug(
             {username: user.Username, groupName: group.GroupName},
@@ -377,15 +377,15 @@ export class UserPoolServiceImpl implements UserPoolService {
         }
     }
 
-    async saveGroup(ctx: Context, group: GroupInterface): Promise<void> {
+    async saveGroup(ctx: ContextInterface, group: GroupInterface): Promise<void> {
         ctx.logger.debug({group}, "UserPoolServiceImpl.saveGroup");
 
         await this.dataStore.set<GroupInterface>(ctx, ["Groups", group.GroupName], group);
     }
 
     async listUserGroupMembership(
-        ctx: Context,
-        user: User
+        ctx: ContextInterface,
+        user: UserInterface
     ): Promise<readonly string[]> {
         ctx.logger.debug(
             {username: user.Username},
@@ -404,9 +404,9 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     async storeRefreshToken(
-        ctx: Context,
+        ctx: ContextInterface,
         refreshToken: string,
-        user: User
+        user: UserInterface
     ): Promise<void> {
         ctx.logger.debug(
             {refreshToken, username: user.Username},
@@ -425,8 +425,8 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 
     private async removeUserFromAllGroups(
-        ctx: Context,
-        user: User
+        ctx: ContextInterface,
+        user: UserInterface
     ): Promise<void> {
         ctx.logger.debug(
             {username: user.Username},
@@ -440,20 +440,20 @@ export class UserPoolServiceImpl implements UserPoolService {
     }
 }
 
-export class UserPoolServiceFactoryImpl implements UserPoolServiceFactory {
-    private readonly clock: Clock;
-    private readonly dataStoreFactory: DataStoreFactory;
+export class UserPoolServiceFactoryImpl implements UserPoolServiceFactoryInterface {
+    private readonly clock: ClockInterface;
+    private readonly dataStoreFactory: DataStoreFactoryInterface;
 
-    public constructor(clock: Clock, dataStoreFactory: DataStoreFactory) {
+    public constructor(clock: ClockInterface, dataStoreFactory: DataStoreFactoryInterface) {
         this.clock = clock;
         this.dataStoreFactory = dataStoreFactory;
     }
 
     public async create(
-        ctx: Context,
-        clientsDataStore: DataStore,
+        ctx: ContextInterface,
+        clientsDataStore: DataStoreInterface,
         defaultOptions: UserPool
-    ): Promise<UserPoolService> {
+    ): Promise<UserPoolServiceInterface> {
         const id = defaultOptions.Id;
 
         ctx.logger.debug({id}, "UserPoolServiceImpl.create");

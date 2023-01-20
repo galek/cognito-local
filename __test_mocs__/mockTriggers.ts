@@ -1,6 +1,6 @@
-import { Triggers } from "../src/services";
+import { TriggersInterface } from "../src/services";
 
-export const newMockTriggers = (): jest.Mocked<Triggers> => ({
+export const newMockTriggers = (): jest.Mocked<TriggersInterface> => ({
   customMessage: jest.fn(),
   customEmailSender: jest.fn(),
   enabled: jest.fn(),

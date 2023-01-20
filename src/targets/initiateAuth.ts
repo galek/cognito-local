@@ -11,30 +11,30 @@ import {
   PasswordResetRequiredError,
   UnsupportedError,
 } from "../errors";
-import {Services, UserPoolService} from "../services";
-import {AppClient} from "../services/appClient";
-import {attributesToRecord, attributeValue, MFAOption, User,} from "../services/userPoolService";
+import {ServicesInterface, UserPoolServiceInterface} from "../services";
+import {AppClientInterface} from "../services/appClient.interface";
+import {attributesToRecord, attributeValue, MFAOptionInterface, UserInterface,} from "../services/userPoolService.interface";
 import {Target} from "./Target";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
 export type InitiateAuthTarget = Target<InitiateAuthRequest,
     InitiateAuthResponse>;
 
-type InitiateAuthServices = Pick<Services,
+type InitiateAuthServices = Pick<ServicesInterface,
     "cognito" | "messages" | "otp" | "tokenGenerator" | "triggers">;
 
 const verifyMfaChallenge = async (
-  ctx: Context,
-  user: User,
+  ctx: ContextInterface,
+  user: UserInterface,
   req: InitiateAuthRequest,
-  userPool: UserPoolService,
+  userPool: UserPoolServiceInterface,
   services: InitiateAuthServices
 ): Promise<InitiateAuthResponse> => {
   if (!user.MFAOptions?.length) {
     throw new NotAuthorizedError();
   }
   const smsMfaOption = user.MFAOptions?.find(
-    (x): x is MFAOption & { DeliveryMedium: DeliveryMediumType } =>
+    (x): x is MFAOptionInterface & { DeliveryMedium: DeliveryMediumType } =>
       x.DeliveryMedium === "SMS"
   );
   if (!smsMfaOption) {
@@ -81,11 +81,11 @@ const verifyMfaChallenge = async (
 };
 
 const verifyPasswordChallenge = async (
-  ctx: Context,
-  user: User,
+  ctx: ContextInterface,
+  user: UserInterface,
   req: InitiateAuthRequest,
-  userPool: UserPoolService,
-  userPoolClient: AppClient,
+  userPool: UserPoolServiceInterface,
+  userPoolClient: AppClientInterface,
   services: InitiateAuthServices
 ): Promise<InitiateAuthResponse> => {
   const userGroups = await userPool.listUserGroupMembership(ctx, user);
@@ -112,7 +112,7 @@ const verifyPasswordChallenge = async (
   };
 };
 
-const newPasswordChallenge = (user: User): InitiateAuthResponse => ({
+const newPasswordChallenge = (user: UserInterface): InitiateAuthResponse => ({
   ChallengeName: "NEW_PASSWORD_REQUIRED",
   ChallengeParameters: {
     USER_ID_FOR_SRP: user.Username,
@@ -123,10 +123,10 @@ const newPasswordChallenge = (user: User): InitiateAuthResponse => ({
 });
 
 const userPasswordAuthFlow = async (
-  ctx: Context,
+  ctx: ContextInterface,
   req: InitiateAuthRequest,
-  userPool: UserPoolService,
-  userPoolClient: AppClient,
+  userPool: UserPoolServiceInterface,
+  userPoolClient: AppClientInterface,
   services: InitiateAuthServices
 ): Promise<InitiateAuthResponse> => {
   if (!req.AuthParameters) {
@@ -204,10 +204,10 @@ const userPasswordAuthFlow = async (
 };
 
 const refreshTokenAuthFlow = async (
-  ctx: Context,
+  ctx: ContextInterface,
   req: InitiateAuthRequest,
-  userPool: UserPoolService,
-  userPoolClient: AppClient,
+  userPool: UserPoolServiceInterface,
+  userPoolClient: AppClientInterface,
   services: InitiateAuthServices
 ): Promise<InitiateAuthResponse> => {
   if (!req.AuthParameters) {

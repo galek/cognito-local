@@ -1,17 +1,17 @@
-import { Context } from "../src/services/context";
+import { ContextInterface } from "../src/services/contextInterface";
 import {
   DeliveryDetails,
-  MessageDelivery,
-} from "../src/services/messageDelivery/messageDelivery";
-import { Message } from "../src/services/messages";
-import { User } from "../src/services/userPoolService";
+  MessageDeliveryInterface,
+} from "../src/services/messageDelivery/messageDeliveryInterface";
+import { MessageInterface } from "../src/services/messagesInterface";
+import { UserInterface } from "../src/services/userPoolServiceInterface";
 
 interface CollectedMessage {
   readonly deliveryDetails: DeliveryDetails;
-  readonly message: Message;
+  readonly message: MessageInterface;
 }
 
-export class FakeMessageDeliveryService implements MessageDelivery {
+export class FakeMessageDeliveryService implements MessageDeliveryInterface {
   private readonly messages: CollectedMessage[] = [];
 
   public get collectedMessages(): readonly CollectedMessage[] {
@@ -19,10 +19,10 @@ export class FakeMessageDeliveryService implements MessageDelivery {
   }
 
   deliver(
-    ctx: Context,
-    user: User,
+    ctx: ContextInterface,
+    user: UserInterface,
     deliveryDetails: DeliveryDetails,
-    message: Message
+    message: MessageInterface
   ): Promise<void> {
     this.messages.push({
       deliveryDetails,

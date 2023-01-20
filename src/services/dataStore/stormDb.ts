@@ -1,18 +1,18 @@
 import StormDB from "stormdb";
-import {Context} from "../context";
+import {ContextInterface} from "../context.interface";
 import {DataStoreCache} from "./cache";
-import {DataStore} from "./dataStore";
-import {DataStoreFactory} from "./factory";
+import {DataStoreInterface} from "./dataStore.interface";
+import {DataStoreFactoryInterface} from "./factory";
 import {mkdir} from "fs/promises";
 
-export class StormDBDataStore implements DataStore {
+export class StormDBDataStore implements DataStoreInterface {
     private readonly db: StormDB;
 
     public constructor(db: StormDB) {
         this.db = db;
     }
 
-    async delete(ctx: Context, key: string | string[]) {
+    async delete(ctx: ContextInterface, key: string | string[]) {
         ctx.logger.debug({key}, "DataStore.delete");
         (key instanceof Array ? key : [key])
             .reduce((acc, k) => acc.get([k]), this.db)
@@ -22,12 +22,12 @@ export class StormDBDataStore implements DataStore {
         await this.db.save();
     }
 
-    async getRoot(ctx: Context) {
+    async getRoot(ctx: ContextInterface) {
         ctx.logger.debug("DataStore.getRoot");
         return (await this.db.value()) ?? null;
     }
 
-    async get<T>(ctx: Context, key: string | string[], defaultValue?: T) {
+    async get<T>(ctx: ContextInterface, key: string | string[], defaultValue?: T) {
         ctx.logger.debug({key}, "DataStore.get");
         return (
             (await (key instanceof Array ? key : [key])
@@ -38,7 +38,7 @@ export class StormDBDataStore implements DataStore {
         );
     }
 
-    async set<T>(ctx: Context, key: string | string[], value: T) {
+    async set<T>(ctx: ContextInterface, key: string | string[], value: T) {
         ctx.logger.debug({key, value}, "DataStore.set");
         this.db.setValue(value, key instanceof Array ? key : [key]);
         ctx.logger.debug({store: this.db.value()}, "DataStore.save");
@@ -94,7 +94,7 @@ const createStormDBInstance = (directory: string, id: string): StormDB => {
     return new StormDB(engine);
 };
 
-export class StormDBDataStoreFactory implements DataStoreFactory {
+export class StormDBDataStoreFactory implements DataStoreFactoryInterface {
     private readonly directory: string;
     private readonly cache: DataStoreCache;
 
@@ -104,10 +104,10 @@ export class StormDBDataStoreFactory implements DataStoreFactory {
     }
 
     public async create(
-        ctx: Context,
+        ctx: ContextInterface,
         id: string,
         defaults: object
-    ): Promise<DataStore> {
+    ): Promise<DataStoreInterface> {
         ctx.logger.debug({id}, "createDataStore");
         await mkdir(this.directory, {recursive: true});
 

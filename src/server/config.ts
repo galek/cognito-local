@@ -1,5 +1,5 @@
-import {Context} from "../services/context";
-import {DataStoreFactory} from "../services/dataStore/factory";
+import {ContextInterface} from "../services/context.interface";
+import {DataStoreFactoryInterface} from "../services/dataStore/factory";
 import mergeWith from "lodash.mergewith";
 import {ConfigInterface} from "./interfaces/config.interface";
 
@@ -20,7 +20,7 @@ export const DefaultConfig: ConfigInterface = {
     },
 };
 
-export const loadConfig = async (ctx: Context, dataStoreFactory: DataStoreFactory): Promise<ConfigInterface> => {
+export const loadConfig = async (ctx: ContextInterface, dataStoreFactory: DataStoreFactoryInterface): Promise<ConfigInterface> => {
     ctx.logger.debug("loadConfig");
     const dataStore = await dataStoreFactory.create(ctx, "config", {});
 

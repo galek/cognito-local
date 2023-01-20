@@ -4,9 +4,9 @@ import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
 import {UUID} from "../../../__test_mocs__/patterns";
 import {TestContext} from "../../../__test_mocs__/testContext";
 import {JwtTokenGenerator, TokenGeneratorInterface} from "../tokenGeneratorInterface";
-import {Triggers} from "../triggers";
+import {TriggersInterface} from "../triggers";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import {attributeValue} from "../userPoolService";
+import {attributeValue} from "../userPoolServiceInterface";
 
 const originalDate = new Date(2022, 4, 30, 17, 30, 0, 0);
 const ONE_MINUTE = 60;
@@ -15,7 +15,7 @@ const ONE_DAY = ONE_HOUR * 24;
 const SEVEN_DAYS = ONE_DAY * 7;
 
 describe("JwtTokenGenerator", () => {
-    let mockTriggers: jest.Mocked<Triggers>;
+    let mockTriggers: jest.Mocked<TriggersInterface>;
     let tokenGenerator: TokenGeneratorInterface;
 
     const user = TDB.user();

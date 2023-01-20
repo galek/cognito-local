@@ -4,8 +4,8 @@ import { newMockMessages } from "../../../__test_mocs__/mockMessages";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { UserNotFoundError } from "../../errors";
-import { Messages, UserPoolService } from "../../services";
-import { attributeValue } from "../../services/userPoolService";
+import { MessagesInterface, UserPoolServiceInterface } from "../../services";
+import { attributeValue } from "../../services/userPoolServiceInterface";
 import { ForgotPassword, ForgotPasswordTarget } from "../forgotPassword";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
@@ -13,8 +13,8 @@ const currentDate = new Date();
 
 describe("ForgotPassword target", () => {
   let forgotPassword: ForgotPasswordTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
   let mockOtp: jest.MockedFunction<() => string>;
 
   beforeEach(() => {

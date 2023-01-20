@@ -1,11 +1,11 @@
-import {Context} from "./context";
-import {DeliveryDetails, MessageDelivery,} from "./messageDelivery/messageDelivery";
-import {Triggers} from "./triggers";
-import {User} from "./userPoolService";
+import {ContextInterface} from "./context.interface";
+import {DeliveryDetails, MessageDeliveryInterface,} from "./messageDelivery/messageDelivery.interface";
+import {TriggersInterface} from "./triggers";
+import {UserInterface} from "./userPoolService.interface";
 
 const AWS_ADMIN_CLIENT_ID = "CLIENT_ID_NOT_APPLICABLE";
 
-export interface Message {
+export interface MessageInterface {
     __code?: string; // not really part of the message, but we pass it around for convenience logging to the console
     emailMessage?: string | null;
     emailSubject?: string | null;
@@ -21,34 +21,34 @@ type MessageSource =
     | "UpdateUserAttribute"
     | "VerifyUserAttribute";
 
-export interface Messages {
+export interface MessagesInterface {
     deliver(
-        ctx: Context,
+        ctx: ContextInterface,
         source: MessageSource,
         clientId: string | null,
         userPoolId: string,
-        user: User,
+        user: UserInterface,
         code: string,
         clientMetadata: Record<string, string> | undefined,
         deliveryDetails: DeliveryDetails
     ): Promise<void>;
 }
 
-export class MessagesService implements Messages {
-    private readonly triggers: Triggers;
-    private readonly messageDelivery: MessageDelivery;
+export class MessagesService implements MessagesInterface {
+    private readonly triggers: TriggersInterface;
+    private readonly messageDelivery: MessageDeliveryInterface;
 
-    public constructor(triggers: Triggers, messageDelivery: MessageDelivery) {
+    public constructor(triggers: TriggersInterface, messageDelivery: MessageDeliveryInterface) {
         this.triggers = triggers;
         this.messageDelivery = messageDelivery;
     }
 
     public async deliver(
-        ctx: Context,
+        ctx: ContextInterface,
         source: MessageSource,
         clientId: string | null,
         userPoolId: string,
-        user: User,
+        user: UserInterface,
         code: string,
         clientMetadata: Record<string, string> | undefined,
         deliveryDetails: DeliveryDetails
@@ -82,14 +82,14 @@ export class MessagesService implements Messages {
     }
 
     private async create(
-        ctx: Context,
+        ctx: ContextInterface,
         source: MessageSource,
         clientId: string | null,
         userPoolId: string,
-        user: User,
+        user: UserInterface,
         code: string,
         clientMetadata: Record<string, string> | undefined
-    ): Promise<Message> {
+    ): Promise<MessageInterface> {
         if (this.triggers.enabled("CustomMessage")) {
             const message = await this.triggers.customMessage(ctx, {
                 clientId: clientId ?? AWS_ADMIN_CLIENT_ID,
@@ -114,11 +114,11 @@ export class MessagesService implements Messages {
     }
 
     private async customDelivery(
-        ctx: Context,
+        ctx: ContextInterface,
         source: Exclude<MessageSource, "Authentication">,
         clientId: string | null,
         userPoolId: string,
-        user: User,
+        user: UserInterface,
         code: string,
         clientMetadata: Record<string, string> | undefined
     ): Promise<void> {

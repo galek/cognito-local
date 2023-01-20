@@ -1,7 +1,7 @@
-import {Clock} from "../clock";
+import {ClockInterface} from "../clock.interface";
 import {CognitoService} from "../cognitoService";
 import {CryptoService} from "../crypto";
-import {Lambda} from "../lambda";
+import {LambdaInterface} from "../lambda.interface";
 import {CustomEmailSender, CustomEmailSenderTrigger,} from "./customEmailSender";
 import {CustomMessage, CustomMessageTrigger} from "./customMessage";
 import {PostAuthentication, PostAuthenticationTrigger,} from "./postAuthentication";
@@ -19,7 +19,7 @@ type SupportedTriggers =
     | "PreSignUp"
     | "PreTokenGeneration";
 
-export interface Triggers {
+export interface TriggersInterface {
     customMessage: CustomMessageTrigger;
     customEmailSender: CustomEmailSenderTrigger;
     postAuthentication: PostAuthenticationTrigger;
@@ -31,7 +31,7 @@ export interface Triggers {
     enabled(trigger: SupportedTriggers): boolean;
 }
 
-export class TriggersService implements Triggers {
+export class TriggersService implements TriggersInterface {
     public readonly customMessage: CustomMessageTrigger;
     public readonly customEmailSender: CustomEmailSenderTrigger;
     public readonly postAuthentication: PostAuthenticationTrigger;
@@ -39,12 +39,12 @@ export class TriggersService implements Triggers {
     public readonly preSignUp: PreSignUpTrigger;
     public readonly preTokenGeneration: PreTokenGenerationTrigger;
     public readonly userMigration: UserMigrationTrigger;
-    private readonly lambda: Lambda;
+    private readonly lambda: LambdaInterface;
 
     public constructor(
-        clock: Clock,
+        clock: ClockInterface,
         cognitoClient: CognitoService,
-        lambda: Lambda,
+        lambda: LambdaInterface,
         crypto: CryptoService
     ) {
         this.lambda = lambda;

@@ -1,12 +1,12 @@
-import {FunctionConfig} from "../../services/lambda";
-import {KMSConfig} from "../../services/crypto";
-import {UserPoolDefaults} from "../../services/userPoolService";
-import {TokenConfigInterface} from "../../services/tokenGeneratorInterface";
+import {FunctionConfigInterface} from "../../services/lambda.interface";
+import {KMSConfigInterface} from "../../services/crypto";
+import {UserPoolDefaults} from "../../services/userPoolService.interface";
+import {TokenConfigInterface} from "../../services/tokenGenerator.interface";
 
 export interface ConfigInterface {
     LambdaClient: AWS.Lambda.ClientConfiguration;
-    TriggerFunctions: FunctionConfig;
+    TriggerFunctions: FunctionConfigInterface;
     UserPoolDefaults: UserPoolDefaults;
-    KMSConfig?: AWS.KMS.ClientConfiguration & KMSConfig;
+    KMSConfig?: AWS.KMS.ClientConfiguration & KMSConfigInterface;
     TokenConfig: TokenConfigInterface;
 }

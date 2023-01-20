@@ -1,14 +1,14 @@
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {UnsupportedError} from "../errors";
 import {isSupportedTarget} from "../targets/Target";
 import {Targets} from "../targets/targets";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
-export type Route = (ctx: Context, req: any) => Promise<any>;
+export type Route = (ctx: ContextInterface, req: any) => Promise<any>;
 export type Router = (target: string) => Route;
 
 export const Router =
-    (services: Services): Router =>
+    (services: ServicesInterface): Router =>
         (target: string) => {
             if (!isSupportedTarget(target)) {
                 return () =>

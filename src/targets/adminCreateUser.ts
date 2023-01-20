@@ -6,10 +6,10 @@ import {
 import shortUUID from "short-uuid";
 import * as uuid from "uuid";
 import {InvalidParameterError, UnsupportedError, UsernameExistsError,} from "../errors";
-import {Messages, Services, UserPoolService} from "../services";
-import {Context} from "../services/context";
-import {DeliveryDetails} from "../services/messageDelivery/messageDelivery";
-import {attributesInclude, attributeValue, User,} from "../services/userPoolService";
+import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
+import {ContextInterface} from "../services/context.interface";
+import {DeliveryDetails} from "../services/messageDelivery/messageDelivery.interface";
+import {attributesInclude, attributeValue, UserInterface,} from "../services/userPoolService.interface";
 import {userToResponseObject} from "./responses";
 import {Target} from "./Target";
 
@@ -21,13 +21,13 @@ export type AdminCreateUserTarget = Target<AdminCreateUserRequest,
     AdminCreateUserResponse>;
 
 type AdminCreateUserServices = Pick<
-  Services,
+  ServicesInterface,
   "clock" | "cognito" | "messages" | "config"
 >;
 
 const selectAppropriateDeliveryMethod = (
   desiredDeliveryMediums: DeliveryMediumListType,
-  user: User
+  user: UserInterface
 ): DeliveryDetails | null => {
   if (desiredDeliveryMediums.includes("SMS")) {
     const phoneNumber = attributeValue("phone_number", user.Attributes);
@@ -55,12 +55,12 @@ const selectAppropriateDeliveryMethod = (
 };
 
 const deliverWelcomeMessage = async (
-  ctx: Context,
+  ctx: ContextInterface,
   req: AdminCreateUserRequest,
   temporaryPassword: string,
-  user: User,
-  messages: Messages,
-  userPool: UserPoolService
+  user: UserInterface,
+  messages: MessagesInterface,
+  userPool: UserPoolServiceInterface
 ) => {
   const deliveryDetails = selectAppropriateDeliveryMethod(
     req.DesiredDeliveryMediums ?? ["SMS"],
@@ -120,7 +120,7 @@ export const AdminCreateUser =
       attributes.push({ Name: "email", Value: req.Username });
     }
 
-    const user: User = {
+    const user: UserInterface = {
       Username: req.Username,
       Password: temporaryPassword,
       Attributes: attributes,

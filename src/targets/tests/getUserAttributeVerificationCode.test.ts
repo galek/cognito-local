@@ -6,8 +6,8 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, UserNotFoundError } from "../../errors";
 import PrivateKey from "../../keys/cognitoLocal.private.json";
-import { Messages, UserPoolService } from "../../services";
-import { attribute, attributeValue } from "../../services/userPoolService";
+import { MessagesInterface, UserPoolServiceInterface } from "../../services";
+import { attribute, attributeValue } from "../../services/userPoolServiceInterface";
 import {
   GetUserAttributeVerificationCode,
   GetUserAttributeVerificationCodeTarget,
@@ -36,8 +36,8 @@ const validToken = jwt.sign(
 
 describe("GetUserAttributeVerificationCode target", () => {
   let getUserAttributeVerificationCode: GetUserAttributeVerificationCodeTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService({

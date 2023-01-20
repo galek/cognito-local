@@ -1,24 +1,24 @@
-import {DataStore} from "./dataStore";
+import {DataStoreInterface} from "./dataStore.interface";
 
 export type DataStoreCache = {
-    get(key: string): DataStore | null;
-    set(key: string, value: DataStore): void;
+    get(key: string): DataStoreInterface | null;
+    set(key: string, value: DataStoreInterface): void;
 };
 
 export class InMemoryCache implements DataStoreCache {
-    private readonly cache: Record<string, DataStore> = {};
+    private readonly cache: Record<string, DataStoreInterface> = {};
 
-    get(key: string): DataStore | null {
+    get(key: string): DataStoreInterface | null {
         return this.cache[key];
     }
 
-    set(key: string, value: DataStore): void {
+    set(key: string, value: DataStoreInterface): void {
         this.cache[key] = value;
     }
 }
 
 export class NoOpCache implements DataStoreCache {
-    get(): DataStore | null {
+    get(): DataStoreInterface | null {
         return null;
     }
 

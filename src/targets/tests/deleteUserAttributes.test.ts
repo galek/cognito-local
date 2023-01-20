@@ -6,8 +6,8 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, NotAuthorizedError } from "../../errors";
 import PrivateKey from "../../keys/cognitoLocal.private.json";
-import { UserPoolService } from "../../services";
-import { attribute } from "../../services/userPoolService";
+import { UserPoolServiceInterface } from "../../services";
+import { attribute } from "../../services/userPoolServiceInterface";
 import {
   DeleteUserAttributes,
   DeleteUserAttributesTarget,
@@ -38,7 +38,7 @@ const validToken = jwt.sign(
 
 describe("DeleteUserAttributes target", () => {
   let deleteUserAttributes: DeleteUserAttributesTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

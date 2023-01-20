@@ -4,7 +4,7 @@ import {
   SchemaAttributesListType,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import shortUUID from "short-uuid";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
 import {userPoolToResponseObject} from "./responses";
 import {Target} from "./Target";
@@ -20,7 +20,7 @@ export type CreateUserPoolTarget = Target<CreateUserPoolRequest,
   CreateUserPoolResponse
 >;
 
-type CreateUserPoolServices = Pick<Services, "clock" | "cognito">;
+type CreateUserPoolServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 /**
  * createSchemaAttributes combines the default list of User Pool Schema Attributes with the Schema provided by the

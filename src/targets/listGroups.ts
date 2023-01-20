@@ -1,11 +1,11 @@
 import {ListGroupsRequest, ListGroupsResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {groupToResponseObject} from "./responses";
 import {Target} from "./Target";
 
 export type ListGroupsTarget = Target<ListGroupsRequest, ListGroupsResponse>;
 
-type ListGroupServices = Pick<Services, "cognito">;
+type ListGroupServices = Pick<ServicesInterface, "cognito">;
 
 export const ListGroups =
     ({cognito}: ListGroupServices): ListGroupsTarget =>

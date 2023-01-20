@@ -1,8 +1,8 @@
 import {buildClient, CommitmentPolicy, KmsKeyringNode,} from "@aws-crypto/client-node";
 import {KMS} from "aws-sdk";
-import {Context} from "./context";
+import {ContextInterface} from "./context.interface";
 
-export interface KMSConfig {
+export interface KMSConfigInterface {
     KMSKeyId?: string;
     KMSKeyAlias?: string;
 }
@@ -10,9 +10,9 @@ export interface KMSConfig {
 const {encrypt} = buildClient(CommitmentPolicy.REQUIRE_ENCRYPT_ALLOW_DECRYPT);
 
 export class CryptoService {
-    config?: KMSConfig & AWS.KMS.ClientConfiguration;
+    config?: KMSConfigInterface & AWS.KMS.ClientConfiguration;
 
-    constructor(config?: KMSConfig) {
+    constructor(config?: KMSConfigInterface) {
         this.config = config;
     }
 
@@ -41,7 +41,7 @@ export class CryptoService {
         }));
     }
 
-    async encrypt(ctx: Context, plaintext: string): Promise<string> {
+    async encrypt(ctx: ContextInterface, plaintext: string): Promise<string> {
         ctx.logger.debug({plaintext}, "encrypting code");
 
         const {result} = await encrypt(this.keyringNode, plaintext);

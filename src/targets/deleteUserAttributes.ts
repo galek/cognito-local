@@ -4,15 +4,15 @@ import {
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
 import {InvalidParameterError, NotAuthorizedError} from "../errors";
-import {Services} from "../services";
-import {TokenInterface} from "../services/tokenGeneratorInterface";
-import {attributesRemove} from "../services/userPoolService";
+import {ServicesInterface} from "../services";
+import {TokenInterface} from "../services/tokenGenerator.interface";
+import {attributesRemove} from "../services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type DeleteUserAttributesTarget = Target<DeleteUserAttributesRequest,
     DeleteUserAttributesResponse>;
 
-type DeleteUserAttributesServices = Pick<Services, "clock" | "cognito">;
+type DeleteUserAttributesServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const DeleteUserAttributes =
     ({

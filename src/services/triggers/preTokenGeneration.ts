@@ -1,6 +1,6 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Lambda, PreTokenGenerationTriggerResponse} from "../lambda";
-import {attributesToRecord} from "../userPoolService";
+import {LambdaInterface, PreTokenGenerationTriggerResponse} from "../lambda.interface";
+import {attributesToRecord} from "../userPoolService.interface";
 import {Trigger} from "./trigger";
 import {StringMap} from "aws-sdk/clients/ecs";
 import {GroupOverrideDetails} from "aws-lambda/trigger/cognito-user-pool-trigger/pre-token-generation";
@@ -49,18 +49,20 @@ export type PreTokenGenerationTrigger = Trigger<{
 }, PreTokenGenerationTriggerResponse>;
 
 type PreTokenGenerationServices = {
-    lambda: Lambda;
+    lambda: LambdaInterface;
 };
 
-export interface PreTokenGenerationResponse {
+export interface PreTokenGenerationResponseInterface {
     claimsOverrideDetails: {
-        claimsToAddOrOverride?: StringMap | undefined, claimsToSuppress?: string[] | undefined, groupOverrideDetails?: GroupOverrideDetails | undefined
+        claimsToAddOrOverride?: StringMap | undefined, claimsToSuppress?: string[] | undefined,
+        groupOverrideDetails?: GroupOverrideDetails | undefined
     }
 }
 
-export const PreTokenGeneration = ({lambda}: PreTokenGenerationServices): PreTokenGenerationTrigger => async (ctx, {
+export const PreTokenGeneration = ({lambda}: PreTokenGenerationServices): PreTokenGenerationTrigger =>
+    async (ctx, {
     clientId, clientMetadata, groupConfiguration, source, userAttributes, username, userPoolId,
-}): Promise<PreTokenGenerationResponse> => lambda.invoke(ctx, "PreTokenGeneration", {
+}): Promise<PreTokenGenerationResponseInterface> => lambda.invoke(ctx, "PreTokenGeneration", {
     clientId,
     clientMetadata,
     groupConfiguration,

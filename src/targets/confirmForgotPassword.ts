@@ -3,14 +3,14 @@ import {
   ConfirmForgotPasswordResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {CodeMismatchError, UserNotFoundError} from "../errors";
-import {Services} from "../services";
-import {attribute, attributesAppend} from "../services/userPoolService";
+import {ServicesInterface} from "../services";
+import {attribute, attributesAppend} from "../services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type ConfirmForgotPasswordTarget = Target<ConfirmForgotPasswordRequest,
     ConfirmForgotPasswordResponse>;
 
-type ConfirmForgotPasswordServices = Pick<Services,
+type ConfirmForgotPasswordServices = Pick<ServicesInterface,
     "cognito" | "clock" | "triggers">;
 
 export const ConfirmForgotPassword =

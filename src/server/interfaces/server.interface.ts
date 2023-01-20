@@ -4,27 +4,27 @@ import express from "express";
 import * as http from "http";
 import type {Logger} from "pino";
 import * as uuid from "uuid";
-import {CognitoError, UnsupportedError} from "../errors";
-import {Router} from "./Router";
 import Pino from "pino-http";
-import {PublicKey} from "../keys/cognitoLocal.public.json";
+import {PublicKey} from "../../keys/cognitoLocal.public.json";
+import {CognitoError, UnsupportedError} from "../../errors";
+import {Router} from "../Router";
 
-export interface ServerOptions {
+export interface ServerOptionsInterface {
     port: number;
     hostname: string;
     development: boolean;
 }
 
-export interface Server {
-    application: any; // eslint-disable-line
-    start(options?: Partial<ServerOptions>): Promise<http.Server>;
+export interface ServerInterface {
+    application: any;
+    start(options?: Partial<ServerOptionsInterface>): Promise<http.Server>;
 }
 
 export const createServer = (
     router: Router,
     logger: Logger,
-    options: Partial<ServerOptions> = {}
-): Server => {
+    options: Partial<ServerOptionsInterface> = {}
+): ServerInterface => {
     const pino = Pino({
         logger,
         useLevel: "debug",
@@ -135,7 +135,7 @@ export const createServer = (
     return {
         application: app,
         start(startOptions) {
-            const actualOptions: ServerOptions = {
+            const actualOptions: ServerOptionsInterface = {
                 port: options?.port ?? 9229,
                 hostname: options?.hostname ?? "localhost",
                 development: options?.development ?? false,

@@ -1,6 +1,6 @@
-import { Clock } from "../src/services";
+import { ClockInterface } from "../src/services";
 
-export class ClockFake implements Clock {
+export class ClockFake implements ClockInterface {
   private currentValue: Date;
 
   constructor(initialValue: Date) {

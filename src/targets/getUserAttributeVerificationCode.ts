@@ -3,19 +3,19 @@ import {
     GetUserAttributeVerificationCodeResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import {Messages, Services, UserPoolService} from "../services";
+import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
 import {InvalidParameterError, UserNotFoundError} from "../errors";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
-import {TokenInterface} from "../services/tokenGeneratorInterface";
-import {User} from "../services/userPoolService";
+import {TokenInterface} from "../services/tokenGenerator.interface";
+import {UserInterface} from "../services/userPoolService.interface";
 import {Target} from "./Target";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
 const sendAttributeVerificationCode = async (
-    ctx: Context,
-    userPool: UserPoolService,
-    user: User,
-    messages: Messages,
+    ctx: ContextInterface,
+    userPool: UserPoolServiceInterface,
+    user: UserInterface,
+    messages: MessagesInterface,
     req: GetUserAttributeVerificationCodeRequest,
     code: string
 ) => {
@@ -48,7 +48,7 @@ export type GetUserAttributeVerificationCodeTarget = Target<
 >;
 
 type GetUserAttributeVerificationCodeServices = Pick<
-  Services,
+  ServicesInterface,
   "cognito" | "otp" | "messages"
 >;
 

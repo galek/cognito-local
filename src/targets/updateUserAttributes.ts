@@ -3,26 +3,26 @@ import {
     UpdateUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import {Messages, Services, UserPoolService} from "../services";
+import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
 import {InvalidParameterError, NotAuthorizedError} from "../errors";
 import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
-import {TokenInterface} from "../services/tokenGeneratorInterface";
+import {TokenInterface} from "../services/tokenGenerator.interface";
 import {
     attributesAppend,
     defaultVerifiedAttributesIfModified,
     hasUnverifiedContactAttributes,
-    User,
+    UserInterface,
     validatePermittedAttributeChanges,
-} from "../services/userPoolService";
+} from "../services/userPoolService.interface";
 import {Target} from "./Target";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
 const sendAttributeVerificationCode = async (
-    ctx: Context,
-    userPool: UserPoolService,
-    user: User,
-    messages: Messages,
+    ctx: ContextInterface,
+    userPool: UserPoolServiceInterface,
+    user: UserInterface,
+    messages: MessagesInterface,
     req: UpdateUserAttributesRequest,
     code: string
 ) => {
@@ -57,7 +57,7 @@ export type UpdateUserAttributesTarget = Target<
 >;
 
 type UpdateUserAttributesServices = Pick<
-  Services,
+  ServicesInterface,
   "clock" | "cognito" | "otp" | "messages"
 >;
 

@@ -1,12 +1,12 @@
 import {ListUserPoolClientsRequest, ListUserPoolClientsResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {appClientToResponseObject} from "./responses";
 import {Target} from "./Target";
 
 export type ListUserPoolClientsTarget = Target<ListUserPoolClientsRequest,
     ListUserPoolClientsResponse>;
 
-type ListGroupServices = Pick<Services, "cognito">;
+type ListGroupServices = Pick<ServicesInterface, "cognito">;
 
 export const ListUserPoolClients =
     ({cognito}: ListGroupServices): ListUserPoolClientsTarget =>

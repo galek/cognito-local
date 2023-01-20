@@ -3,7 +3,7 @@ import {
     DescribeUserPoolClientResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {ResourceNotFoundError} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {appClientToResponseObject} from "./responses";
 import {Target} from "./Target";
 
@@ -11,7 +11,7 @@ export type DescribeUserPoolClientTarget = Target<DescribeUserPoolClientRequest,
     DescribeUserPoolClientResponse>;
 
 export const DescribeUserPoolClient =
-    ({cognito}: Pick<Services, "cognito">): DescribeUserPoolClientTarget =>
+    ({cognito}: Pick<ServicesInterface, "cognito">): DescribeUserPoolClientTarget =>
         async (ctx, req) => {
             const client = await cognito.getAppClient(ctx, req.ClientId);
     if (client?.UserPoolId !== req.UserPoolId) {

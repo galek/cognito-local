@@ -1,15 +1,15 @@
 import {VerifyUserAttributeRequest, VerifyUserAttributeResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
 import {CodeMismatchError, InvalidParameterError, NotAuthorizedError,} from "../errors";
-import {Services} from "../services";
-import {TokenInterface} from "../services/tokenGeneratorInterface";
-import {attribute, attributesAppend} from "../services/userPoolService";
+import {ServicesInterface} from "../services";
+import {TokenInterface} from "../services/tokenGenerator.interface";
+import {attribute, attributesAppend} from "../services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type VerifyUserAttributeTarget = Target<VerifyUserAttributeRequest,
     VerifyUserAttributeResponse>;
 
-type VerifyUserAttributeServices = Pick<Services, "clock" | "cognito">;
+type VerifyUserAttributeServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const VerifyUserAttribute =
     ({

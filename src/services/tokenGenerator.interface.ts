@@ -2,11 +2,11 @@ import {StringMap} from "aws-lambda/trigger/cognito-user-pool-trigger/_common";
 import {GroupOverrideDetails} from "aws-lambda/trigger/cognito-user-pool-trigger/pre-token-generation";
 import jwt from "jsonwebtoken";
 import * as uuid from "uuid";
-import {AppClient} from "./appClient";
-import {Clock} from "./clock";
-import {Context} from "./context";
-import {Triggers} from "./triggers";
-import {attributesToRecord, attributeValue, customAttributes, User,} from "./userPoolService";
+import {AppClientInterface} from "./appClient.interface";
+import {ClockInterface} from "./clock.interface";
+import {ContextInterface} from "./context.interface";
+import {TriggersInterface} from "./triggers";
+import {attributesToRecord, attributeValue, customAttributes, UserInterface,} from "./userPoolService.interface";
 import {PrivateKey} from "../keys/cognitoLocal.private.json";
 
 type ValidityUnit = "seconds" | "minutes" | "hours" | "days" | string;
@@ -85,10 +85,10 @@ export interface TokensInterface {
 
 export interface TokenGeneratorInterface {
     generate(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         userGroups: readonly string[],
-        userPoolClient: AppClient,
+        userPoolClient: AppClientInterface,
         clientMetadata: Record<string, string> | undefined,
         source:
             | "AuthenticateDevice"
@@ -106,13 +106,13 @@ const formatExpiration = (
 ): string => (duration ? `${duration}${unit}` : fallback);
 
 export class JwtTokenGenerator implements TokenGeneratorInterface {
-    private readonly clock: Clock;
-    private readonly triggers: Triggers;
+    private readonly clock: ClockInterface;
+    private readonly triggers: TriggersInterface;
     private readonly tokenConfig: TokenConfigInterface;
 
     public constructor(
-        clock: Clock,
-        triggers: Triggers,
+        clock: ClockInterface,
+        triggers: TriggersInterface,
         tokenConfig: TokenConfigInterface
     ) {
         this.clock = clock;
@@ -121,10 +121,10 @@ export class JwtTokenGenerator implements TokenGeneratorInterface {
     }
 
     public async generate(
-        ctx: Context,
-        user: User,
+        ctx: ContextInterface,
+        user: UserInterface,
         userGroups: readonly string[],
-        userPoolClient: AppClient,
+        userPoolClient: AppClientInterface,
         clientMetadata: Record<string, string> | undefined,
         source:
             | "AuthenticateDevice"

@@ -1,12 +1,12 @@
 import {CreateGroupRequest, CreateGroupResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {groupToResponseObject} from "./responses";
 import {Target} from "./Target";
 import {GroupInterface} from "../services/interfaces/group.interface";
 
 export type CreateGroupTarget = Target<CreateGroupRequest, CreateGroupResponse>;
 
-type CreateGroupServices = Pick<Services, "clock" | "cognito">;
+type CreateGroupServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const CreateGroup =
     ({cognito, clock}: CreateGroupServices): CreateGroupTarget =>

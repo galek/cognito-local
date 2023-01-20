@@ -1,10 +1,10 @@
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 import {Targets} from "./targets";
 
 export type TargetName = keyof typeof Targets;
 
 export type Target<Req extends {}, Res extends {}> = (
-    ctx: Context,
+    ctx: ContextInterface,
     req: Req
 ) => Promise<Res>;
 

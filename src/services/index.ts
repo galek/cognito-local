@@ -1,23 +1,23 @@
-import {ConfigInterface} from "../server/configInterface";
-import {Clock} from "./clock";
-import {Messages} from "./messages";
-import {TokenGeneratorInterface} from "./tokenGeneratorInterface";
-import {Triggers} from "./triggers";
+import {ClockInterface} from "./clock.interface";
+import {MessagesInterface} from "./messages.interface";
+import {TokenGeneratorInterface} from "./tokenGenerator.interface";
+import {TriggersInterface} from "./triggers";
 import {CognitoService} from "./cognitoService";
+import {ConfigInterface} from "../server/interfaces/config.interface";
 
-export {Clock, DateClock} from "./clock";
+export {ClockInterface, DateClock} from "./clock.interface";
 export {CognitoService, CognitoServiceImpl} from "./cognitoService";
-export {UserPoolService, UserPoolServiceImpl} from "./userPoolService";
-export {Triggers, TriggersService} from "./triggers";
-export {Lambda, LambdaService} from "./lambda";
-export {Messages, MessagesService} from "./messages";
+export {UserPoolServiceInterface, UserPoolServiceImpl} from "./userPoolService.interface";
+export {TriggersInterface, TriggersService} from "./triggers";
+export {LambdaInterface, LambdaService} from "./lambda.interface";
+export {MessagesInterface, MessagesService} from "./messages.interface";
 
-export interface Services {
-    clock: Clock;
+export interface ServicesInterface {
+    clock: ClockInterface;
     cognito: CognitoService;
     config: ConfigInterface;
-    messages: Messages;
+    messages: MessagesInterface;
     otp: () => string;
     tokenGenerator: TokenGeneratorInterface;
-    triggers: Triggers;
+    triggers: TriggersInterface;
 }

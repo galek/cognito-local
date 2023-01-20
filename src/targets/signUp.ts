@@ -1,25 +1,25 @@
 import {SignUpRequest, SignUpResponse, UserStatusType,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import * as uuid from "uuid";
 import {InvalidParameterError, UsernameExistsError} from "../errors";
-import {Messages, Services, UserPoolService} from "../services";
+import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
-import {DeliveryDetails} from "../services/messageDelivery/messageDelivery";
-import {attribute, attributesAppend, attributesInclude, attributeValue, User,} from "../services/userPoolService";
+import {DeliveryDetails} from "../services/messageDelivery/messageDelivery.interface";
+import {attribute, attributesAppend, attributesInclude, attributeValue, UserInterface,} from "../services/userPoolService.interface";
 import {Target} from "./Target";
-import {Context} from "../services/context";
+import {ContextInterface} from "../services/context.interface";
 
 export type SignUpTarget = Target<SignUpRequest, SignUpResponse>;
 
-type SignUpServices = Pick<Services,
+type SignUpServices = Pick<ServicesInterface,
     "clock" | "cognito" | "messages" | "otp" | "triggers" | "config">;
 
 const deliverWelcomeMessage = async (
-    ctx: Context,
+    ctx: ContextInterface,
   code: string,
   clientId: string,
-  user: User,
-  userPool: UserPoolService,
-  messages: Messages,
+  user: UserInterface,
+  userPool: UserPoolServiceInterface,
+  messages: MessagesInterface,
   clientMetadata: Record<string, string> | undefined
 ): Promise<DeliveryDetails | null> => {
   const deliveryDetails = selectAppropriateDeliveryMethod(
@@ -107,7 +107,7 @@ export const SignUp =
 
     const now = clock.get();
 
-    const updatedUser: User = {
+    const updatedUser: UserInterface = {
       Attributes: attributes,
       Enabled: true,
       Password: req.Password,

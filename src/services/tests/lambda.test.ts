@@ -1,6 +1,6 @@
 import {TestContext} from "../../../__test_mocs__/testContext";
 import {InvalidLambdaResponseError, UserLambdaValidationError,} from "../../errors";
-import {LambdaService} from "../lambda";
+import {LambdaService} from "../lambdaInterface";
 import * as AWS from "aws-sdk";
 import {version} from "aws-sdk/package.json";
 

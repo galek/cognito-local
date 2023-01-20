@@ -4,7 +4,7 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import { ResourceNotFoundError } from "../../errors";
-import { CognitoService, UserPoolService } from "../../services";
+import { CognitoService, UserPoolServiceInterface } from "../../services";
 import {
   UpdateUserPoolClient,
   UpdateUserPoolClientTarget,
@@ -15,7 +15,7 @@ const originalDate = new Date();
 describe("UpdateUserPoolClient target", () => {
   let updateUserPoolClient: UpdateUserPoolClientTarget;
   let mockCognitoService: jest.Mocked<CognitoService>;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let clock: ClockFake;
 
   beforeEach(() => {

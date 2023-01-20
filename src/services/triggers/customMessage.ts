@@ -1,6 +1,6 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {CustomMessageTriggerResponse, Lambda} from "../lambda";
-import {attributesToRecord} from "../userPoolService";
+import {CustomMessageTriggerResponse, LambdaInterface} from "../lambda.interface";
+import {attributesToRecord} from "../userPoolService.interface";
 import {Trigger} from "./trigger";
 
 const AWS_USERNAME_PARAMETER = "{username}";
@@ -36,11 +36,11 @@ interface CustomMessageValue {
 export type CustomMessageTrigger = Trigger<CustomMessageValue, CustomMessageTriggerResponse | null>;
 
 interface CustomMessageServices {
-    lambda: Lambda;
+    lambda: LambdaInterface;
 }
 
 // it's copy of BaseCustomMessageTriggerEvent.response interface from aws-lambda
-export interface BaseCustomMessageResponse {
+export interface BaseCustomMessageResponseInterface {
     smsMessage: string | null;
     emailMessage: string | null;
     emailSubject: string | null
@@ -48,7 +48,7 @@ export interface BaseCustomMessageResponse {
 
 export const CustomMessage = ({lambda}: CustomMessageServices): CustomMessageTrigger => async (ctx, {
     clientId, clientMetadata, code, source, userAttributes, username, userPoolId,
-}): Promise<BaseCustomMessageResponse | null> => {
+}): Promise<BaseCustomMessageResponseInterface | null> => {
     try {
         const response = await lambda.invoke(ctx, "CustomMessage", {
             clientId,

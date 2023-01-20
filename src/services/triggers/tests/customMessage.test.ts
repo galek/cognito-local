@@ -1,10 +1,10 @@
 import { newMockLambda } from "../../../../__test_mocs__/mockLambda";
 import { TestContext } from "../../../../__test_mocs__/testContext";
-import { Lambda } from "../../lambda";
+import { LambdaInterface } from "../../lambdaInterface";
 import { CustomMessage, CustomMessageTrigger } from "../customMessage";
 
 describe("CustomMessage trigger", () => {
-  let mockLambda: jest.Mocked<Lambda>;
+  let mockLambda: jest.Mocked<LambdaInterface>;
   let customMessage: CustomMessageTrigger;
 
   beforeEach(() => {

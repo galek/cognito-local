@@ -1,13 +1,13 @@
 import {AdminConfirmSignUpRequest, AdminConfirmSignUpResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {NotAuthorizedError} from "../errors";
-import {attribute, attributesAppend} from "../services/userPoolService";
+import {attribute, attributesAppend} from "../services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type AdminConfirmSignUpTarget = Target<AdminConfirmSignUpRequest,
     AdminConfirmSignUpResponse>;
 
-type AdminConfirmSignUpServices = Pick<Services,
+type AdminConfirmSignUpServices = Pick<ServicesInterface,
     "clock" | "cognito" | "triggers">;
 
 export const AdminConfirmSignUp =

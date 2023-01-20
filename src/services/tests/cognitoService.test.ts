@@ -4,7 +4,7 @@ import {newMockUserPoolServiceFactory} from "../../../__test_mocs__/mockUserPool
 import {TestContext} from "../../../__test_mocs__/testContext";
 import {ResourceNotFoundError} from "../../errors";
 import {CognitoServiceFactoryImpl, CognitoServiceImpl, USER_POOL_AWS_DEFAULTS,} from "../cognitoService";
-import {UserPoolService, UserPoolServiceFactory} from "../userPoolService";
+import {UserPoolServiceInterface, UserPoolServiceFactoryInterface} from "../userPoolServiceInterface";
 
 describe("CognitoServiceFactory", () => {
     it("creates a database for clients", async () => {
@@ -29,8 +29,8 @@ describe("CognitoServiceFactory", () => {
 });
 
 describe("Cognito Service", () => {
-    let mockUserPool: jest.Mocked<UserPoolService>;
-    let mockUserPoolServiceFactory: jest.Mocked<UserPoolServiceFactory>;
+    let mockUserPool: jest.Mocked<UserPoolServiceInterface>;
+    let mockUserPoolServiceFactory: jest.Mocked<UserPoolServiceFactoryInterface>;
 
     beforeEach(() => {
         mockUserPoolServiceFactory = newMockUserPoolServiceFactory(mockUserPool);

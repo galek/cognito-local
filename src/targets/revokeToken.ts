@@ -1,11 +1,11 @@
 import {RevokeTokenRequest, RevokeTokenResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {NotAuthorizedError} from "../errors";
-import {Services} from "../services";
+import {ServicesInterface} from "../services";
 import {Target} from "./Target";
 
 export type RevokeTokenTarget = Target<RevokeTokenRequest, RevokeTokenResponse>;
 
-type RevokeTokenServices = Pick<Services, "cognito">;
+type RevokeTokenServices = Pick<ServicesInterface, "cognito">;
 
 export const RevokeToken =
     ({cognito}: RevokeTokenServices): RevokeTokenTarget =>
