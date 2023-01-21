@@ -8,13 +8,13 @@ import {
     UserPoolType,
     UserStatusType,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {InvalidParameterError} from "../errors";
+import {InvalidParameterError} from "../../errors";
 import {AppClientInterface} from "./appClient.interface";
 import {ClockInterface} from "./clock.interface";
 import {ContextInterface} from "./context.interface";
-import {DataStoreInterface} from "./dataStore/dataStore.interface";
-import {DataStoreFactoryInterface} from "./dataStore/factory";
-import {GroupInterface} from "./interfaces/group.interface";
+import {DataStoreInterface} from "./dataStore.interface";
+import {DataStoreFactoryInterface} from "../../services/dataStore/factory";
+import {GroupInterface} from "./group.interface";
 
 export interface MFAOptionInterface {
     DeliveryMedium: "SMS";

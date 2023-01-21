@@ -5,9 +5,9 @@ import * as uuid from "uuid";
 import {AppClientInterface} from "./appClient.interface";
 import {ClockInterface} from "./clock.interface";
 import {ContextInterface} from "./context.interface";
-import {TriggersInterface} from "./triggers";
+import {TriggersInterface} from "../../services/triggers";
 import {attributesToRecord, attributeValue, customAttributes, UserInterface,} from "./userPoolService.interface";
-import {PrivateKey} from "../keys/cognitoLocal.private.json";
+import {PrivateKey} from "../../keys/cognitoLocal.private.json";
 
 type ValidityUnit = "seconds" | "minutes" | "hours" | "days" | string;
 

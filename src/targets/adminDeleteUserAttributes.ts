@@ -4,7 +4,7 @@ import {
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {NotAuthorizedError} from "../errors";
 import {ServicesInterface} from "../services";
-import {attributesRemove} from "../services/userPoolService.interface";
+import {attributesRemove} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type AdminDeleteUserAttributesTarget = Target<AdminDeleteUserAttributesRequest,

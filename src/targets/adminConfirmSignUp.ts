@@ -1,7 +1,7 @@
 import {AdminConfirmSignUpRequest, AdminConfirmSignUpResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {ServicesInterface} from "../services";
 import {NotAuthorizedError} from "../errors";
-import {attribute, attributesAppend} from "../services/userPoolService.interface";
+import {attribute, attributesAppend} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type AdminConfirmSignUpTarget = Target<AdminConfirmSignUpRequest,

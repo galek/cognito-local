@@ -1,4 +1,4 @@
-import {DataStoreInterface} from "./dataStore.interface";
+import {DataStoreInterface} from "../../interfaces/services/dataStore.interface";
 
 export type DataStoreCache = {
     get(key: string): DataStoreInterface | null;

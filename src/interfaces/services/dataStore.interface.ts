@@ -1,4 +1,4 @@
-import {ContextInterface} from "../context.interface";
+import {ContextInterface} from "./context.interface";
 
 export interface DataStoreInterface {
     delete(ctx: ContextInterface, key: string | string[]): Promise<void>;

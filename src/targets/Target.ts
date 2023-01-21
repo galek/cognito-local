@@ -1,4 +1,4 @@
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 import {Targets} from "./targets";
 
 export type TargetName = keyof typeof Targets;

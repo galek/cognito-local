@@ -1,10 +1,10 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import * as uuid from "uuid";
 import {NotAuthorizedError, ResourceNotFoundError} from "../../errors";
-import {ClockInterface} from "../clock.interface";
+import {ClockInterface} from "../../interfaces/services/clock.interface";
 import {CognitoService} from "../cognitoService";
-import {LambdaInterface, UserMigrationTriggerResponse} from "../lambda.interface";
-import {attributesFromRecord, attributesToRecord, UserInterface,} from "../userPoolService.interface";
+import {LambdaInterface, UserMigrationTriggerResponse} from "../../interfaces/services/lambda.interface";
+import {attributesFromRecord, attributesToRecord, UserInterface,} from "../../interfaces/services/userPoolService.interface";
 import {Trigger} from "./trigger";
 
 export type UserMigrationTrigger = Trigger<{

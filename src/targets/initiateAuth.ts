@@ -12,10 +12,10 @@ import {
   UnsupportedError,
 } from "../errors";
 import {ServicesInterface, UserPoolServiceInterface} from "../services";
-import {AppClientInterface} from "../services/appClient.interface";
-import {attributesToRecord, attributeValue, MFAOptionInterface, UserInterface,} from "../services/userPoolService.interface";
+import {AppClientInterface} from "../interfaces/services/appClient.interface";
+import {attributesToRecord, attributeValue, MFAOptionInterface, UserInterface,} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 export type InitiateAuthTarget = Target<InitiateAuthRequest,
     InitiateAuthResponse>;

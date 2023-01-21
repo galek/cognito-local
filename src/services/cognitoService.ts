@@ -1,17 +1,17 @@
 import mergeWith from "lodash.mergewith";
 import * as path from "path";
 import {ResourceNotFoundError} from "../errors";
-import {AppClientInterface} from "./appClient.interface";
-import {ClockInterface} from "./clock.interface";
-import {ContextInterface} from "./context.interface";
-import {DataStoreInterface} from "./dataStore/dataStore.interface";
+import {AppClientInterface} from "../interfaces/services/appClient.interface";
+import {ClockInterface} from "../interfaces/services/clock.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
+import {DataStoreInterface} from "../interfaces/services/dataStore.interface";
 import {DataStoreFactoryInterface} from "./dataStore/factory";
 import {
     UserPool,
     UserPoolServiceInterface,
     UserPoolServiceFactoryInterface,
     UserPoolDefaults,
-} from "./userPoolService.interface";
+} from "../interfaces/services/userPoolService.interface";
 import fs from "fs/promises";
 
 const CLIENTS_DATABASE_NAME = "clients";

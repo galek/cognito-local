@@ -1,6 +1,6 @@
 import {VerifiedAttributesListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {attributeValue, UserInterface} from "../userPoolService.interface";
-import {DeliveryDetails} from "./messageDelivery.interface";
+import {attributeValue, UserInterface} from "../../interfaces/services/userPoolService.interface";
+import {DeliveryDetails} from "../../interfaces/services/messageDelivery.interface";
 
 export const selectAppropriateDeliveryMethod = (
     desiredDeliveryMediums: VerifiedAttributesListType,

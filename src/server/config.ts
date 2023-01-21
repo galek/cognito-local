@@ -1,7 +1,7 @@
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 import {DataStoreFactoryInterface} from "../services/dataStore/factory";
 import mergeWith from "lodash.mergewith";
-import {ConfigInterface} from "./interfaces/config.interface";
+import {ConfigInterface} from "../interfaces/server/config.interface";
 
 export const DefaultConfig: ConfigInterface = {
     LambdaClient: {

@@ -2,7 +2,7 @@ import {ChangePasswordRequest, ChangePasswordResponse,} from "aws-sdk/clients/co
 import jwt from "jsonwebtoken";
 import {ServicesInterface} from "../services";
 import {InvalidParameterError, InvalidPasswordError, NotAuthorizedError,} from "../errors";
-import {TokenInterface} from "../services/tokenGenerator.interface";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
 import {Target} from "./Target";
 
 export type ChangePasswordTarget = Target<ChangePasswordRequest,

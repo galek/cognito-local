@@ -2,7 +2,7 @@ import {ServicesInterface} from "../services";
 import {UnsupportedError} from "../errors";
 import {isSupportedTarget} from "../targets/Target";
 import {Targets} from "../targets/targets";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 export type Route = (ctx: ContextInterface, req: any) => Promise<any>;
 export type Router = (target: string) => Route;

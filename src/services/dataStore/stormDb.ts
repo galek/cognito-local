@@ -1,7 +1,7 @@
 import StormDB from "stormdb";
-import {ContextInterface} from "../context.interface";
+import {ContextInterface} from "../../interfaces/services/context.interface";
 import {DataStoreCache} from "./cache";
-import {DataStoreInterface} from "./dataStore.interface";
+import {DataStoreInterface} from "../../interfaces/services/dataStore.interface";
 import {DataStoreFactoryInterface} from "./factory";
 import {mkdir} from "fs/promises";
 

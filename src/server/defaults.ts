@@ -5,14 +5,14 @@ import {CognitoServiceFactoryImpl} from "../services/cognitoService";
 import {InMemoryCache} from "../services/dataStore/cache";
 import {StormDBDataStoreFactory} from "../services/dataStore/stormDb";
 import {ConsoleMessageSender} from "../services/messageDelivery/consoleMessageSender";
-import {MessageDeliveryService} from "../services/messageDelivery/messageDelivery.interface";
+import {MessageDeliveryService} from "../interfaces/services/messageDelivery.interface";
 import {otp} from "../services/otp";
-import {JwtTokenGenerator} from "../services/tokenGenerator.interface";
-import {UserPoolServiceFactoryImpl} from "../services/userPoolService.interface";
+import {JwtTokenGenerator} from "../interfaces/services/tokenGenerator.interface";
+import {UserPoolServiceFactoryImpl} from "../interfaces/services/userPoolService.interface";
 import {Router} from "./Router";
 import {CryptoService} from "../services/crypto";
 import {loadConfig} from "./config";
-import {createServer, ServerInterface} from "./interfaces/server.interface";
+import {createServer, ServerInterface} from "../interfaces/server/server.interface";
 
 export const createDefaultServer = async (
     logger: pino.Logger

@@ -1,8 +1,8 @@
 import {ForgotPasswordRequest, ForgotPasswordResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {UnsupportedError, UserNotFoundError} from "../errors";
 import {ServicesInterface} from "../services";
-import {DeliveryDetails} from "../services/messageDelivery/messageDelivery.interface";
-import {attributeValue} from "../services/userPoolService.interface";
+import {DeliveryDetails} from "../interfaces/services/messageDelivery.interface";
+import {attributeValue} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type ForgotPasswordTarget = Target<ForgotPasswordRequest,

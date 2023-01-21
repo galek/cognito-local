@@ -1,6 +1,6 @@
 import {ContextInterface} from "./context.interface";
-import {DeliveryDetails, MessageDeliveryInterface,} from "./messageDelivery/messageDelivery.interface";
-import {TriggersInterface} from "./triggers";
+import {DeliveryDetails, MessageDeliveryInterface,} from "./messageDelivery.interface";
+import {TriggersInterface} from "../../services/triggers";
 import {UserInterface} from "./userPoolService.interface";
 
 const AWS_ADMIN_CLIENT_ID = "CLIENT_ID_NOT_APPLICABLE";

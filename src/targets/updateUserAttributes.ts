@@ -7,16 +7,16 @@ import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "..
 import {InvalidParameterError, NotAuthorizedError} from "../errors";
 import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
-import {TokenInterface} from "../services/tokenGenerator.interface";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
 import {
     attributesAppend,
     defaultVerifiedAttributesIfModified,
     hasUnverifiedContactAttributes,
     UserInterface,
     validatePermittedAttributeChanges,
-} from "../services/userPoolService.interface";
+} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 const sendAttributeVerificationCode = async (
     ctx: ContextInterface,

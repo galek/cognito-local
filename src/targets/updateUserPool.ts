@@ -1,6 +1,6 @@
 import {UpdateUserPoolRequest, UpdateUserPoolResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {ServicesInterface} from "../services";
-import {UserPool} from "../services/userPoolService.interface";
+import {UserPool} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type UpdateUserPoolTarget = Target<UpdateUserPoolRequest,

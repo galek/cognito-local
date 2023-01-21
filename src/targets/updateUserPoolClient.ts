@@ -4,7 +4,7 @@ import {
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {ServicesInterface} from "../services";
 import {ResourceNotFoundError} from "../errors";
-import {AppClientInterface} from "../services/appClient.interface";
+import {AppClientInterface} from "../interfaces/services/appClient.interface";
 import {appClientToResponseObject} from "./responses";
 import {Target} from "./Target";
 

@@ -1,2 +1,2 @@
-export {createServer} from "./interfaces/server.interface";
+export {createServer} from "../interfaces/server/server.interface";
 export {createDefaultServer} from "./defaults";

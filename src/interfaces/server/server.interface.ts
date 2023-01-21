@@ -7,7 +7,7 @@ import * as uuid from "uuid";
 import Pino from "pino-http";
 import {PublicKey} from "../../keys/cognitoLocal.public.json";
 import {CognitoError, UnsupportedError} from "../../errors";
-import {Router} from "../Router";
+import {Router} from "../../server/Router";
 
 export interface ServerOptionsInterface {
     port: number;

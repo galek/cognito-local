@@ -3,10 +3,10 @@ import * as uuid from "uuid";
 import {InvalidParameterError, UsernameExistsError} from "../errors";
 import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
-import {DeliveryDetails} from "../services/messageDelivery/messageDelivery.interface";
-import {attribute, attributesAppend, attributesInclude, attributeValue, UserInterface,} from "../services/userPoolService.interface";
+import {DeliveryDetails} from "../interfaces/services/messageDelivery.interface";
+import {attribute, attributesAppend, attributesInclude, attributeValue, UserInterface,} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 export type SignUpTarget = Target<SignUpRequest, SignUpResponse>;
 

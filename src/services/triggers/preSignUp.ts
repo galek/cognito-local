@@ -1,6 +1,6 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {LambdaInterface, PreSignUpTriggerResponse} from "../lambda.interface";
-import {attributesToRecord} from "../userPoolService.interface";
+import {LambdaInterface, PreSignUpTriggerResponse} from "../../interfaces/services/lambda.interface";
+import {attributesToRecord} from "../../interfaces/services/userPoolService.interface";
 import {Trigger} from "./trigger";
 
 export type PreSignUpTrigger = Trigger<{

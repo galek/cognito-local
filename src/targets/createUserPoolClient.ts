@@ -3,7 +3,7 @@ import {
   CreateUserPoolClientResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {ServicesInterface} from "../services";
-import {AppClientInterface, newId} from "../services/appClient.interface";
+import {AppClientInterface, newId} from "../interfaces/services/appClient.interface";
 import {appClientToResponseObject} from "./responses";
 import {Target} from "./Target";
 

@@ -1,6 +1,6 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {LambdaInterface, PreTokenGenerationTriggerResponse} from "../lambda.interface";
-import {attributesToRecord} from "../userPoolService.interface";
+import {LambdaInterface, PreTokenGenerationTriggerResponse} from "../../interfaces/services/lambda.interface";
+import {attributesToRecord} from "../../interfaces/services/userPoolService.interface";
 import {Trigger} from "./trigger";
 import {StringMap} from "aws-sdk/clients/ecs";
 import {GroupOverrideDetails} from "aws-lambda/trigger/cognito-user-pool-trigger/pre-token-generation";

@@ -2,7 +2,7 @@ import {GetUserRequest, GetUserResponse,} from "aws-sdk/clients/cognitoidentitys
 import jwt from "jsonwebtoken";
 import {InvalidParameterError, UserNotFoundError} from "../errors";
 import {ServicesInterface} from "../services";
-import {TokenInterface} from "../services/tokenGenerator.interface";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
 import {Target} from "./Target";
 
 export type GetUserTarget = Target<GetUserRequest, GetUserResponse>;

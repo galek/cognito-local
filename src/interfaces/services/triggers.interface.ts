@@ -1,14 +1,14 @@
-import {ClockInterface} from "../clock.interface";
-import {CognitoService} from "../cognitoService";
-import {CryptoService} from "../crypto";
-import {LambdaInterface} from "../lambda.interface";
-import {CustomEmailSender, CustomEmailSenderTrigger,} from "./customEmailSender";
-import {CustomMessage, CustomMessageTrigger} from "./customMessage";
-import {PostAuthentication, PostAuthenticationTrigger,} from "./postAuthentication";
-import {PostConfirmation, PostConfirmationTrigger} from "./postConfirmation";
-import {PreSignUp, PreSignUpTrigger} from "./preSignUp";
-import {PreTokenGeneration, PreTokenGenerationTrigger,} from "./preTokenGeneration";
-import {UserMigration, UserMigrationTrigger} from "./userMigration";
+import {ClockInterface} from "./clock.interface";
+import {CognitoService} from "../../services/cognitoService";
+import {CryptoService} from "../../services/crypto";
+import {LambdaInterface} from "./lambda.interface";
+import {CustomEmailSender, CustomEmailSenderTrigger,} from "../../services/triggers/customEmailSender";
+import {CustomMessage, CustomMessageTrigger} from "../../services/triggers/customMessage";
+import {PostAuthentication, PostAuthenticationTrigger,} from "../../services/triggers/postAuthentication";
+import {PostConfirmation, PostConfirmationTrigger} from "../../services/triggers/postConfirmation";
+import {PreSignUp, PreSignUpTrigger} from "../../services/triggers/preSignUp";
+import {PreTokenGeneration, PreTokenGenerationTrigger,} from "../../services/triggers/preTokenGeneration";
+import {UserMigration, UserMigrationTrigger} from "../../services/triggers/userMigration";
 
 type SupportedTriggers =
     | "CustomEmailSender"

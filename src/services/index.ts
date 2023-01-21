@@ -1,16 +1,16 @@
-import {ClockInterface} from "./clock.interface";
-import {MessagesInterface} from "./messages.interface";
-import {TokenGeneratorInterface} from "./tokenGenerator.interface";
+import {ClockInterface} from "../interfaces/services/clock.interface";
+import {MessagesInterface} from "../interfaces/services/messages.interface";
+import {TokenGeneratorInterface} from "../interfaces/services/tokenGenerator.interface";
 import {TriggersInterface} from "./triggers";
 import {CognitoService} from "./cognitoService";
-import {ConfigInterface} from "../server/interfaces/config.interface";
+import {ConfigInterface} from "../interfaces/server/config.interface";
 
-export {ClockInterface, DateClock} from "./clock.interface";
+export {ClockInterface, DateClock} from "../interfaces/services/clock.interface";
 export {CognitoService, CognitoServiceImpl} from "./cognitoService";
-export {UserPoolServiceInterface, UserPoolServiceImpl} from "./userPoolService.interface";
+export {UserPoolServiceInterface, UserPoolServiceImpl} from "../interfaces/services/userPoolService.interface";
 export {TriggersInterface, TriggersService} from "./triggers";
-export {LambdaInterface, LambdaService} from "./lambda.interface";
-export {MessagesInterface, MessagesService} from "./messages.interface";
+export {LambdaInterface, LambdaService} from "../interfaces/services/lambda.interface";
+export {MessagesInterface, MessagesService} from "../interfaces/services/messages.interface";
 
 export interface ServicesInterface {
     clock: ClockInterface;

@@ -1,6 +1,6 @@
-import {ContextInterface} from "../context.interface";
-import {MessageInterface} from "../messages.interface";
-import {UserInterface} from "../userPoolService.interface";
+import {ContextInterface} from "./context.interface";
+import {MessageInterface} from "./messages.interface";
+import {UserInterface} from "./userPoolService.interface";
 import {MessageSenderInterface} from "./messageSender.interface";
 
 export type DeliveryDetails =

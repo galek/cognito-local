@@ -2,7 +2,7 @@ import {DeleteUserRequest} from "aws-sdk/clients/cognitoidentityserviceprovider"
 import jwt from "jsonwebtoken";
 import {InvalidParameterError, NotAuthorizedError} from "../errors";
 import {ServicesInterface} from "../services";
-import {TokenInterface} from "../services/tokenGenerator.interface";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
 import {Target} from "./Target";
 
 export type DeleteUserTarget = Target<DeleteUserRequest, {}>;

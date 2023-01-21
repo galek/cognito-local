@@ -6,10 +6,10 @@ import jwt from "jsonwebtoken";
 import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
 import {InvalidParameterError, UserNotFoundError} from "../errors";
 import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
-import {TokenInterface} from "../services/tokenGenerator.interface";
-import {UserInterface} from "../services/userPoolService.interface";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
+import {UserInterface} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 const sendAttributeVerificationCode = async (
     ctx: ContextInterface,

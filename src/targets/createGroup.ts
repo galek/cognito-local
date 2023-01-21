@@ -2,7 +2,7 @@ import {CreateGroupRequest, CreateGroupResponse,} from "aws-sdk/clients/cognitoi
 import {ServicesInterface} from "../services";
 import {groupToResponseObject} from "./responses";
 import {Target} from "./Target";
-import {GroupInterface} from "../services/interfaces/group.interface";
+import {GroupInterface} from "../interfaces/services/group.interface";
 
 export type CreateGroupTarget = Target<CreateGroupRequest, CreateGroupResponse>;
 

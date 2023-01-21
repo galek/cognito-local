@@ -2,8 +2,8 @@ import {VerifyUserAttributeRequest, VerifyUserAttributeResponse,} from "aws-sdk/
 import jwt from "jsonwebtoken";
 import {CodeMismatchError, InvalidParameterError, NotAuthorizedError,} from "../errors";
 import {ServicesInterface} from "../services";
-import {TokenInterface} from "../services/tokenGenerator.interface";
-import {attribute, attributesAppend} from "../services/userPoolService.interface";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
+import {attribute, attributesAppend} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
 
 export type VerifyUserAttributeTarget = Target<VerifyUserAttributeRequest,

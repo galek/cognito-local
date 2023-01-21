@@ -2,7 +2,7 @@ import {AdminInitiateAuthRequest, AdminInitiateAuthResponse,} from "aws-sdk/clie
 import {InvalidParameterError, InvalidPasswordError, NotAuthorizedError, UnsupportedError,} from "../errors";
 import {ServicesInterface} from "../services";
 import {Target} from "./Target";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 export type AdminInitiateAuthTarget = Target<AdminInitiateAuthRequest,
     AdminInitiateAuthResponse>;

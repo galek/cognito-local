@@ -1,6 +1,6 @@
 import {buildClient, CommitmentPolicy, KmsKeyringNode,} from "@aws-crypto/client-node";
 import {KMS} from "aws-sdk";
-import {ContextInterface} from "./context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 export interface KMSConfigInterface {
     KMSKeyId?: string;

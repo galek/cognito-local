@@ -7,9 +7,9 @@ import shortUUID from "short-uuid";
 import * as uuid from "uuid";
 import {InvalidParameterError, UnsupportedError, UsernameExistsError,} from "../errors";
 import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
-import {ContextInterface} from "../services/context.interface";
-import {DeliveryDetails} from "../services/messageDelivery/messageDelivery.interface";
-import {attributesInclude, attributeValue, UserInterface,} from "../services/userPoolService.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
+import {DeliveryDetails} from "../interfaces/services/messageDelivery.interface";
+import {attributesInclude, attributeValue, UserInterface,} from "../interfaces/services/userPoolService.interface";
 import {userToResponseObject} from "./responses";
 import {Target} from "./Target";
 

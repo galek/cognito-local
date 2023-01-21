@@ -1,7 +1,7 @@
 import {GroupType, UserPoolClientType, UserPoolType, UserType,} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import {AppClientInterface} from "../services/appClient.interface";
-import {UserInterface, UserPool} from "../services/userPoolService.interface";
-import {GroupInterface} from "../services/interfaces/group.interface";
+import {AppClientInterface} from "../interfaces/services/appClient.interface";
+import {UserInterface, UserPool} from "../interfaces/services/userPoolService.interface";
+import {GroupInterface} from "../interfaces/services/group.interface";
 
 export const appClientToResponseObject = (
     appClient: AppClientInterface

@@ -12,9 +12,9 @@ import {
     hasUnverifiedContactAttributes,
     UserInterface,
     validatePermittedAttributeChanges,
-} from "../services/userPoolService.interface";
+} from "../interfaces/services/userPoolService.interface";
 import {Target} from "./Target";
-import {ContextInterface} from "../services/context.interface";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 const sendAttributeVerificationCode = async (
     ctx: ContextInterface,

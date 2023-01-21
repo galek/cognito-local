@@ -1,7 +1,7 @@
-import {ContextInterface} from "../context.interface";
-import {MessageInterface} from "../messages.interface";
-import {UserInterface} from "../userPoolService.interface";
-import {MessageSenderInterface} from "./messageSender.interface";
+import {ContextInterface} from "../../interfaces/services/context.interface";
+import {MessageInterface} from "../../interfaces/services/messages.interface";
+import {UserInterface} from "../../interfaces/services/userPoolService.interface";
+import {MessageSenderInterface} from "../../interfaces/services/messageSender.interface";
 import boxen from "boxen";
 
 export class ConsoleMessageSender implements MessageSenderInterface {
