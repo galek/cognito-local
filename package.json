@@ -20,8 +20,7 @@
     "start:debug": "cross-env COGNITO_LOCAL_DEVMODE=1 DEBUG=1 node -r ts-node/register --inspect=9230 --enable-source-maps src/bin/start.ts",
     "start:watch": "nodemon",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "semantic-release": "semantic-release"
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@babel/preset-typescript": "7.18.6",
@@ -91,36 +90,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jagregory/cognito-local.git"
-  },
-  "release": {
-    "branches": [
-      "master"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      [
-        "@semantic-release/exec",
-        {
-          "publishCmd": "./scripts/dockerBuildPush.sh ${nextRelease.version}"
-        }
-      ],
-      [
-        "@semantic-release/github",
-        {
-          "addReleases": "top"
-        }
-      ],
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "CHANGELOG.md"
-          ]
-        }
-      ]
-    ]
   }
 }

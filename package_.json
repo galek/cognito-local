@@ -2,11 +2,11 @@
   "name": "cognito-local",
   "version": "1.0.0",
   "license": "MIT",
-  "bin": "lib/bin/start.js",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "bin": "dist/bin/start.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
