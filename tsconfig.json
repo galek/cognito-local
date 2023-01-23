@@ -39,9 +39,6 @@
   "exclude": [
     "dist",
     "./setupTests.ts",
-    "tests/**/*.ts",
-    "src/**/*.test.ts",
-    "__test_mocs__/*.ts"
   ],
   "files": [
     "global.d.ts"
