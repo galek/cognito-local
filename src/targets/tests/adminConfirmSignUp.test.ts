@@ -6,11 +6,11 @@ import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import { NotAuthorizedError } from "../../errors";
 import { TriggersInterface, UserPoolServiceInterface } from "../../services";
-import { attribute, attributesAppend } from "../../services/userPoolServiceInterface";
 import {
   AdminConfirmSignUp,
   AdminConfirmSignUpTarget,
 } from "../adminConfirmSignUp";
+import { attribute, attributesAppend } from "../../interfaces/services/userPoolService.interface";
 
 const currentDate = new Date();
 

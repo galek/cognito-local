@@ -1,7 +1,7 @@
 import { TestContext } from "../../../../__test_mocs__/testContext";
-import { UserInterface } from "../../userPoolServiceInterface";
-import { MessageDeliveryService } from "../messageDeliveryInterface";
-import { MessageSenderInterface } from "../messageSenderInterface";
+import { UserInterface } from "../../../interfaces/services/userPoolService.interface";
+import { MessageSenderInterface } from "../../../interfaces/services/messageSender.interface";
+import { MessageDeliveryService } from "../../../interfaces/services/messageDelivery.interface";
 
 describe("Message Delivery", () => {
   const user: UserInterface = {

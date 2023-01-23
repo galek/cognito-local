@@ -1,22 +1,25 @@
 import jwt from "jsonwebtoken";
 import * as uuid from "uuid";
-import { ClockFake } from "../../__test_mocs__/clockFake";
-import { newMockCognitoService } from "../../__test_mocs__/mockCognitoService";
-import { newMockUserPoolService } from "../../__test_mocs__/mockUserPoolService";
-import { TestContext } from "../../__test_mocs__/testContext";
-import * as TDB from "../../__test_mocs__/testDataBuilder";
+import { ClockFake } from "../../../__test_mocs__/clockFake";
+import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
+import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
+import { TestContext } from "../../../__test_mocs__/testContext";
+import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {
   CodeMismatchError,
   InvalidParameterError,
   NotAuthorizedError,
-} from "../errors";
-import PrivateKey from "../keys/cognitoLocal.private.json";
-import { UserPoolService } from "../services";
-import { attribute, attributesAppend } from "../services/userPoolService";
+} from "../../errors";
+import {PrivateKey} from "../../keys/cognitoLocal.private.json";
 import {
   VerifyUserAttribute,
   VerifyUserAttributeTarget,
-} from "./verifyUserAttribute";
+} from "./../verifyUserAttribute";
+import {
+  attribute,
+  attributesAppend,
+  UserPoolServiceInterface
+} from "../../interfaces/services/userPoolService.interface";
 
 const clock = new ClockFake(new Date());
 
@@ -42,7 +45,7 @@ const validToken = jwt.sign(
 
 describe("VerifyUserAttribute target", () => {
   let verifyUserAttribute: VerifyUserAttributeTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

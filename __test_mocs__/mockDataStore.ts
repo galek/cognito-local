@@ -1,5 +1,5 @@
-import { DataStoreInterface } from "../src/services/dataStore/dataStoreInterface";
 import { DataStoreFactoryInterface } from "../src/services/dataStore/factory";
+import { DataStoreInterface } from "../src/interfaces/services/dataStore.interface";
 
 export const newMockDataStore = (): jest.Mocked<DataStoreInterface> => ({
   delete: jest.fn(),

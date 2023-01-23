@@ -5,3 +5,4 @@ dist
 package-lock.json
 node_modules
 .log
+.DS_Store

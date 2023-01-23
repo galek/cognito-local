@@ -1,7 +1,7 @@
 import { newMockLambda } from "../../../../__test_mocs__/mockLambda";
 import { TestContext } from "../../../../__test_mocs__/testContext";
 import { CryptoService } from "../../crypto";
-import { LambdaInterface } from "../../lambdaInterface";
+import { LambdaInterface } from "../../../interfaces/services/lambda.interface";
 import {
   CustomEmailSender,
   CustomEmailSenderTrigger,

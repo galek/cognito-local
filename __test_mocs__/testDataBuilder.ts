@@ -1,7 +1,8 @@
 import { v4 } from "uuid";
-import { AppClientInterface } from "../src/services/appClientInterface";
 import { USER_POOL_AWS_DEFAULTS } from "../src/services/cognitoService";
-import { GroupInterface, UserInterface, UserPool } from "../src/services/userPoolServiceInterface";
+import { AppClientInterface } from "../src/interfaces/services/appClient.interface";
+import { UserInterface, UserPool } from "../dist/interfaces/services/userPoolService.interface";
+import { GroupInterface } from "../dist/interfaces/services/group.interface";
 
 export const id = (prefix: string, number?: number) =>
   `${prefix}${number ?? Math.floor(Math.random() * 100000)}`;
@@ -32,7 +33,7 @@ export const appClient = (partial?: Partial<AppClientInterface>): AppClientInter
   WriteAttributes: partial?.WriteAttributes,
 });
 
-export const group = (partial?: Partial<Group>): Group => ({
+export const group = (partial?: Partial<GroupInterface>): GroupInterface => ({
   CreationDate: partial?.CreationDate ?? new Date(),
   Description: partial?.Description ?? undefined,
   GroupName: partial?.GroupName ?? id("Group"),

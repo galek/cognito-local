@@ -5,12 +5,12 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { CodeMismatchError, UserNotFoundError } from "../../errors";
 import { TriggersInterface, UserPoolServiceInterface } from "../../services";
-import { attribute, attributesAppend } from "../../services/userPoolServiceInterface";
 import {
   ConfirmForgotPassword,
   ConfirmForgotPasswordTarget,
 } from "../confirmForgotPassword";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute, attributesAppend } from "../../interfaces/services/userPoolService.interface";
 
 const currentDate = new Date();
 

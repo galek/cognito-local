@@ -1,6 +1,6 @@
 import { newMockLambda } from "../../../../__test_mocs__/mockLambda";
 import { TestContext } from "../../../../__test_mocs__/testContext";
-import { LambdaInterface } from "../../lambdaInterface";
+import { LambdaInterface } from "../../../interfaces/services/lambda.interface";
 import { PostConfirmation, PostConfirmationTrigger } from "../postConfirmation";
 
 describe("PostConfirmation trigger", () => {

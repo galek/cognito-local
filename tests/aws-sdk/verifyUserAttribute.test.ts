@@ -1,7 +1,7 @@
 import { UUID } from "../../__test_mocs__/patterns";
 import { TestContext } from "../../__test_mocs__/testContext";
 import { withCognitoSdk } from "./setup";
-import { UserInterface } from "../../src/services/userPoolServiceInterface";
+import { UserInterface } from "./../../src/services/userPoolServiceInterface";
 
 describe(
   "CognitoIdentityServiceProvider.verifyUserAttribute",

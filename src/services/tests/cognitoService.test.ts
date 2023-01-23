@@ -4,7 +4,10 @@ import {newMockUserPoolServiceFactory} from "../../../__test_mocs__/mockUserPool
 import {TestContext} from "../../../__test_mocs__/testContext";
 import {ResourceNotFoundError} from "../../errors";
 import {CognitoServiceFactoryImpl, CognitoServiceImpl, USER_POOL_AWS_DEFAULTS,} from "../cognitoService";
-import {UserPoolServiceInterface, UserPoolServiceFactoryInterface} from "../userPoolServiceInterface";
+import {
+    UserPoolServiceFactoryInterface,
+    UserPoolServiceInterface
+} from "../../interfaces/services/userPoolService.interface";
 
 describe("CognitoServiceFactory", () => {
     it("creates a database for clients", async () => {

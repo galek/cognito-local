@@ -5,14 +5,14 @@ import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, NotAuthorizedError } from "../../errors";
-import PrivateKey from "../../keys/cognitoLocal.private.json";
 import { UserPoolServiceInterface } from "../../services";
-import { attribute } from "../../services/userPoolServiceInterface";
 import {
   DeleteUserAttributes,
   DeleteUserAttributesTarget,
 } from "../deleteUserAttributes";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute } from "../../interfaces/services/userPoolService.interface";
+import { PrivateKey } from "../../keys/cognitoLocal.private.json";
 
 const clock = new ClockFake(new Date());
 

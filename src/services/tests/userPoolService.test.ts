@@ -2,20 +2,17 @@ import {ClockFake} from "../../../__test_mocs__/clockFake";
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import {newMockDataStore, newMockDataStoreFactory,} from "../../../__test_mocs__/mockDataStore";
 import {TestContext} from "../../../__test_mocs__/testContext";
-import {AppClientInterface} from "../appClientInterface";
-import {DataStoreInterface} from "../dataStore/dataStoreInterface";
+import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {
   attributesFromRecord,
-  attributesInclude,
-  attributesIncludeMatch,
-  attributesToRecord,
-  GroupInterface,
-  UserInterface,
-  UserPoolServiceInterface,
+  attributesInclude, attributesIncludeMatch,
+  attributesToRecord, UserInterface,
   UserPoolServiceFactoryImpl,
-  UserPoolServiceImpl,
-} from "../userPoolServiceInterface";
-import * as TDB from "../../../__test_mocs__/testDataBuilder";
+  UserPoolServiceImpl, UserPoolServiceInterface
+} from "../../interfaces/services/userPoolService.interface";
+import { GroupInterface } from "../../interfaces/services/group.interface";
+import { DataStoreInterface } from "../../interfaces/services/dataStore.interface";
+import { AppClientInterface } from "../../interfaces/services/appClient.interface";
 
 describe("UserPoolServiceFactory", () => {
   it("creates a database", async () => {
@@ -301,7 +298,7 @@ describe("User Pool Service", () => {
       const options = {
         Id: "local",
       };
-      const groups: Record<string, Group> = {
+      const groups: Record<string, GroupInterface> = {
         [group.GroupName]: group,
       };
 
@@ -610,7 +607,7 @@ describe("User Pool Service", () => {
       const options = {
         Id: "local",
       };
-      const groups: Record<string, Group> = {
+      const groups: Record<string, GroupInterface> = {
         theGroupName: {
           CreationDate: new Date(),
           Description: "Description",

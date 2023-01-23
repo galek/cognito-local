@@ -5,14 +5,14 @@ import { newMockMessages } from "../../../__test_mocs__/mockMessages";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, UserNotFoundError } from "../../errors";
-import PrivateKey from "../../keys/cognitoLocal.private.json";
+import {PrivateKey} from "../../keys/cognitoLocal.private.json";
 import { MessagesInterface, UserPoolServiceInterface } from "../../services";
-import { attribute, attributeValue } from "../../services/userPoolServiceInterface";
 import {
   GetUserAttributeVerificationCode,
   GetUserAttributeVerificationCodeTarget,
 } from "../getUserAttributeVerificationCode";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute, attributeValue } from "../../interfaces/services/userPoolService.interface";
 
 const validToken = jwt.sign(
   {

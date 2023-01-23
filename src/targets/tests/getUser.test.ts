@@ -4,11 +4,11 @@ import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, UserNotFoundError } from "../../errors";
-import PrivateKey from "../../keys/cognitoLocal.private.json";
 import { UserPoolServiceInterface } from "../../services";
-import { attributeValue } from "../../services/userPoolServiceInterface";
 import { GetUser, GetUserTarget } from "../getUser";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attributeValue } from "../../interfaces/services/userPoolService.interface";
+import { PrivateKey } from "../../keys/cognitoLocal.private.json";
 
 describe("GetUser target", () => {
   let getUser: GetUserTarget;

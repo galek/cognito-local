@@ -3,11 +3,11 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { ResourceNotFoundError } from "../../errors";
 import { CognitoService } from "../../services";
-import { AppClientInterface } from "../../services/appClientInterface";
 import {
   DescribeUserPoolClient,
   DescribeUserPoolClientTarget,
 } from "../describeUserPoolClient";
+import { AppClientInterface } from "../../interfaces/services/appClient.interface";
 
 describe("DescribeUserPoolClient target", () => {
   let describeUserPoolClient: DescribeUserPoolClientTarget;

@@ -9,7 +9,7 @@ import fs from "fs";
 import { promisify } from "util";
 import { NoOpCache } from "../src/services/dataStore/cache";
 import { StormDBDataStoreFactory } from "../src/services/dataStore/stormDb";
-import { UserPoolServiceFactoryImpl } from "../src/services/userPoolServiceInterface";
+import { UserPoolServiceFactoryImpl } from "../src/interfaces/services/userPoolService.interface";
 
 const mkdtemp = promisify(fs.mkdtemp);
 const rmdir = promisify(fs.rmdir);

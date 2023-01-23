@@ -4,12 +4,12 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { NotAuthorizedError } from "../../errors";
 import { UserPoolServiceInterface } from "../../services";
-import { attribute } from "../../services/userPoolServiceInterface";
 import {
   AdminDeleteUserAttributes,
   AdminDeleteUserAttributesTarget,
 } from "../adminDeleteUserAttributes";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute } from "../../interfaces/services/userPoolService.interface";
 
 describe("AdminDeleteUserAttributes target", () => {
   let adminDeleteUserAttributes: AdminDeleteUserAttributesTarget;

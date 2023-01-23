@@ -3,10 +3,10 @@ import {ClockFake} from "../../../__test_mocs__/clockFake";
 import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
 import {UUID} from "../../../__test_mocs__/patterns";
 import {TestContext} from "../../../__test_mocs__/testContext";
-import {JwtTokenGenerator, TokenGeneratorInterface} from "../tokenGeneratorInterface";
 import {TriggersInterface} from "../triggers";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import {attributeValue} from "../userPoolServiceInterface";
+import { JwtTokenGenerator, TokenGeneratorInterface } from "../../interfaces/services/tokenGenerator.interface";
+import { attributeValue } from "../../interfaces/services/userPoolService.interface";
 
 const originalDate = new Date(2022, 4, 30, 17, 30, 0, 0);
 const ONE_MINUTE = 60;

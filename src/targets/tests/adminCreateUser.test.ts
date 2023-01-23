@@ -8,7 +8,8 @@ import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {InvalidParameterError, UsernameExistsError} from "../../errors";
 import {MessagesInterface, UserPoolServiceInterface} from "../../services";
 import {AdminCreateUser, AdminCreateUserTarget} from "../adminCreateUser";
-import {ConfigInterface, DefaultConfig} from "../../server/configInterface";
+import { ConfigInterface } from "../../interfaces/server/config.interface";
+import { DefaultConfig } from "../../server/config";
 
 const originalDate = new Date();
 

@@ -6,9 +6,9 @@ import {newMockUserPoolService} from "../../../__test_mocs__/mockUserPoolService
 import {TestContext} from "../../../__test_mocs__/testContext";
 import {CodeMismatchError, InvalidParameterError, NotAuthorizedError,} from "../../errors";
 import {TriggersInterface, UserPoolServiceInterface} from "../../services";
-import {TokenGeneratorInterface} from "../../services/tokenGeneratorInterface";
 import {RespondToAuthChallenge, RespondToAuthChallengeTarget,} from "../respondToAuthChallenge";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { TokenGeneratorInterface } from "../../interfaces/services/tokenGenerator.interface";
 
 const currentDate = new Date();
 

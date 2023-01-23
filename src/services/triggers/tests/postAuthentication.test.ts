@@ -1,12 +1,12 @@
 import { newMockLambda } from "../../../../__test_mocs__/mockLambda";
 import { TestContext } from "../../../../__test_mocs__/testContext";
-import { LambdaInterface } from "../../lambdaInterface";
-import { attributesToRecord } from "../../userPoolServiceInterface";
 import {
   PostAuthentication,
   PostAuthenticationTrigger,
 } from "../postAuthentication";
 import * as TDB from "../../../../__test_mocs__/testDataBuilder";
+import { attributesToRecord } from "../../../interfaces/services/userPoolService.interface";
+import { LambdaInterface } from "../../../interfaces/services/lambda.interface";
 
 describe("PostAuthentication trigger", () => {
   let mockLambda: jest.Mocked<LambdaInterface>;

@@ -5,8 +5,8 @@ import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
 import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {CognitoService, TriggersInterface, UserPoolServiceInterface} from "../../services";
-import {TokenGeneratorInterface} from "../../services/tokenGeneratorInterface";
 import {AdminInitiateAuth, AdminInitiateAuthTarget,} from "../adminInitiateAuth";
+import { TokenGeneratorInterface } from "../../interfaces/services/tokenGenerator.interface";
 
 describe("AdminInitiateAuth target", () => {
   let adminInitiateAuth: AdminInitiateAuthTarget;

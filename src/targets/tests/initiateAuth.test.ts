@@ -1,29 +1,35 @@
-import { newMockCognitoService } from "../../__test_mocs__/mockCognitoService";
-import { newMockMessages } from "../../__test_mocs__/mockMessages";
-import { newMockTokenGenerator } from "../../__test_mocs__/mockTokenGenerator";
-import { newMockTriggers } from "../../__test_mocs__/mockTriggers";
-import { newMockUserPoolService } from "../../__test_mocs__/mockUserPoolService";
-import { UUID } from "../../__test_mocs__/patterns";
-import { TestContext } from "../../__test_mocs__/testContext";
-import * as TDB from "../../__test_mocs__/testDataBuilder";
+import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
+import { newMockMessages } from "../../../__test_mocs__/mockMessages";
+import { newMockTokenGenerator } from "../../../__test_mocs__/mockTokenGenerator";
+import { newMockTriggers } from "../../../__test_mocs__/mockTriggers";
+import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
+import { UUID } from "../../../__test_mocs__/patterns";
+import { TestContext } from "../../../__test_mocs__/testContext";
+import * as TDB from "../../../__test_mocs__/testDataBuilder";
+
 import {
   InvalidParameterError,
   InvalidPasswordError,
   NotAuthorizedError,
-  PasswordResetRequiredError,
-} from "../errors";
-import { Messages, Triggers, UserPoolService } from "../services";
-import { TokenGenerator } from "../services/tokenGenerator";
-import { attributesToRecord, User } from "../services/userPoolService";
-import { InitiateAuth, InitiateAuthTarget } from "./initiateAuth";
+  PasswordResetRequiredError
+} from "../../errors";
+import { InitiateAuth, InitiateAuthTarget } from "../initiateAuth";
+import {
+  attributesToRecord,
+  UserInterface,
+  UserPoolServiceInterface
+} from "../../interfaces/services/userPoolService.interface";
+import { TokenGeneratorInterface } from "../../interfaces/services/tokenGenerator.interface";
+import { TriggersInterface } from "../../interfaces/services/triggers.interface";
+import { MessagesInterface } from "../../interfaces/services/messages.interface";
 
 describe("InitiateAuth target", () => {
   let initiateAuth: InitiateAuthTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
   let mockOtp: jest.MockedFunction<() => string>;
-  let mockTriggers: jest.Mocked<Triggers>;
-  let mockTokenGenerator: jest.Mocked<TokenGenerator>;
+  let mockTriggers: jest.Mocked<TriggersInterface>;
+  let mockTokenGenerator: jest.Mocked<TokenGeneratorInterface>;
   const userPoolClient = TDB.appClient();
 
   beforeEach(() => {
@@ -163,7 +169,7 @@ describe("InitiateAuth target", () => {
         });
 
         describe("when user has SMS_MFA configured", () => {
-          let user: User;
+          let user: UserInterface;
 
           beforeEach(() => {
             user = TDB.user({
@@ -268,7 +274,7 @@ describe("InitiateAuth target", () => {
         });
 
         describe("when user has SMS_MFA configured", () => {
-          let user: User;
+          let user: UserInterface;
 
           beforeEach(() => {
             user = TDB.user({

@@ -1,9 +1,9 @@
-import { newMockCognitoService } from "../../__test_mocs__/mockCognitoService";
-import { newMockUserPoolService } from "../../__test_mocs__/mockUserPoolService";
-import { TestContext } from "../../__test_mocs__/testContext";
-import * as TDB from "../../__test_mocs__/testDataBuilder";
-import { CognitoService } from "../services";
-import { ListUserPools, ListUserPoolsTarget } from "./listUserPools";
+import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
+import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
+import { TestContext } from "../../../__test_mocs__/testContext";
+import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { CognitoService } from "../../services";
+import { ListUserPools, ListUserPoolsTarget } from "./../listUserPools";
 
 describe("ListUserPools target", () => {
   let listUserPools: ListUserPoolsTarget;

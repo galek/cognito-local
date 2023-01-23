@@ -1,5 +1,5 @@
 import { UserPoolServiceInterface } from "../src/services";
-import { UserPool, UserPoolServiceFactoryInterface } from "../src/services/userPoolServiceInterface";
+import { UserPool, UserPoolServiceFactoryInterface } from "../dist/interfaces/services/userPoolService.interface";
 
 export const newMockUserPoolService = (
   config: UserPool = {

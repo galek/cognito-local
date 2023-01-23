@@ -4,10 +4,10 @@ import { newMockUserPoolService } from "../../../../__test_mocs__/mockUserPoolSe
 import { UUID } from "../../../../__test_mocs__/patterns";
 import { TestContext } from "../../../../__test_mocs__/testContext";
 import { NotAuthorizedError } from "../../../errors";
-import { DateClock } from "../../clockInterface";
-import { LambdaInterface } from "../../lambdaInterface";
-import { UserPoolServiceInterface } from "../../userPoolServiceInterface";
 import { UserMigration, UserMigrationTrigger } from "../userMigration";
+import { LambdaInterface } from "../../../interfaces/services/lambda.interface";
+import { UserPoolServiceInterface } from "../../../interfaces/services/userPoolService.interface";
+import { DateClock } from "../../../interfaces/services/clock.interface";
 
 describe("UserMigration trigger", () => {
   let mockLambda: jest.Mocked<LambdaInterface>;

@@ -6,15 +6,11 @@ import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, NotAuthorizedError } from "../../errors";
 import { MessagesInterface, UserPoolServiceInterface } from "../../services";
 import {
-  attribute,
-  attributesAppend,
-  attributeValue,
-} from "../../services/userPoolServiceInterface";
-import {
   AdminUpdateUserAttributes,
   AdminUpdateUserAttributesTarget,
 } from "../adminUpdateUserAttributes";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute, attributesAppend, attributeValue } from "../../interfaces/services/userPoolService.interface";
 
 describe("AdminUpdateUserAttributes target", () => {
   let adminUpdateUserAttributes: AdminUpdateUserAttributesTarget;

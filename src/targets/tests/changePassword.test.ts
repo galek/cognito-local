@@ -1,24 +1,20 @@
 import jwt from "jsonwebtoken";
 import * as uuid from "uuid";
-import { ClockFake } from "../../__test_mocs__/clockFake";
-import { newMockCognitoService } from "../../__test_mocs__/mockCognitoService";
-import { newMockUserPoolService } from "../../__test_mocs__/mockUserPoolService";
-import { TestContext } from "../../__test_mocs__/testContext";
-import * as TDB from "../../__test_mocs__/testDataBuilder";
-import {
-  InvalidParameterError,
-  InvalidPasswordError,
-  NotAuthorizedError,
-} from "../errors";
-import PrivateKey from "../keys/cognitoLocal.private.json";
-import { UserPoolService } from "../services";
-import { ChangePassword, ChangePasswordTarget } from "./changePassword";
+import { ChangePassword, ChangePasswordTarget } from "../changePassword";
+import { UserPoolServiceInterface } from "../../interfaces/services/userPoolService.interface";
+import { InvalidParameterError, InvalidPasswordError, NotAuthorizedError } from "../../errors";
+import { PrivateKey } from "../../keys/cognitoLocal.private.json";
+import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
+import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
+import { ClockFake } from "../../../__test_mocs__/clockFake";
+import { TestContext } from "../../../__test_mocs__/testContext";
+import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
 const currentDate = new Date();
 
 describe("ChangePassword target", () => {
   let changePassword: ChangePasswordTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

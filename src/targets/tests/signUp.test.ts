@@ -9,7 +9,8 @@ import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {InvalidParameterError, UserLambdaValidationError, UsernameExistsError,} from "../../errors";
 import {MessagesInterface, TriggersInterface, UserPoolServiceInterface} from "../../services";
 import {SignUp, SignUpTarget} from "../signUp";
-import {ConfigInterface, DefaultConfig} from "../../server/configInterface";
+import { DefaultConfig } from "../../server/config";
+import { ConfigInterface } from "../../interfaces/server/config.interface";
 
 describe("SignUp target", () => {
   let signUp: SignUpTarget;
