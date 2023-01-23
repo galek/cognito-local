@@ -28,7 +28,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "7.18.6",
     "@types/aws-lambda": "8.10.109",
     "@types/body-parser": "1.19.2",
     "@types/cors": "2.8.13",
@@ -83,14 +82,6 @@
     ],
     "ext": "ts",
     "exec": "npm run start"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix --cache",
-      "tsc --target es2021 --moduleResolution node --esModuleInterop --resolveJsonModule --noEmit ./setupTests.ts",
-      "prettier --write"
-    ],
-    "README.md": "markdown-toc -i --bullets=- --maxdepth=3"
   },
   "engines": {
     "node": ">=12"
