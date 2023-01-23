@@ -16,9 +16,10 @@
     "integration-test:watch": "jest --config integration-tests/jest.config.js --watch",
     "lint": "eslint \"{src}/**/*.ts\"",
     "lint:fix": "eslint \"{src}/**/*.ts\" --fix",
+    "start": "ts-node src",
     "start:dev": "cross-env COGNITO_LOCAL_DEVMODE=1 ts-node src",
     "start:prod": "node dist/index.js",
-    "start:debug": "cross-env COGNITO_LOCAL_DEVMODE=1 DEBUG=1 node -r ts-node/register --inspect=9230 --enable-source-maps src/bin/start.ts",
+    "start:debug": "cross-env COGNITO_LOCAL_DEVMODE=1 DEBUG=1 node -r ts-node/register --inspect=9230 --enable-source-maps src",
     "start:watch": "nodemon",
     "test": "jest",
     "test:watch": "jest --watch"
