@@ -1,12 +1,13 @@
 import { v4 } from "uuid";
-import { AppClient } from "../src/services/appClient";
 import { USER_POOL_AWS_DEFAULTS } from "../src/services/cognitoService";
-import { GroupInterface, User, UserPool } from "../src/services/userPoolService";
+import { AppClientInterface } from "../src/interfaces/services/appClient.interface";
+import { UserInterface, UserPool } from "../dist/interfaces/services/userPoolService.interface";
+import { GroupInterface } from "../dist/interfaces/services/group.interface";
 
 export const id = (prefix: string, number?: number) =>
   `${prefix}${number ?? Math.floor(Math.random() * 100000)}`;
 
-export const appClient = (partial?: Partial<AppClient>): AppClient => ({
+export const appClient = (partial?: Partial<AppClientInterface>): AppClientInterface => ({
   AccessTokenValidity: partial?.AccessTokenValidity,
   AllowedOAuthFlows: partial?.AllowedOAuthFlows,
   AllowedOAuthFlowsUserPoolClient: partial?.AllowedOAuthFlowsUserPoolClient,
@@ -32,7 +33,7 @@ export const appClient = (partial?: Partial<AppClient>): AppClient => ({
   WriteAttributes: partial?.WriteAttributes,
 });
 
-export const group = (partial?: Partial<Group>): Group => ({
+export const group = (partial?: Partial<GroupInterface>): GroupInterface => ({
   CreationDate: partial?.CreationDate ?? new Date(),
   Description: partial?.Description ?? undefined,
   GroupName: partial?.GroupName ?? id("Group"),
@@ -42,7 +43,7 @@ export const group = (partial?: Partial<Group>): Group => ({
   members: partial?.members ?? undefined,
 });
 
-export const user = (partial?: Partial<User>): User => ({
+export const user = (partial?: Partial<UserInterface>): UserInterface => ({
   Attributes: partial?.Attributes ?? [
     { Name: "sub", Value: v4() },
     { Name: "email", Value: `${id("example")}@example.com` },

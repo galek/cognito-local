@@ -1,21 +1,18 @@
-import {
-  UpdateGroupRequest,
-  UpdateGroupResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { GroupNotFoundError } from "../errors";
-import { groupToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {UpdateGroupRequest, UpdateGroupResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {ServicesInterface} from "../services";
+import {GroupNotFoundError} from "../errors";
+import {groupToResponseObject} from "./responses";
+import {Target} from "./Target";
 
 export type UpdateGroupTarget = Target<UpdateGroupRequest, UpdateGroupResponse>;
 
-type UpdateGroupServices = Pick<Services, "clock" | "cognito">;
+type UpdateGroupServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const UpdateGroup =
-  ({ clock, cognito }: UpdateGroupServices): UpdateGroupTarget =>
-  async (ctx, req) => {
-    const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
-    const group = await userPool.getGroupByGroupName(ctx, req.GroupName);
+    ({clock, cognito}: UpdateGroupServices): UpdateGroupTarget =>
+        async (ctx, req) => {
+            const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
+            const group = await userPool.getGroupByGroupName(ctx, req.GroupName);
     if (!group) {
       throw new GroupNotFoundError();
     }

@@ -1,22 +1,23 @@
-import { ClockFake } from "../../../__test_mocs__/clockFake";
-import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
-import { newMockMessages } from "../../../__test_mocs__/mockMessages";
-import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
-import { UUID } from "../../../__test_mocs__/patterns";
-import { TestContext } from "../../../__test_mocs__/testContext";
+import {ClockFake} from "../../../__test_mocs__/clockFake";
+import {newMockCognitoService} from "../../../__test_mocs__/mockCognitoService";
+import {newMockMessages} from "../../../__test_mocs__/mockMessages";
+import {newMockUserPoolService} from "../../../__test_mocs__/mockUserPoolService";
+import {UUID} from "../../../__test_mocs__/patterns";
+import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import { InvalidParameterError, UsernameExistsError } from "../../errors";
-import { Messages, UserPoolService } from "../../services";
-import { AdminCreateUser, AdminCreateUserTarget } from "../adminCreateUser";
-import { Config, DefaultConfig } from "../../server/config";
+import {InvalidParameterError, UsernameExistsError} from "../../errors";
+import {MessagesInterface, UserPoolServiceInterface} from "../../services";
+import {AdminCreateUser, AdminCreateUserTarget} from "../adminCreateUser";
+import { ConfigInterface } from "../../interfaces/server/config.interface";
+import { DefaultConfig } from "../../server/config";
 
 const originalDate = new Date();
 
 describe("AdminCreateUser target", () => {
   let adminCreateUser: AdminCreateUserTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
-  let config: Config;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
+  let config: ConfigInterface;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

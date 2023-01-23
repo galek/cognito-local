@@ -2,27 +2,25 @@ import {
   CreateUserPoolClientRequest,
   CreateUserPoolClientResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { AppClient, newId } from "../services/appClient";
-import { appClientToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {ServicesInterface} from "../services";
+import {AppClientInterface, newId} from "../interfaces/services/appClient.interface";
+import {appClientToResponseObject} from "./responses";
+import {Target} from "./Target";
 
-export type CreateUserPoolClientTarget = Target<
-  CreateUserPoolClientRequest,
-  CreateUserPoolClientResponse
->;
+export type CreateUserPoolClientTarget = Target<CreateUserPoolClientRequest,
+    CreateUserPoolClientResponse>;
 
-type CreateUserPoolClientServices = Pick<Services, "clock" | "cognito">;
+type CreateUserPoolClientServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const CreateUserPoolClient =
-  ({
+    ({
     clock,
     cognito,
   }: CreateUserPoolClientServices): CreateUserPoolClientTarget =>
   async (ctx, req) => {
     const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
 
-    const appClient: AppClient = {
+    const appClient: AppClientInterface = {
       AccessTokenValidity: req.AccessTokenValidity,
       AllowedOAuthFlows: req.AllowedOAuthFlows,
       AllowedOAuthFlowsUserPoolClient: req.AllowedOAuthFlowsUserPoolClient,

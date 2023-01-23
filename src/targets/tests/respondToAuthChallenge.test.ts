@@ -1,29 +1,22 @@
-import { ClockFake } from "../../../__test_mocs__/clockFake";
-import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
-import { newMockTokenGenerator } from "../../../__test_mocs__/mockTokenGenerator";
-import { newMockTriggers } from "../../../__test_mocs__/mockTriggers";
-import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
-import { TestContext } from "../../../__test_mocs__/testContext";
-import {
-  CodeMismatchError,
-  InvalidParameterError,
-  NotAuthorizedError,
-} from "../../errors";
-import { Triggers, UserPoolService } from "../../services";
-import { TokenGenerator } from "../../services/tokenGenerator";
-import {
-  RespondToAuthChallenge,
-  RespondToAuthChallengeTarget,
-} from "../respondToAuthChallenge";
+import {ClockFake} from "../../../__test_mocs__/clockFake";
+import {newMockCognitoService} from "../../../__test_mocs__/mockCognitoService";
+import {newMockTokenGenerator} from "../../../__test_mocs__/mockTokenGenerator";
+import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
+import {newMockUserPoolService} from "../../../__test_mocs__/mockUserPoolService";
+import {TestContext} from "../../../__test_mocs__/testContext";
+import {CodeMismatchError, InvalidParameterError, NotAuthorizedError,} from "../../errors";
+import {TriggersInterface, UserPoolServiceInterface} from "../../services";
+import {RespondToAuthChallenge, RespondToAuthChallengeTarget,} from "../respondToAuthChallenge";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { TokenGeneratorInterface } from "../../interfaces/services/tokenGenerator.interface";
 
 const currentDate = new Date();
 
 describe("RespondToAuthChallenge target", () => {
-  let respondToAuthChallenge: RespondToAuthChallengeTarget;
-  let mockTokenGenerator: jest.Mocked<TokenGenerator>;
-  let mockTriggers: jest.Mocked<Triggers>;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+    let respondToAuthChallenge: RespondToAuthChallengeTarget;
+    let mockTokenGenerator: jest.Mocked<TokenGeneratorInterface>;
+    let mockTriggers: jest.Mocked<TriggersInterface>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let clock: ClockFake;
   const userPoolClient = TDB.appClient();
 

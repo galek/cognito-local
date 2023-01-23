@@ -1,6 +1,6 @@
-import { Context } from "../src/services/context";
 import { MockLogger } from "./mockLogger";
+import { ContextInterface } from "../src/interfaces/services/context.interface";
 
-export const TestContext: Context = {
+export const TestContext: ContextInterface = {
   logger: MockLogger,
 };

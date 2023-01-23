@@ -1,21 +1,16 @@
-import {
-  ListUsersInGroupRequest,
-  ListUsersInGroupResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { GroupNotFoundError, UserNotFoundError } from "../errors";
-import { Services } from "../services";
-import { userToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {ListUsersInGroupRequest, ListUsersInGroupResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {GroupNotFoundError, UserNotFoundError} from "../errors";
+import {ServicesInterface} from "../services";
+import {userToResponseObject} from "./responses";
+import {Target} from "./Target";
 
-export type ListUsersInGroupTarget = Target<
-  ListUsersInGroupRequest,
-  ListUsersInGroupResponse
->;
+export type ListUsersInGroupTarget = Target<ListUsersInGroupRequest,
+    ListUsersInGroupResponse>;
 
 export const ListUsersInGroup =
-  ({ cognito }: Pick<Services, "cognito">): ListUsersInGroupTarget =>
-  async (ctx, req) => {
-    const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
+    ({cognito}: Pick<ServicesInterface, "cognito">): ListUsersInGroupTarget =>
+        async (ctx, req) => {
+            const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
     const group = await userPool.getGroupByGroupName(ctx, req.GroupName);
     if (!group) {
       throw new GroupNotFoundError();

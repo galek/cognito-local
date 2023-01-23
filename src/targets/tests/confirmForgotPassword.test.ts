@@ -4,20 +4,20 @@ import { newMockTriggers } from "../../../__test_mocs__/mockTriggers";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { CodeMismatchError, UserNotFoundError } from "../../errors";
-import { Triggers, UserPoolService } from "../../services";
-import { attribute, attributesAppend } from "../../services/userPoolService";
+import { TriggersInterface, UserPoolServiceInterface } from "../../services";
 import {
   ConfirmForgotPassword,
   ConfirmForgotPasswordTarget,
 } from "../confirmForgotPassword";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute, attributesAppend } from "../../interfaces/services/userPoolService.interface";
 
 const currentDate = new Date();
 
 describe("ConfirmForgotPassword target", () => {
   let confirmForgotPassword: ConfirmForgotPasswordTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockTriggers: jest.Mocked<Triggers>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockTriggers: jest.Mocked<TriggersInterface>;
 
   let clock: ClockFake;
 

@@ -14,10 +14,8 @@ import {
 import type {Lambda as LambdaClient} from "aws-sdk";
 import {InvocationResponse} from "aws-sdk/clients/lambda";
 import {version as awsSdkVersion} from "aws-sdk/package.json";
-import {
-    InvalidLambdaResponseError, UnexpectedLambdaExceptionError, UserLambdaValidationError,
-} from "../errors";
-import {Context} from "./context";
+import {InvalidLambdaResponseError, UnexpectedLambdaExceptionError, UserLambdaValidationError,} from "../../errors";
+import {ContextInterface} from "./context.interface";
 
 type CognitoUserPoolEvent =
     | CreateAuthChallengeTriggerEvent
@@ -32,21 +30,21 @@ type CognitoUserPoolEvent =
     | UserMigrationTriggerEvent
     | VerifyAuthChallengeResponseTriggerEvent;
 
-interface EventCommonParameters {
+export interface EventCommonParametersInterface {
     clientId: string;
     userAttributes: Record<string, string>;
     username: string;
     userPoolId: string;
 }
 
-export interface CustomEmailSenderEvent extends Omit<EventCommonParameters, "clientId"> {
+export interface CustomEmailSenderEventInterface extends Omit<EventCommonParametersInterface, "clientId"> {
     clientId: string | null;
     code: string;
     clientMetadata: Record<string, string> | undefined;
     triggerSource: | "CustomEmailSender_AdminCreateUser" | "CustomEmailSender_ForgotPassword" | "CustomEmailSender_ResendCode" | "CustomEmailSender_SignUp" | "CustomEmailSender_UpdateUserAttribute" | "CustomEmailSender_VerifyUserAttribute";
 }
 
-export interface CustomMessageEvent extends Omit<EventCommonParameters, "clientId"> {
+export interface CustomMessageEventInterface extends Omit<EventCommonParametersInterface, "clientId"> {
     clientId: string | null;
     clientMetadata: Record<string, string> | undefined;
     codeParameter: string;
@@ -55,21 +53,21 @@ export interface CustomMessageEvent extends Omit<EventCommonParameters, "clientI
     usernameParameter: string;
 }
 
-export interface UserMigrationEvent extends EventCommonParameters {
+export interface UserMigrationEventInterface extends EventCommonParametersInterface {
     clientMetadata: Record<string, string> | undefined;
     password: string;
     triggerSource: "UserMigration_Authentication";
     validationData: Record<string, string> | undefined;
 }
 
-export interface PreSignUpEvent extends EventCommonParameters {
+export interface PreSignUpEventInterface extends EventCommonParametersInterface {
     clientMetadata: Record<string, string> | undefined;
     // TODO: Nick: Remove | symbol
     triggerSource: | "PreSignUp_AdminCreateUser" | "PreSignUp_ExternalProvider" | "PreSignUp_SignUp";
     validationData: Record<string, string> | undefined;
 }
 
-export interface PreTokenGenerationEvent extends EventCommonParameters {
+export interface PreTokenGenerationEventInterface extends EventCommonParametersInterface {
     /**
      * One or more key-value pairs that you can provide as custom input to the Lambda function that you specify for the
      * pre token generation trigger. You can pass this data to your Lambda function by using the ClientMetadata parameter
@@ -102,19 +100,19 @@ export interface PreTokenGenerationEvent extends EventCommonParameters {
     };
 }
 
-export interface PostAuthenticationEvent extends EventCommonParameters {
+export interface PostAuthenticationEventInterface extends EventCommonParametersInterface {
     clientMetadata: Record<string, string> | undefined;
     triggerSource: "PostAuthentication_Authentication";
 }
 
-export interface PostConfirmationEvent extends Omit<EventCommonParameters, "clientId"> {
+export interface PostConfirmationEventInterface extends Omit<EventCommonParametersInterface, "clientId"> {
     // TODO: Nick: Remove | symbol
     triggerSource: | "PostConfirmation_ConfirmSignUp" | "PostConfirmation_ConfirmForgotPassword";
     clientMetadata: Record<string, string> | undefined;
     clientId: string | null;
 }
 
-export interface FunctionConfig {
+export interface FunctionConfigInterface {
     CustomMessage?: string;
     PostAuthentication?: string;
     PostConfirmation?: string;
@@ -132,38 +130,38 @@ export type PostAuthenticationTriggerResponse = PostAuthenticationTriggerEvent["
 export type PostConfirmationTriggerResponse = PostConfirmationTriggerEvent["response"];
 export type CustomEmailSenderTriggerResponse = CustomEmailSenderTriggerEvent["response"];
 
-export interface Lambda {
-    enabled(lambda: keyof FunctionConfig): boolean;
+export interface LambdaInterface {
+    enabled(lambda: keyof FunctionConfigInterface): boolean;
 
-    invoke(ctx: Context, lambda: "CustomMessage", event: CustomMessageEvent): Promise<CustomMessageTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "CustomMessage", event: CustomMessageEventInterface): Promise<CustomMessageTriggerResponse>;
 
-    invoke(ctx: Context, lambda: "UserMigration", event: UserMigrationEvent): Promise<UserMigrationTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "UserMigration", event: UserMigrationEventInterface): Promise<UserMigrationTriggerResponse>;
 
-    invoke(ctx: Context, lambda: "PreSignUp", event: PreSignUpEvent): Promise<PreSignUpTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "PreSignUp", event: PreSignUpEventInterface): Promise<PreSignUpTriggerResponse>;
 
-    invoke(ctx: Context, lambda: "PreTokenGeneration", event: PreTokenGenerationEvent): Promise<PreTokenGenerationTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "PreTokenGeneration", event: PreTokenGenerationEventInterface): Promise<PreTokenGenerationTriggerResponse>;
 
-    invoke(ctx: Context, lambda: "PostAuthentication", event: PostAuthenticationEvent): Promise<PostAuthenticationTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "PostAuthentication", event: PostAuthenticationEventInterface): Promise<PostAuthenticationTriggerResponse>;
 
-    invoke(ctx: Context, lambda: "PostConfirmation", event: PostConfirmationEvent): Promise<PostConfirmationTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "PostConfirmation", event: PostConfirmationEventInterface): Promise<PostConfirmationTriggerResponse>;
 
-    invoke(ctx: Context, lambda: "CustomEmailSender", event: CustomEmailSenderEvent): Promise<CustomEmailSenderTriggerResponse>;
+    invoke(ctx: ContextInterface, lambda: "CustomEmailSender", event: CustomEmailSenderEventInterface): Promise<CustomEmailSenderTriggerResponse>;
 }
 
-export class LambdaService implements Lambda {
-    private readonly config: FunctionConfig;
+export class LambdaService implements LambdaInterface {
+    private readonly config: FunctionConfigInterface;
     private readonly lambdaClient: LambdaClient;
 
-    public constructor(config: FunctionConfig, lambdaClient: LambdaClient) {
+    public constructor(config: FunctionConfigInterface, lambdaClient: LambdaClient) {
         this.config = config;
         this.lambdaClient = lambdaClient;
     }
 
-    public enabled(lambda: keyof FunctionConfig): boolean {
+    public enabled(lambda: keyof FunctionConfigInterface): boolean {
         return !!this.config[lambda];
     }
 
-    public async invoke(ctx: Context, trigger: keyof FunctionConfig, event: | CustomMessageEvent | CustomEmailSenderEvent | PostAuthenticationEvent | PostConfirmationEvent | PreSignUpEvent | PreTokenGenerationEvent | UserMigrationEvent) {
+    public async invoke(ctx: ContextInterface, trigger: keyof FunctionConfigInterface, event: | CustomMessageEventInterface | CustomEmailSenderEventInterface | PostAuthenticationEventInterface | PostConfirmationEventInterface | PreSignUpEventInterface | PreTokenGenerationEventInterface | UserMigrationEventInterface) {
         const functionName = this.config[trigger];
         if (!functionName) {
             throw new Error(`${trigger} trigger not configured`);
@@ -202,7 +200,7 @@ export class LambdaService implements Lambda {
         }
     }
 
-    private createLambdaEvent(event: | CustomMessageEvent | CustomEmailSenderEvent | PostAuthenticationEvent | PostConfirmationEvent | PreSignUpEvent | PreTokenGenerationEvent | UserMigrationEvent): CognitoUserPoolEvent {
+    private createLambdaEvent(event: | CustomMessageEventInterface | CustomEmailSenderEventInterface | PostAuthenticationEventInterface | PostConfirmationEventInterface | PreSignUpEventInterface | PreTokenGenerationEventInterface | UserMigrationEventInterface): CognitoUserPoolEvent {
         const version = "0"; // TODO: how do we know what this is?
         const callerContext = {
             awsSdkVersion,

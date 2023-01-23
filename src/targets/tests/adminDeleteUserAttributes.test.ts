@@ -3,17 +3,17 @@ import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { NotAuthorizedError } from "../../errors";
-import { UserPoolService } from "../../services";
-import { attribute } from "../../services/userPoolService";
+import { UserPoolServiceInterface } from "../../services";
 import {
   AdminDeleteUserAttributes,
   AdminDeleteUserAttributesTarget,
 } from "../adminDeleteUserAttributes";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute } from "../../interfaces/services/userPoolService.interface";
 
 describe("AdminDeleteUserAttributes target", () => {
   let adminDeleteUserAttributes: AdminDeleteUserAttributesTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let clock: ClockFake;
 
   beforeEach(() => {

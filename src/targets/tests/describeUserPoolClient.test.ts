@@ -3,11 +3,11 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { ResourceNotFoundError } from "../../errors";
 import { CognitoService } from "../../services";
-import { AppClient } from "../../services/appClient";
 import {
   DescribeUserPoolClient,
   DescribeUserPoolClientTarget,
 } from "../describeUserPoolClient";
+import { AppClientInterface } from "../../interfaces/services/appClient.interface";
 
 describe("DescribeUserPoolClient target", () => {
   let describeUserPoolClient: DescribeUserPoolClientTarget;
@@ -21,7 +21,7 @@ describe("DescribeUserPoolClient target", () => {
   });
 
   it("returns an existing app client", async () => {
-    const existingAppClient: AppClient = {
+    const existingAppClient: AppClientInterface = {
       RefreshTokenValidity: 30,
       AllowedOAuthFlowsUserPoolClient: false,
       LastModifiedDate: new Date(),

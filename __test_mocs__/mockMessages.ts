@@ -1,5 +1,5 @@
-import { Messages } from "../src/services";
+import { MessagesInterface } from "../src/services";
 
-export const newMockMessages = (): jest.Mocked<Messages> => ({
+export const newMockMessages = (): jest.Mocked<MessagesInterface> => ({
   deliver: jest.fn(),
 });

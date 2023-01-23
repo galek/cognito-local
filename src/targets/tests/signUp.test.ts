@@ -1,28 +1,25 @@
-import { ClockFake } from "../../../__test_mocs__/clockFake";
-import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
-import { newMockMessages } from "../../../__test_mocs__/mockMessages";
-import { newMockTriggers } from "../../../__test_mocs__/mockTriggers";
-import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
-import { UUID } from "../../../__test_mocs__/patterns";
-import { TestContext } from "../../../__test_mocs__/testContext";
+import {ClockFake} from "../../../__test_mocs__/clockFake";
+import {newMockCognitoService} from "../../../__test_mocs__/mockCognitoService";
+import {newMockMessages} from "../../../__test_mocs__/mockMessages";
+import {newMockTriggers} from "../../../__test_mocs__/mockTriggers";
+import {newMockUserPoolService} from "../../../__test_mocs__/mockUserPoolService";
+import {UUID} from "../../../__test_mocs__/patterns";
+import {TestContext} from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import {
-  InvalidParameterError,
-  UserLambdaValidationError,
-  UsernameExistsError,
-} from "../../errors";
-import { Messages, Triggers, UserPoolService } from "../../services";
-import { SignUp, SignUpTarget } from "../signUp";
-import { Config, DefaultConfig } from "../../server/config";
+import {InvalidParameterError, UserLambdaValidationError, UsernameExistsError,} from "../../errors";
+import {MessagesInterface, TriggersInterface, UserPoolServiceInterface} from "../../services";
+import {SignUp, SignUpTarget} from "../signUp";
+import { DefaultConfig } from "../../server/config";
+import { ConfigInterface } from "../../interfaces/server/config.interface";
 
 describe("SignUp target", () => {
   let signUp: SignUpTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
   let mockOtp: jest.MockedFunction<() => string>;
-  let mockTriggers: jest.Mocked<Triggers>;
-  let now: Date;
-  let config: Config;
+  let mockTriggers: jest.Mocked<TriggersInterface>;
+    let now: Date;
+    let config: ConfigInterface;
 
   beforeEach(() => {
     now = new Date(2020, 1, 2, 3, 4, 5);

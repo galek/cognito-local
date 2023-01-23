@@ -1,17 +1,15 @@
-import { DeleteUserPoolClientRequest } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { ResourceNotFoundError } from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
+import {DeleteUserPoolClientRequest} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {ResourceNotFoundError} from "../errors";
+import {ServicesInterface} from "../services";
+import {Target} from "./Target";
 
-export type DeleteUserPoolClientTarget = Target<
-  DeleteUserPoolClientRequest,
-  {}
->;
+export type DeleteUserPoolClientTarget = Target<DeleteUserPoolClientRequest,
+    {}>;
 
-type DeleteUserPoolClientServices = Pick<Services, "cognito">;
+type DeleteUserPoolClientServices = Pick<ServicesInterface, "cognito">;
 
 export const DeleteUserPoolClient =
-  ({ cognito }: DeleteUserPoolClientServices): DeleteUserPoolClientTarget =>
+    ({cognito}: DeleteUserPoolClientServices): DeleteUserPoolClientTarget =>
   async (ctx, req) => {
     // TODO: from the docs "Calling this action requires developer credentials.", can we enforce this?
 

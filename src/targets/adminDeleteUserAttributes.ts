@@ -1,21 +1,19 @@
 import {
-  AdminDeleteUserAttributesRequest,
-  AdminDeleteUserAttributesResponse,
+    AdminDeleteUserAttributesRequest,
+    AdminDeleteUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { NotAuthorizedError } from "../errors";
-import { Services } from "../services";
-import { attributesRemove } from "../services/userPoolService";
-import { Target } from "./Target";
+import {NotAuthorizedError} from "../errors";
+import {ServicesInterface} from "../services";
+import {attributesRemove} from "../interfaces/services/userPoolService.interface";
+import {Target} from "./Target";
 
-export type AdminDeleteUserAttributesTarget = Target<
-  AdminDeleteUserAttributesRequest,
-  AdminDeleteUserAttributesResponse
->;
+export type AdminDeleteUserAttributesTarget = Target<AdminDeleteUserAttributesRequest,
+    AdminDeleteUserAttributesResponse>;
 
-type AdminDeleteUserAttributesServices = Pick<Services, "clock" | "cognito">;
+type AdminDeleteUserAttributesServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const AdminDeleteUserAttributes =
-  ({
+    ({
     clock,
     cognito,
   }: AdminDeleteUserAttributesServices): AdminDeleteUserAttributesTarget =>

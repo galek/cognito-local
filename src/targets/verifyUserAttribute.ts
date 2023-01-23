@@ -1,32 +1,23 @@
-import {
-  VerifyUserAttributeRequest,
-  VerifyUserAttributeResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {VerifyUserAttributeRequest, VerifyUserAttributeResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import {
-  CodeMismatchError,
-  InvalidParameterError,
-  NotAuthorizedError,
-} from "../errors";
-import { Services } from "../services";
-import { Token } from "../services/tokenGenerator";
-import { attribute, attributesAppend } from "../services/userPoolService";
-import { Target } from "./Target";
+import {CodeMismatchError, InvalidParameterError, NotAuthorizedError,} from "../errors";
+import {ServicesInterface} from "../services";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
+import {attribute, attributesAppend} from "../interfaces/services/userPoolService.interface";
+import {Target} from "./Target";
 
-export type VerifyUserAttributeTarget = Target<
-  VerifyUserAttributeRequest,
-  VerifyUserAttributeResponse
->;
+export type VerifyUserAttributeTarget = Target<VerifyUserAttributeRequest,
+    VerifyUserAttributeResponse>;
 
-type VerifyUserAttributeServices = Pick<Services, "clock" | "cognito">;
+type VerifyUserAttributeServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const VerifyUserAttribute =
-  ({
+    ({
     clock,
     cognito,
   }: VerifyUserAttributeServices): VerifyUserAttributeTarget =>
   async (ctx, req) => {
-    const decodedToken = jwt.decode(req.AccessToken) as Token | null;
+      const decodedToken = jwt.decode(req.AccessToken) as TokenInterface | null;
     if (!decodedToken) {
       ctx.logger.info("Unable to decode token");
       throw new InvalidParameterError();

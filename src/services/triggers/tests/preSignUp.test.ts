@@ -1,10 +1,10 @@
 import { newMockLambda } from "../../../../__test_mocs__/mockLambda";
 import { TestContext } from "../../../../__test_mocs__/testContext";
-import { Lambda } from "../../lambda";
 import { PreSignUp, PreSignUpTrigger } from "../preSignUp";
+import { LambdaInterface } from "../../../interfaces/services/lambda.interface";
 
 describe("PreSignUp trigger", () => {
-  let mockLambda: jest.Mocked<Lambda>;
+  let mockLambda: jest.Mocked<LambdaInterface>;
   let preSignUp: PreSignUpTrigger;
 
   beforeEach(() => {

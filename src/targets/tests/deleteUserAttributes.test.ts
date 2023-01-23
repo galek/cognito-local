@@ -5,14 +5,14 @@ import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, NotAuthorizedError } from "../../errors";
-import PrivateKey from "../../keys/cognitoLocal.private.json";
-import { UserPoolService } from "../../services";
-import { attribute } from "../../services/userPoolService";
+import { UserPoolServiceInterface } from "../../services";
 import {
   DeleteUserAttributes,
   DeleteUserAttributesTarget,
 } from "../deleteUserAttributes";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute } from "../../interfaces/services/userPoolService.interface";
+import { PrivateKey } from "../../keys/cognitoLocal.private.json";
 
 const clock = new ClockFake(new Date());
 
@@ -38,7 +38,7 @@ const validToken = jwt.sign(
 
 describe("DeleteUserAttributes target", () => {
   let deleteUserAttributes: DeleteUserAttributesTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

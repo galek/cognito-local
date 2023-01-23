@@ -1,17 +1,15 @@
-import { AdminRemoveUserFromGroupRequest } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { GroupNotFoundError, UserNotFoundError } from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
+import {AdminRemoveUserFromGroupRequest} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {GroupNotFoundError, UserNotFoundError} from "../errors";
+import {ServicesInterface} from "../services";
+import {Target} from "./Target";
 
-export type AdminRemoveUserFromGroupTarget = Target<
-  AdminRemoveUserFromGroupRequest,
-  {}
->;
+export type AdminRemoveUserFromGroupTarget = Target<AdminRemoveUserFromGroupRequest,
+    {}>;
 
-type AdminRemoveUserFromGroupServices = Pick<Services, "cognito">;
+type AdminRemoveUserFromGroupServices = Pick<ServicesInterface, "cognito">;
 
 export const AdminRemoveUserFromGroup =
-  ({
+    ({
     cognito,
   }: AdminRemoveUserFromGroupServices): AdminRemoveUserFromGroupTarget =>
   async (ctx, req) => {

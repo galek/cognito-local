@@ -1,2 +1,2 @@
-export { createServer } from "./server";
-export { createDefaultServer } from "./defaults";
+export {createServer} from "../interfaces/server/server.interface";
+export {createDefaultServer} from "./defaults";

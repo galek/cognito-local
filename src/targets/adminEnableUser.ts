@@ -1,20 +1,15 @@
-import {
-  AdminEnableUserRequest,
-  AdminEnableUserResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { UserNotFoundError } from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
+import {AdminEnableUserRequest, AdminEnableUserResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {UserNotFoundError} from "../errors";
+import {ServicesInterface} from "../services";
+import {Target} from "./Target";
 
-export type AdminEnableUserTarget = Target<
-  AdminEnableUserRequest,
-  AdminEnableUserResponse
->;
+export type AdminEnableUserTarget = Target<AdminEnableUserRequest,
+    AdminEnableUserResponse>;
 
-type AdminEnableUserServices = Pick<Services, "cognito" | "clock">;
+type AdminEnableUserServices = Pick<ServicesInterface, "cognito" | "clock">;
 
 export const AdminEnableUser =
-  ({ cognito, clock }: AdminEnableUserServices): AdminEnableUserTarget =>
+    ({cognito, clock}: AdminEnableUserServices): AdminEnableUserTarget =>
   async (ctx, req) => {
     const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
     const user = await userPool.getUserByUsername(ctx, req.Username);

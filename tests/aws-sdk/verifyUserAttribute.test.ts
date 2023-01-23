@@ -1,7 +1,7 @@
 import { UUID } from "../../__test_mocs__/patterns";
 import { TestContext } from "../../__test_mocs__/testContext";
 import { withCognitoSdk } from "./setup";
-import { User } from "../../src/services/userPoolService";
+import { UserInterface } from "./../../src/services/userPoolServiceInterface";
 
 describe(
   "CognitoIdentityServiceProvider.verifyUserAttribute",
@@ -51,7 +51,7 @@ describe(
 
       // get the user's code -- this is very nasty
       const ds = await dataStoreFactory().create(TestContext, userPoolId, {});
-      const storedUser = (await ds.get(TestContext, ["Users", "abc"])) as User;
+      const storedUser = (await ds.get(TestContext, ["Users", "abc"])) as UserInterface;
 
       // login as the user
       const initiateAuthResponse = await client

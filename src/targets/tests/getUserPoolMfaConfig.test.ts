@@ -1,7 +1,7 @@
 import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
-import { UserPoolService } from "../../services";
+import { UserPoolServiceInterface } from "../../services";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import {
   GetUserPoolMfaConfig,
@@ -10,7 +10,7 @@ import {
 
 describe("GetUserPoolMfaConfig target", () => {
   let getUserPoolMfaConfig: GetUserPoolMfaConfigTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   const userPool = TDB.userPool({
     MfaConfiguration: "ON",

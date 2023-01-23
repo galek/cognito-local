@@ -1,12 +1,10 @@
 import {AttributeListType} from "aws-sdk/clients/cognitoidentityserviceprovider";
 import * as uuid from "uuid";
 import {NotAuthorizedError, ResourceNotFoundError} from "../../errors";
-import {Clock} from "../clock";
+import {ClockInterface} from "../../interfaces/services/clock.interface";
 import {CognitoService} from "../cognitoService";
-import {UserMigrationTriggerResponse, Lambda} from "../lambda";
-import {
-    attributesFromRecord, attributesToRecord, User,
-} from "../userPoolService";
+import {LambdaInterface, UserMigrationTriggerResponse} from "../../interfaces/services/lambda.interface";
+import {attributesFromRecord, attributesToRecord, UserInterface,} from "../../interfaces/services/userPoolService.interface";
 import {Trigger} from "./trigger";
 
 export type UserMigrationTrigger = Trigger<{
@@ -28,19 +26,19 @@ export type UserMigrationTrigger = Trigger<{
      * Source: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration
      */
     validationData: Record<string, string> | undefined;
-}, User>;
+}, UserInterface>;
 
 interface UserMigrationServices {
-    clock: Clock;
+    clock: ClockInterface;
     cognitoClient: CognitoService;
-    lambda: Lambda;
+    lambda: LambdaInterface;
 }
 
 export const UserMigration = ({
                                   lambda, cognitoClient, clock,
                               }: UserMigrationServices): UserMigrationTrigger => async (ctx, {
     clientId, clientMetadata, password, userAttributes, username, userPoolId, validationData,
-}): Promise<User> => {
+}): Promise<UserInterface> => {
     const userPool = await cognitoClient.getUserPoolForClientId(ctx, clientId);
     if (!userPool) {
         throw new ResourceNotFoundError();
@@ -64,7 +62,7 @@ export const UserMigration = ({
     }
 
     const now = clock.get();
-    const user: User = {
+    const user: UserInterface = {
         Attributes: attributesFromRecord(result.userAttributes ?? {}),
         Enabled: true,
         Password: password,

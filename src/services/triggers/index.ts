@@ -1,1 +1,1 @@
-export { Triggers, TriggersService } from "./triggers";
+export {TriggersInterface, TriggersService} from "../../interfaces/services/triggers.interface";

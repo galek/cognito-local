@@ -1,13 +1,13 @@
 import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
-import { UserPoolService } from "../../services";
+import { UserPoolServiceInterface } from "../../services";
 import { ListGroups, ListGroupsTarget } from "../listGroups";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 
 describe("ListGroups target", () => {
   let listGroups: ListGroupsTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

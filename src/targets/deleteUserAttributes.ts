@@ -3,26 +3,24 @@ import {
   DeleteUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import jwt from "jsonwebtoken";
-import { InvalidParameterError, NotAuthorizedError } from "../errors";
-import { Services } from "../services";
-import { Token } from "../services/tokenGenerator";
-import { attributesRemove } from "../services/userPoolService";
-import { Target } from "./Target";
+import {InvalidParameterError, NotAuthorizedError} from "../errors";
+import {ServicesInterface} from "../services";
+import {TokenInterface} from "../interfaces/services/tokenGenerator.interface";
+import {attributesRemove} from "../interfaces/services/userPoolService.interface";
+import {Target} from "./Target";
 
-export type DeleteUserAttributesTarget = Target<
-  DeleteUserAttributesRequest,
-  DeleteUserAttributesResponse
->;
+export type DeleteUserAttributesTarget = Target<DeleteUserAttributesRequest,
+    DeleteUserAttributesResponse>;
 
-type DeleteUserAttributesServices = Pick<Services, "clock" | "cognito">;
+type DeleteUserAttributesServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const DeleteUserAttributes =
-  ({
+    ({
     clock,
     cognito,
   }: DeleteUserAttributesServices): DeleteUserAttributesTarget =>
   async (ctx, req) => {
-    const decodedToken = jwt.decode(req.AccessToken) as Token | null;
+    const decodedToken = jwt.decode(req.AccessToken) as TokenInterface | null;
     if (!decodedToken) {
       ctx.logger.info("Unable to decode token");
       throw new InvalidParameterError();

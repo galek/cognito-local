@@ -1,10 +1,10 @@
 import { TestContext } from "../../../../__test_mocs__/testContext";
-import { User } from "../../userPoolService";
-import { MessageDeliveryService } from "../messageDelivery";
-import { MessageSender } from "../messageSender";
+import { UserInterface } from "../../../interfaces/services/userPoolService.interface";
+import { MessageSenderInterface } from "../../../interfaces/services/messageSender.interface";
+import { MessageDeliveryService } from "../../../interfaces/services/messageDelivery.interface";
 
 describe("Message Delivery", () => {
-  const user: User = {
+  const user: UserInterface = {
     Username: "1",
     UserStatus: "CONFIRMED",
     Attributes: [],
@@ -17,7 +17,7 @@ describe("Message Delivery", () => {
 
   describe("when delivery method is EMAIL", () => {
     it("sends a code via email", async () => {
-      const sender: jest.Mocked<MessageSender> = {
+      const sender: jest.Mocked<MessageSenderInterface> = {
         sendEmail: jest.fn(),
         sendSms: jest.fn(),
       };
@@ -50,7 +50,7 @@ describe("Message Delivery", () => {
 
   describe("when delivery method is SMS", () => {
     it("sends a code via SMS", async () => {
-      const sender: jest.Mocked<MessageSender> = {
+      const sender: jest.Mocked<MessageSenderInterface> = {
         sendEmail: jest.fn(),
         sendSms: jest.fn(),
       };

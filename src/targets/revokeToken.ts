@@ -1,21 +1,18 @@
-import {
-  RevokeTokenRequest,
-  RevokeTokenResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { NotAuthorizedError } from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
+import {RevokeTokenRequest, RevokeTokenResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {NotAuthorizedError} from "../errors";
+import {ServicesInterface} from "../services";
+import {Target} from "./Target";
 
 export type RevokeTokenTarget = Target<RevokeTokenRequest, RevokeTokenResponse>;
 
-type RevokeTokenServices = Pick<Services, "cognito">;
+type RevokeTokenServices = Pick<ServicesInterface, "cognito">;
 
 export const RevokeToken =
-  ({ cognito }: RevokeTokenServices): RevokeTokenTarget =>
-  async (ctx, req) => {
-    const userPool = await cognito.getUserPoolForClientId(ctx, req.ClientId);
+    ({cognito}: RevokeTokenServices): RevokeTokenTarget =>
+        async (ctx, req) => {
+            const userPool = await cognito.getUserPoolForClientId(ctx, req.ClientId);
 
-    const users = await userPool.listUsers(ctx);
+            const users = await userPool.listUsers(ctx);
     const user = users.find(
       (user) =>
         Array.isArray(user.RefreshTokens) &&

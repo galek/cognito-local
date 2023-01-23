@@ -1,20 +1,15 @@
-import {
-  ListUserPoolClientsRequest,
-  ListUserPoolClientsResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { appClientToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {ListUserPoolClientsRequest, ListUserPoolClientsResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {ServicesInterface} from "../services";
+import {appClientToResponseObject} from "./responses";
+import {Target} from "./Target";
 
-export type ListUserPoolClientsTarget = Target<
-  ListUserPoolClientsRequest,
-  ListUserPoolClientsResponse
->;
+export type ListUserPoolClientsTarget = Target<ListUserPoolClientsRequest,
+    ListUserPoolClientsResponse>;
 
-type ListGroupServices = Pick<Services, "cognito">;
+type ListGroupServices = Pick<ServicesInterface, "cognito">;
 
 export const ListUserPoolClients =
-  ({ cognito }: ListGroupServices): ListUserPoolClientsTarget =>
+    ({cognito}: ListGroupServices): ListUserPoolClientsTarget =>
   async (ctx, req) => {
     // TODO: NextToken support
     // TODO: MaxResults support

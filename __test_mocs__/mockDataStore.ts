@@ -1,7 +1,7 @@
-import { DataStore } from "../src/services/dataStore/dataStore";
-import { DataStoreFactory } from "../src/services/dataStore/factory";
+import { DataStoreFactoryInterface } from "../src/services/dataStore/factory";
+import { DataStoreInterface } from "../src/interfaces/services/dataStore.interface";
 
-export const newMockDataStore = (): jest.Mocked<DataStore> => ({
+export const newMockDataStore = (): jest.Mocked<DataStoreInterface> => ({
   delete: jest.fn(),
   get: jest.fn(),
   getRoot: jest.fn(),
@@ -9,7 +9,7 @@ export const newMockDataStore = (): jest.Mocked<DataStore> => ({
 });
 
 export const newMockDataStoreFactory = (
-  dataStore: jest.Mocked<DataStore> = newMockDataStore()
-): jest.Mocked<DataStoreFactory> => ({
+  dataStore: jest.Mocked<DataStoreInterface> = newMockDataStore()
+): jest.Mocked<DataStoreFactoryInterface> => ({
   create: jest.fn().mockResolvedValue(dataStore),
 });

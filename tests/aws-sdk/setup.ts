@@ -6,20 +6,20 @@ import { promisify } from "util";
 import { createServer } from "../../src";
 import { FakeMessageDeliveryService } from "../../__test_mocs__/FakeMessageDeliveryService";
 import { MockLogger } from "../../__test_mocs__/mockLogger";
-import { DefaultConfig } from "../../src/server/config";
+import { DefaultConfig } from "../../src/server/configInterface";
 import {
-  Clock,
+  ClockInterface,
   DateClock,
   MessagesService,
   TriggersService,
 } from "../../src/services";
 import { CognitoServiceFactoryImpl } from "../../src/services/cognitoService";
 import { NoOpCache } from "../../src/services/dataStore/cache";
-import { DataStoreFactory } from "../../src/services/dataStore/factory";
+import { DataStoreFactoryInterface } from "../../src/services/dataStore/factory";
 import { StormDBDataStoreFactory } from "../../src/services/dataStore/stormDb";
 import { otp } from "../../src/services/otp";
-import { JwtTokenGenerator } from "../../src/services/tokenGenerator";
-import { UserPoolServiceFactoryImpl } from "../../src/services/userPoolService";
+import { JwtTokenGenerator } from "../../src/services/tokenGeneratorInterface";
+import { UserPoolServiceFactoryImpl } from "../../src/services/userPoolServiceInterface";
 import { Router } from "../../src/server/Router";
 import { CryptoService } from "../../src/services/crypto";
 
@@ -31,20 +31,20 @@ export const withCognitoSdk =
     fn: (
       cognito: () => AWS.CognitoIdentityServiceProvider,
       services: {
-        readonly dataStoreFactory: () => DataStoreFactory;
+        readonly dataStoreFactory: () => DataStoreFactoryInterface;
         readonly messageDelivery: () => FakeMessageDeliveryService;
       }
     ) => void,
     {
       logger = MockLogger as any,
       clock = new DateClock(),
-    }: { logger?: Logger; clock?: Clock } = {}
+    }: { logger?: Logger; clock?: ClockInterface } = {}
   ) =>
   () => {
     let dataDirectory: string;
     let httpServer: http.Server;
     let cognitoSdk: AWS.CognitoIdentityServiceProvider;
-    let dataStoreFactory: DataStoreFactory;
+    let dataStoreFactory: DataStoreFactoryInterface;
     let fakeMessageDeliveryService: FakeMessageDeliveryService;
 
     beforeEach(async () => {

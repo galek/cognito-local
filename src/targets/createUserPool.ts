@@ -4,24 +4,23 @@ import {
   SchemaAttributesListType,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
 import shortUUID from "short-uuid";
-import { Services } from "../services";
-import { USER_POOL_AWS_DEFAULTS } from "../services/cognitoService";
-import { userPoolToResponseObject } from "./responses";
-import { Target } from "./Target";
+import {ServicesInterface} from "../services";
+import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
+import {userPoolToResponseObject} from "./responses";
+import {Target} from "./Target";
 
 const REGION = "local";
 const ACCOUNT_ID = "local";
 
 const generator = shortUUID(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 );
 
-export type CreateUserPoolTarget = Target<
-  CreateUserPoolRequest,
+export type CreateUserPoolTarget = Target<CreateUserPoolRequest,
   CreateUserPoolResponse
 >;
 
-type CreateUserPoolServices = Pick<Services, "clock" | "cognito">;
+type CreateUserPoolServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 /**
  * createSchemaAttributes combines the default list of User Pool Schema Attributes with the Schema provided by the

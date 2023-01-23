@@ -1,30 +1,30 @@
 import {
-  AdminUpdateUserAttributesRequest,
-  AdminUpdateUserAttributesResponse,
+    AdminUpdateUserAttributesRequest,
+    AdminUpdateUserAttributesResponse,
 } from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { InvalidParameterError, NotAuthorizedError } from "../errors";
-import { Messages, Services, UserPoolService } from "../services";
-import { USER_POOL_AWS_DEFAULTS } from "../services/cognitoService";
-import { selectAppropriateDeliveryMethod } from "../services/messageDelivery/deliveryMethod";
+import {InvalidParameterError, NotAuthorizedError} from "../errors";
+import {MessagesInterface, ServicesInterface, UserPoolServiceInterface} from "../services";
+import {USER_POOL_AWS_DEFAULTS} from "../services/cognitoService";
+import {selectAppropriateDeliveryMethod} from "../services/messageDelivery/deliveryMethod";
 import {
-  attributesAppend,
-  defaultVerifiedAttributesIfModified,
-  hasUnverifiedContactAttributes,
-  User,
-  validatePermittedAttributeChanges,
-} from "../services/userPoolService";
-import { Target } from "./Target";
-import { Context } from "../services/context";
+    attributesAppend,
+    defaultVerifiedAttributesIfModified,
+    hasUnverifiedContactAttributes,
+    UserInterface,
+    validatePermittedAttributeChanges,
+} from "../interfaces/services/userPoolService.interface";
+import {Target} from "./Target";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
 const sendAttributeVerificationCode = async (
-  ctx: Context,
-  userPool: UserPoolService,
-  user: User,
-  messages: Messages,
-  req: AdminUpdateUserAttributesRequest,
-  code: string
+    ctx: ContextInterface,
+    userPool: UserPoolServiceInterface,
+    user: UserInterface,
+    messages: MessagesInterface,
+    req: AdminUpdateUserAttributesRequest,
+    code: string
 ) => {
-  const deliveryDetails = selectAppropriateDeliveryMethod(
+    const deliveryDetails = selectAppropriateDeliveryMethod(
     userPool.options.AutoVerifiedAttributes ?? [],
     user
   );
@@ -53,7 +53,7 @@ export type AdminUpdateUserAttributesTarget = Target<
 >;
 
 type AdminUpdateUserAttributesServices = Pick<
-  Services,
+  ServicesInterface,
   "clock" | "cognito" | "otp" | "messages"
 >;
 

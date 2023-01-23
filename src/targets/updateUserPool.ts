@@ -1,20 +1,15 @@
-import {
-  UpdateUserPoolRequest,
-  UpdateUserPoolResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { Services } from "../services";
-import { UserPool } from "../services/userPoolService";
-import { Target } from "./Target";
+import {UpdateUserPoolRequest, UpdateUserPoolResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {ServicesInterface} from "../services";
+import {UserPool} from "../interfaces/services/userPoolService.interface";
+import {Target} from "./Target";
 
-export type UpdateUserPoolTarget = Target<
-  UpdateUserPoolRequest,
-  UpdateUserPoolResponse
->;
+export type UpdateUserPoolTarget = Target<UpdateUserPoolRequest,
+    UpdateUserPoolResponse>;
 
-type UpdateUserPoolServices = Pick<Services, "cognito">;
+type UpdateUserPoolServices = Pick<ServicesInterface, "cognito">;
 
 export const UpdateUserPool =
-  ({ cognito }: UpdateUserPoolServices): UpdateUserPoolTarget =>
+    ({cognito}: UpdateUserPoolServices): UpdateUserPoolTarget =>
   async (ctx, req) => {
     const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
 

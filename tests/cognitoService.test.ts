@@ -1,7 +1,7 @@
 import { TestContext } from "../__test_mocs__/testContext";
 import { DateClock } from "../src/services";
 import {
-  CognitoServiceFactory,
+  CognitoServiceFactoryInterface,
   CognitoServiceFactoryImpl,
   USER_POOL_AWS_DEFAULTS,
 } from "../src/services/cognitoService";
@@ -9,14 +9,14 @@ import fs from "fs";
 import { promisify } from "util";
 import { NoOpCache } from "../src/services/dataStore/cache";
 import { StormDBDataStoreFactory } from "../src/services/dataStore/stormDb";
-import { UserPoolServiceFactoryImpl } from "../src/services/userPoolService";
+import { UserPoolServiceFactoryImpl } from "../src/interfaces/services/userPoolService.interface";
 
 const mkdtemp = promisify(fs.mkdtemp);
 const rmdir = promisify(fs.rmdir);
 
 describe("Cognito Service", () => {
   let dataDirectory: string;
-  let factory: CognitoServiceFactory;
+  let factory: CognitoServiceFactoryInterface;
 
   beforeEach(async () => {
     dataDirectory = await mkdtemp("/tmp/cognito-local:");

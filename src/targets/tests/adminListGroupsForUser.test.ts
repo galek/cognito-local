@@ -3,7 +3,7 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import { UserNotFoundError } from "../../errors";
-import { UserPoolService } from "../../services";
+import { UserPoolServiceInterface } from "../../services";
 import {
   AdminListGroupsForUser,
   AdminListGroupsForUserTarget,
@@ -11,7 +11,7 @@ import {
 
 describe("AdminListGroupsForUser target", () => {
   let adminListGroupsForUser: AdminListGroupsForUserTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

@@ -2,13 +2,13 @@ import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
-import { CognitoService, UserPoolService } from "../../services";
+import { CognitoService, UserPoolServiceInterface } from "../../services";
 import { RevokeToken, RevokeTokenTarget } from "../revokeToken";
 
 describe("AdminInitiateAuth target", () => {
   let revokeToken: RevokeTokenTarget;
 
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let mockCognitoService: jest.Mocked<CognitoService>;
 
   beforeEach(() => {

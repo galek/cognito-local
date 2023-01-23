@@ -3,7 +3,7 @@ import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolServi
 import { TestContext } from "../../../__test_mocs__/testContext";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
 import { ResourceNotFoundError } from "../../errors";
-import { CognitoService, UserPoolService } from "../../services";
+import { CognitoService, UserPoolServiceInterface } from "../../services";
 import {
   DeleteUserPoolClient,
   DeleteUserPoolClientTarget,
@@ -11,7 +11,7 @@ import {
 
 describe("DeleteUserPoolClient target", () => {
   let deleteUserPoolClient: DeleteUserPoolClientTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
   let mockCognitoService: jest.Mocked<CognitoService>;
 
   beforeEach(() => {

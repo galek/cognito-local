@@ -1,21 +1,16 @@
-import {
-  AddCustomAttributesRequest,
-  AddCustomAttributesResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { InvalidParameterError } from "../errors";
-import { Services } from "../services";
-import { assertParameterLength } from "./utils/assertions";
-import { Target } from "./Target";
+import {AddCustomAttributesRequest, AddCustomAttributesResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {InvalidParameterError} from "../errors";
+import {ServicesInterface} from "../services";
+import {assertParameterLength} from "./utils/assertions";
+import {Target} from "./Target";
 
-export type AddCustomAttributesTarget = Target<
-  AddCustomAttributesRequest,
-  AddCustomAttributesResponse
->;
+export type AddCustomAttributesTarget = Target<AddCustomAttributesRequest,
+    AddCustomAttributesResponse>;
 
-type AddCustomAttributesServices = Pick<Services, "clock" | "cognito">;
+type AddCustomAttributesServices = Pick<ServicesInterface, "clock" | "cognito">;
 
 export const AddCustomAttributes =
-  ({
+    ({
     clock,
     cognito,
   }: AddCustomAttributesServices): AddCustomAttributesTarget =>

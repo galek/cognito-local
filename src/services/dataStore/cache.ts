@@ -1,27 +1,27 @@
-import { DataStore } from "./dataStore";
+import {DataStoreInterface} from "../../interfaces/services/dataStore.interface";
 
 export type DataStoreCache = {
-  get(key: string): DataStore | null;
-  set(key: string, value: DataStore): void;
+    get(key: string): DataStoreInterface | null;
+    set(key: string, value: DataStoreInterface): void;
 };
 
 export class InMemoryCache implements DataStoreCache {
-  private readonly cache: Record<string, DataStore> = {};
+    private readonly cache: Record<string, DataStoreInterface> = {};
 
-  get(key: string): DataStore | null {
-    return this.cache[key];
-  }
+    get(key: string): DataStoreInterface | null {
+        return this.cache[key];
+    }
 
-  set(key: string, value: DataStore): void {
-    this.cache[key] = value;
-  }
+    set(key: string, value: DataStoreInterface): void {
+        this.cache[key] = value;
+    }
 }
 
 export class NoOpCache implements DataStoreCache {
-  get(): DataStore | null {
-    return null;
-  }
+    get(): DataStoreInterface | null {
+        return null;
+    }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  set(): void {}
+    set(): void {
+    }
 }

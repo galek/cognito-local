@@ -1,15 +1,15 @@
-import { ClockFake } from "../../__test_mocs__/clockFake";
-import { newMockCognitoService } from "../../__test_mocs__/mockCognitoService";
-import { newMockUserPoolService } from "../../__test_mocs__/mockUserPoolService";
-import { TestContext } from "../../__test_mocs__/testContext";
-import { UserPoolService } from "../services";
-import { CreateGroup, CreateGroupTarget } from "./createGroup";
+import { ClockFake } from "../../../__test_mocs__/clockFake";
+import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
+import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
+import { TestContext } from "../../../__test_mocs__/testContext";
+import { CreateGroup, CreateGroupTarget } from "./../createGroup";
+import { UserPoolServiceInterface } from "../../interfaces/services/userPoolService.interface";
 
 const originalDate = new Date();
 
 describe("CreateGroup target", () => {
   let createGroup: CreateGroupTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

@@ -1,20 +1,15 @@
-import {
-  AdminGetUserRequest,
-  AdminGetUserResponse,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { UserNotFoundError } from "../errors";
-import { Services } from "../services";
-import { Target } from "./Target";
+import {AdminGetUserRequest, AdminGetUserResponse,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {UserNotFoundError} from "../errors";
+import {ServicesInterface} from "../services";
+import {Target} from "./Target";
 
-export type AdminGetUserTarget = Target<
-  AdminGetUserRequest,
-  AdminGetUserResponse
->;
+export type AdminGetUserTarget = Target<AdminGetUserRequest,
+    AdminGetUserResponse>;
 
-type AdminGetUserServices = Pick<Services, "cognito">;
+type AdminGetUserServices = Pick<ServicesInterface, "cognito">;
 
 export const AdminGetUser =
-  ({ cognito }: AdminGetUserServices): AdminGetUserTarget =>
+    ({cognito}: AdminGetUserServices): AdminGetUserTarget =>
   async (ctx, req) => {
     const userPool = await cognito.getUserPool(ctx, req.UserPoolId);
     const user = await userPool.getUserByUsername(ctx, req.Username);

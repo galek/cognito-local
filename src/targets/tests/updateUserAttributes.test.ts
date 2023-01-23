@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import * as uuid from "uuid";
 import { ClockFake } from "../../../__test_mocs__/clockFake";
 import { newMockCognitoService } from "../../../__test_mocs__/mockCognitoService";
@@ -6,18 +5,15 @@ import { newMockMessages } from "../../../__test_mocs__/mockMessages";
 import { newMockUserPoolService } from "../../../__test_mocs__/mockUserPoolService";
 import { TestContext } from "../../../__test_mocs__/testContext";
 import { InvalidParameterError, NotAuthorizedError } from "../../errors";
-import PrivateKey from "../../keys/cognitoLocal.private.json";
-import { Messages, UserPoolService } from "../../services";
-import {
-  attribute,
-  attributesAppend,
-  attributeValue,
-} from "../../services/userPoolService";
+import { MessagesInterface, UserPoolServiceInterface } from "../../services";
 import {
   UpdateUserAttributes,
   UpdateUserAttributesTarget,
 } from "../updateUserAttributes";
 import * as TDB from "../../../__test_mocs__/testDataBuilder";
+import { attribute, attributesAppend, attributeValue } from "../../interfaces/services/userPoolService.interface";
+import { PrivateKey } from "../../keys/cognitoLocal.private.json";
+import jwt from "jsonwebtoken";
 
 const clock = new ClockFake(new Date());
 
@@ -43,8 +39,8 @@ const validToken = jwt.sign(
 
 describe("UpdateUserAttributes target", () => {
   let updateUserAttributes: UpdateUserAttributesTarget;
-  let mockUserPoolService: jest.Mocked<UserPoolService>;
-  let mockMessages: jest.Mocked<Messages>;
+  let mockUserPoolService: jest.Mocked<UserPoolServiceInterface>;
+  let mockMessages: jest.Mocked<MessagesInterface>;
 
   beforeEach(() => {
     mockUserPoolService = newMockUserPoolService();

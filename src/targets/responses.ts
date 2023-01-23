@@ -1,21 +1,16 @@
-import {
-  GroupType,
-  UserPoolClientType,
-  UserPoolType,
-  UserType,
-} from "aws-sdk/clients/cognitoidentityserviceprovider";
-import { AppClient } from "../services/appClient";
-import { User, UserPool } from "../services/userPoolService";
-import {GroupInterface} from "../services/interfaces/group.interface";
+import {GroupType, UserPoolClientType, UserPoolType, UserType,} from "aws-sdk/clients/cognitoidentityserviceprovider";
+import {AppClientInterface} from "../interfaces/services/appClient.interface";
+import {UserInterface, UserPool} from "../interfaces/services/userPoolService.interface";
+import {GroupInterface} from "../interfaces/services/group.interface";
 
 export const appClientToResponseObject = (
-  appClient: AppClient
+    appClient: AppClientInterface
 ): UserPoolClientType => ({
-  AccessTokenValidity: appClient.AccessTokenValidity,
-  AllowedOAuthFlows: appClient.AllowedOAuthFlows,
-  AllowedOAuthFlowsUserPoolClient: appClient.AllowedOAuthFlowsUserPoolClient,
-  AllowedOAuthScopes: appClient.AllowedOAuthScopes,
-  AnalyticsConfiguration: appClient.AnalyticsConfiguration,
+    AccessTokenValidity: appClient.AccessTokenValidity,
+    AllowedOAuthFlows: appClient.AllowedOAuthFlows,
+    AllowedOAuthFlowsUserPoolClient: appClient.AllowedOAuthFlowsUserPoolClient,
+    AllowedOAuthScopes: appClient.AllowedOAuthScopes,
+    AnalyticsConfiguration: appClient.AnalyticsConfiguration,
   CallbackURLs: appClient.CallbackURLs,
   ClientId: appClient.ClientId,
   ClientName: appClient.ClientName,
@@ -36,7 +31,7 @@ export const appClientToResponseObject = (
   WriteAttributes: appClient.WriteAttributes,
 });
 
-export const userToResponseObject = (user: User): UserType => ({
+export const userToResponseObject = (user: UserInterface): UserType => ({
   Attributes: user.Attributes,
   Enabled: user.Enabled,
   MFAOptions: user.MFAOptions,

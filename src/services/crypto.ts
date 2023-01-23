@@ -1,58 +1,55 @@
-import {
-  buildClient,
-  CommitmentPolicy,
-  KmsKeyringNode,
-} from "@aws-crypto/client-node";
-import { KMS } from "aws-sdk";
-import { Context } from "./context";
+import {buildClient, CommitmentPolicy, KmsKeyringNode,} from "@aws-crypto/client-node";
+import {KMS} from "aws-sdk";
+import {ContextInterface} from "../interfaces/services/context.interface";
 
-export interface KMSConfig {
-  KMSKeyId?: string;
-  KMSKeyAlias?: string;
+export interface KMSConfigInterface {
+    KMSKeyId?: string;
+    KMSKeyAlias?: string;
 }
 
-const { encrypt } = buildClient(CommitmentPolicy.REQUIRE_ENCRYPT_ALLOW_DECRYPT);
+const {encrypt} = buildClient(CommitmentPolicy.REQUIRE_ENCRYPT_ALLOW_DECRYPT);
 
 export class CryptoService {
-  _keyringNode?: KmsKeyringNode;
-  config?: KMSConfig & AWS.KMS.ClientConfiguration;
+    config?: KMSConfigInterface & AWS.KMS.ClientConfiguration;
 
-  constructor(config?: KMSConfig) {
-    this.config = config;
-  }
-
-  get keyringNode(): KmsKeyringNode {
-    if (this._keyringNode) {
-      return this._keyringNode;
+    constructor(config?: KMSConfigInterface) {
+        this.config = config;
     }
 
-    if (!this.config || !this.config.KMSKeyAlias || !this.config.KMSKeyId) {
-      throw new Error(
-        "KMSConfig.KMSKeyAlias and KMSConfig.KMSKeyId is required when using a CustomEmailSender trigger."
-      );
+    _keyringNode?: KmsKeyringNode;
+
+    get keyringNode(): KmsKeyringNode {
+        if (this._keyringNode) {
+            return this._keyringNode;
+        }
+
+        if (!this.config || !this.config.KMSKeyAlias || !this.config.KMSKeyId) {
+            throw new Error(
+                "KMSConfig.KMSKeyAlias and KMSConfig.KMSKeyId is required when using a CustomEmailSender trigger."
+            );
+        }
+
+        const {KMSKeyId, KMSKeyAlias, ...clientConfig} = this.config;
+
+        const generatorKeyId = KMSKeyAlias;
+        const keyIds = [KMSKeyId];
+
+        return (this._keyringNode = new KmsKeyringNode({
+            generatorKeyId,
+            keyIds,
+            clientProvider: () => new KMS(clientConfig),
+        }));
     }
 
-    const { KMSKeyId, KMSKeyAlias, ...clientConfig } = this.config;
+    async encrypt(ctx: ContextInterface, plaintext: string): Promise<string> {
+        ctx.logger.debug({plaintext}, "encrypting code");
 
-    const generatorKeyId = KMSKeyAlias;
-    const keyIds = [KMSKeyId];
+        const {result} = await encrypt(this.keyringNode, plaintext);
 
-    return (this._keyringNode = new KmsKeyringNode({
-      generatorKeyId,
-      keyIds,
-      clientProvider: () => new KMS(clientConfig),
-    }));
-  }
+        const encryptedCode = result.toString("base64");
 
-  async encrypt(ctx: Context, plaintext: string): Promise<string> {
-    ctx.logger.debug({ plaintext }, "encrypting code");
+        ctx.logger.debug({encryptedCode}, "code succesfully encrypted");
 
-    const { result } = await encrypt(this.keyringNode, plaintext);
-
-    const encryptedCode = result.toString("base64");
-
-    ctx.logger.debug({ encryptedCode }, "code succesfully encrypted");
-
-    return encryptedCode;
-  }
+        return encryptedCode;
+    }
 }
