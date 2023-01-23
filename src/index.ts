@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 
-require('dotenv').config()
+require('dotenv').config();
 
 import {createDefaultServer} from "./server";
 import Pino from "pino";
