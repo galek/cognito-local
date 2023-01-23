@@ -11,13 +11,23 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": false,
     "strict": true,
     "sourceMap": true,
     "target": "ES2021",
     "strictNullChecks": true,
     "noImplicitAny": true,
     "strictBindCallApply": false,
-    "types": ["node"]
+    "types": [
+      "node",
+      "jest",
+      "express"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "lib": [
     "es2021",
